@@ -15,8 +15,16 @@
 
 kickAssemblerFile ::= root*
 
-root ::= ( STRING |
+root ::= (
+           import |
+           invocation |
+           labelAssignment |
+           pcAssignment |
+
+           STRING |
            NUMBER |
+           BOOLEAN |
+           NULL |
 
            LEFT_PARENTHESES |
            RIGHT_PARENTHESES |
@@ -41,7 +49,7 @@ root ::= ( STRING |
            SHIFT_RIGHT |
            PLUS |
            MINUS |
-           TIMES |
+           ASTERISK |
            DIVIDE |
            NOT_EQUAL |
            EQUAL |
@@ -61,10 +69,40 @@ root ::= ( STRING |
            BASIC_UPSTART |
            PREPROCESSOR |
            DIRECTIVE |
+           DIRECTIVE_DEF_MACRO |
+           DEPRECATED_DIRECTIVE |
+           LABEL_DEF |
+           LOCAL_LABEL_DEF |
+           MNEMONIC |
            LABEL |
            LOCAL_LABEL |
-           MNEMONIC |
            COMMENT_LINE |
            COMMENT_BLOCK |
 
            DUMMY )
+
+pcAssignment ::= (
+    (ASTERISK | ".pc") ASSIGN expr STRING? "virtual"?
+)
+
+labelAssignment ::= (
+    DIRECTIVE_DEF LABEL ASSIGN expr
+)
+
+import ::= (
+    PREPROCESSOR_IMPORT STRING
+)
+
+expr ::= (
+    STRING | NUMBER | BOOLEAN | LABEL | ASTERISK | invocation
+)
+
+exprList ::= (
+    expr ( COMMA expr )*
+)
+
+invocation ::= (
+    // docs as at v5.16: colon before macro invocation is optional from version 4
+    // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
+    COLON? LABEL LEFT_PARENTHESES exprList? RIGHT_PARENTHESES
+)
