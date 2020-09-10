@@ -13,18 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.BLOCK_COMMENT;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.BRACES;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.BRACKETS;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.DOC_COMMENT_TAG_VALUE;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.INSTANCE_FIELD;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.INSTANCE_METHOD;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.KEYWORD;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.LINE_COMMENT;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.METADATA;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.NUMBER;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.PARENTHESES;
-import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.STRING;
+import static com.intellij.openapi.editor.DefaultLanguageHighlighterColors.*;
 import static com.intellij.openapi.editor.HighlighterColors.NO_HIGHLIGHTING;
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
@@ -36,14 +25,17 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey KICK_ASSEMBLER_BLOCK_COMMENT = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BLOCK_COMMENT", BLOCK_COMMENT);
     public static final TextAttributesKey KICK_ASSEMBLER_LABEL = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "LABEL", /* LABEL */ INSTANCE_METHOD);
     public static final TextAttributesKey KICK_ASSEMBLER_NUMBER = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "NUMBER", NUMBER);
+    public static final TextAttributesKey KICK_ASSEMBLER_BOOLEAN = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BOOLEAN", NUMBER);
+    public static final TextAttributesKey KICK_ASSEMBLER_NULL = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "NULL", NUMBER);
     public static final TextAttributesKey KICK_ASSEMBLER_MNEMONIC = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "MNEMONIC", KEYWORD);
     public static final TextAttributesKey KICK_ASSEMBLER_STRING = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "STRING", STRING);
     public static final TextAttributesKey KICK_ASSEMBLER_PARENTHESES = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "PARENTHESES", PARENTHESES);
     public static final TextAttributesKey KICK_ASSEMBLER_BRACES = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BRACES", BRACES);
     public static final TextAttributesKey KICK_ASSEMBLER_BRACKETS = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BRACKETS", BRACKETS);
     public static final TextAttributesKey KICK_ASSEMBLER_OPERATION_SIGN = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "OPERATION_SIGN", /* OPERATION_SIGN */ INSTANCE_FIELD);
-    public static final TextAttributesKey KICK_ASSEMBLER_DIRECTIVE = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DIRECTIVE", DOC_COMMENT_TAG_VALUE);
+    public static final TextAttributesKey KICK_ASSEMBLER_DIRECTIVE = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DIRECTIVE", STATIC_METHOD);
     public static final TextAttributesKey KICK_ASSEMBLER_DUMMY = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DUMMY", NO_HIGHLIGHTING);
+    public static final TextAttributesKey KICK_ASSEMBLER_DEPRECATED = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DEPRECATED", REASSIGNED_LOCAL_VARIABLE);
 
     private static final TokenSet OPERATOR_TOKENS = TokenSet.create(
             KickAssemblerTypes.HASH,
@@ -62,7 +54,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
             KickAssemblerTypes.SHIFT_RIGHT,
             KickAssemblerTypes.PLUS,
             KickAssemblerTypes.MINUS,
-            KickAssemblerTypes.TIMES,
+            KickAssemblerTypes.ASTERISK,
             KickAssemblerTypes.DIVIDE,
             KickAssemblerTypes.NOT_EQUAL,
             KickAssemblerTypes.EQUAL,
@@ -87,7 +79,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TokenSet LABEL_TOKENS = TokenSet.create(
             KickAssemblerTypes.LABEL,
-            KickAssemblerTypes.LOCAL_LABEL
+            KickAssemblerTypes.MULTILABEL
     );
 
     private static final TokenSet PARENTHESES_TOKENS = TokenSet.create(
@@ -132,9 +124,17 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
         typeKeyMap.put(KickAssemblerTypes.COMMENT_LINE, KICK_ASSEMBLER_LINE_COMMENT);
         typeKeyMap.put(KickAssemblerTypes.COMMENT_BLOCK, KICK_ASSEMBLER_BLOCK_COMMENT);
         typeKeyMap.put(KickAssemblerTypes.NUMBER, KICK_ASSEMBLER_NUMBER);
+        typeKeyMap.put(KickAssemblerTypes.BOOLEAN, KICK_ASSEMBLER_BOOLEAN);
+        typeKeyMap.put(KickAssemblerTypes.NULL, KICK_ASSEMBLER_NULL);
         typeKeyMap.put(KickAssemblerTypes.MNEMONIC, KICK_ASSEMBLER_MNEMONIC);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_CPU, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DATA, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF_MACRO, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_ENCODING, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.STRING, KICK_ASSEMBLER_STRING);
+        typeKeyMap.put(KickAssemblerTypes.DEPRECATED_DIRECTIVE, KICK_ASSEMBLER_DEPRECATED);
         typeKeyMap.put(KickAssemblerTypes.DUMMY, KICK_ASSEMBLER_DUMMY);
 
         return Collections.unmodifiableMap(typeKeyMap);
