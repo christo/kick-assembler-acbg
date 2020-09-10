@@ -16,10 +16,8 @@
 kickAssemblerFile ::= root*
 
 root ::= (
-           import |
-           invocation |
-           labelAssignment |
-           pcAssignment |
+           statement |
+           macroDefinition |
 
            STRING |
            NUMBER |
@@ -66,20 +64,30 @@ root ::= (
            COLON |
            QUESTION_MARK |
 
-           BASIC_UPSTART |
            PREPROCESSOR |
+           DIRECTIVE_RETURN |
+           DIRECTIVE_DATA |
            DIRECTIVE |
-           DIRECTIVE_DEF_MACRO |
            DEPRECATED_DIRECTIVE |
            LABEL_DEF |
-           LOCAL_LABEL_DEF |
+           MULTILABEL_DEF |
            MNEMONIC |
            LABEL |
-           LOCAL_LABEL |
+           MULTILABEL |
            COMMENT_LINE |
            COMMENT_BLOCK |
 
            DUMMY )
+
+encodingDirective ::= (
+    DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
+)
+
+dataDefinition ::= DIRECTIVE_DATA exprList
+
+cpuDirective ::= (
+    DIRECTIVE_CPU ("_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
+)
 
 pcAssignment ::= (
     (ASTERISK | ".pc") ASSIGN expr STRING? "virtual"?
@@ -89,20 +97,95 @@ labelAssignment ::= (
     DIRECTIVE_DEF LABEL ASSIGN expr
 )
 
-import ::= (
-    PREPROCESSOR_IMPORT STRING
+import ::= PREPROCESSOR_IMPORT STRING
+
+argument ::= (
+    LABEL_DEF? HASH? ( LESS | GREATER )? expr
 )
 
-expr ::= (
-    STRING | NUMBER | BOOLEAN | LABEL | ASTERISK | invocation
+block ::= LEFT_BRACE statement* RIGHT_BRACE
+
+instruction ::= (
+    ( MNEMONIC argument argument ) |
+    ( MNEMONIC argument ) |
+    MNEMONIC
 )
 
-exprList ::= (
-    expr ( COMMA expr )*
+// cannot include macro definitions
+statement ::= (
+    import |
+    dataDefinition |
+    invocation |
+    block |
+    labelAssignment |
+    pcAssignment |
+    cpuDirective |
+    encodingDirective |
+    instruction |
+    forLoop
+)
+
+macroDefinition ::= (
+    DIRECTIVE_DEF_MACRO LABEL LEFT_PARENTHESES identifierList? RIGHT_PARENTHESES LEFT_BRACE
+    ( statement )*
+    RIGHT_BRACE
+)
+
+bracketed ::= (
+    ( LEFT_PARENTHESES expr RIGHT_PARENTHESES )
+    | ( LEFT_BRACKET expr RIGHT_BRACKET )
+)
+
+// e.g. macro args
+identifierList ::= LABEL ( COMMA LABEL )*
+
+infixOperator ::= (
+    PLUS | MINUS | ASTERISK | DIVIDE |
+    LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
+    BIT_AND | BIT_OR | BIT_XOR |
+    AND | OR |
+    SHIFT_LEFT | SHIFT_RIGHT |
+    PLUS_EQUAL | MINUS_EQUAL | TIMES_EQUAL | DIVIDE_EQUAL
+)
+
+prefixOperator ::= MINUS | NOT | BIT_NOT
+
+postfixOperator ::= PLUS_PLUS | MINUS_MINUS
+
+basicValue ::= STRING | NUMBER | BOOLEAN | NULL
+
+scopedLabel ::= LABEL ( DOT LABEL )*
+
+// left hand non-recursive expression to avoid left-recursion
+exprLeft ::= (
+    (
+        bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |
+        ( prefixOperator exprLeft )
+    ) postfixOperator?
+)
+
+expr ::= ( exprLeft ( infixOperator expr )* )
+
+exprList ::= expr ( COMMA expr )*
+
+private callable ::= (
+    ( [COLON] ( scopedLabel | BASIC_UPSTART ) ) | DIRECTIVE_BUILTIN
 )
 
 invocation ::= (
     // docs as at v5.16: colon before macro invocation is optional from version 4
     // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
-    COLON? LABEL LEFT_PARENTHESES exprList? RIGHT_PARENTHESES
+    callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES
+)
+
+private declarationKeyword ::= "var" | "const"
+
+defExpr ::= ( declarationKeyword? LABEL ASSIGN expr ) | expr
+
+defExprList ::=  defExpr ( COMMA defExpr )*
+
+forLoop ::= (
+    // TODO need lots of test cases around the expression legality
+    DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprList SEMICOLON exprList RIGHT_PARENTHESES
+    (statement | block)
 )

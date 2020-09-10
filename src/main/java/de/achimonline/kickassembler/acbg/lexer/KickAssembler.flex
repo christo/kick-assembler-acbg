@@ -29,9 +29,9 @@ HEX_LITERAL = "$"[0-9a-fA-F]+(_+[0-9a-fA-F]+)*
 BIN_LITERAL = "%"[0-1]+(_+[0-1]+)*
 
 LABEL = ([a-zA-Z_][a-zA-Z0-9_]*)
-LOCAL_LABEL = "!"{LABEL}?(\+|-)+
-LABEL_DEF = {LABEL}:
-LOCAL_LABEL_DEF = "!"{LABEL}?:
+MULTILABEL = "!"{LABEL}?(\+|-)+
+LABEL_DEF = {LABEL}":"
+MULTILABEL_DEF = "!"{LABEL}?":"
 
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
@@ -61,15 +61,15 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".assert"        { return KickAssemblerTypes.DIRECTIVE; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE; }
     ".break"         { return KickAssemblerTypes.DIRECTIVE; }
-    ".by"            { return KickAssemblerTypes.DIRECTIVE; }
-    ".byte"          { return KickAssemblerTypes.DIRECTIVE; }
+    ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".byte"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".const"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
-    ".cpu"           { return KickAssemblerTypes.DIRECTIVE; }
+    ".cpu"           { return KickAssemblerTypes.DIRECTIVE_CPU; }
     ".define"        { return KickAssemblerTypes.DIRECTIVE; }
     ".disk"          { return KickAssemblerTypes.DIRECTIVE; }
-    ".dw"            { return KickAssemblerTypes.DIRECTIVE; }
-    ".dword"         { return KickAssemblerTypes.DIRECTIVE; }
-    ".encoding"      { return KickAssemblerTypes.DIRECTIVE; }
+    ".dw"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".dword"         { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".encoding"      { return KickAssemblerTypes.DIRECTIVE_ENCODING; }
     ".enum"          { return KickAssemblerTypes.DIRECTIVE; }
     ".error"         { return KickAssemblerTypes.DIRECTIVE; }
     ".errorif"       { return KickAssemblerTypes.DIRECTIVE; }
@@ -77,36 +77,36 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".file"          { return KickAssemblerTypes.DIRECTIVE; }
     ".filemodify"    { return KickAssemblerTypes.DIRECTIVE; }
     ".filenamespace" { return KickAssemblerTypes.DIRECTIVE; }
-    ".fill"          { return KickAssemblerTypes.DIRECTIVE; }
-    ".fillword"      { return KickAssemblerTypes.DIRECTIVE; }
-    ".for"           { return KickAssemblerTypes.DIRECTIVE; }
+    ".fill"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".fillword"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".for"           { return KickAssemblerTypes.DIRECTIVE_FOR; }
     ".function"      { return KickAssemblerTypes.DIRECTIVE; }
     ".if"            { return KickAssemblerTypes.DIRECTIVE; }
     ".import"        { return KickAssemblerTypes.DIRECTIVE; }
     ".importonce"    { return KickAssemblerTypes.DIRECTIVE; }
     ".label"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
-    ".lohifill"      { return KickAssemblerTypes.DIRECTIVE; }
+    ".lohifill"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".macro"         { return KickAssemblerTypes.DIRECTIVE_DEF_MACRO; }
     ".memblock"      { return KickAssemblerTypes.DIRECTIVE; }
     ".modify"        { return KickAssemblerTypes.DIRECTIVE; }
     ".namespace"     { return KickAssemblerTypes.DIRECTIVE; }
     ".pc"            { return KickAssemblerTypes.DIRECTIVE; }
     ".plugin"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".print"         { return KickAssemblerTypes.DIRECTIVE; }
-    ".printnow"      { return KickAssemblerTypes.DIRECTIVE; }
+    ".print"         { return KickAssemblerTypes.DIRECTIVE_BUILTIN; }
+    ".printnow"      { return KickAssemblerTypes.DIRECTIVE_BUILTIN; }
     ".pseudocommand" { return KickAssemblerTypes.DIRECTIVE; }
     ".pseudopc"      { return KickAssemblerTypes.DIRECTIVE; }
-    ".return"        { return KickAssemblerTypes.DIRECTIVE; }
+    ".return"        { return KickAssemblerTypes.DIRECTIVE_RETURN; }
     ".segment"       { return KickAssemblerTypes.DIRECTIVE; }
     ".segmentdef"    { return KickAssemblerTypes.DIRECTIVE; }
     ".segmentout"    { return KickAssemblerTypes.DIRECTIVE; }
     ".struct"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".te"            { return KickAssemblerTypes.DIRECTIVE; }
-    ".text"          { return KickAssemblerTypes.DIRECTIVE; }
+    ".te"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".text"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".var"           { return KickAssemblerTypes.DIRECTIVE_DEF; }
     ".while"         { return KickAssemblerTypes.DIRECTIVE; }
-    ".wo"            { return KickAssemblerTypes.DIRECTIVE; }
-    ".word"          { return KickAssemblerTypes.DIRECTIVE; }
+    ".wo"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".word"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".zp"            { return KickAssemblerTypes.DIRECTIVE; }
     ".z"             { return KickAssemblerTypes.DIRECTIVE; }
 
@@ -118,7 +118,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".izy" | ".izpy"	{ return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Indirect zeropage,y
     ".ax"  | ".absx"    { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Absolute,x	lda.absx $1234
     ".ay"  | ".absy"    { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Absolute,y
-    ".I"   | ".ind"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Indirect	jmp.i $1000
+    ".i"   | ".ind"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Indirect	jmp.i $1000
     ".r"   | ".rel"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Relative to program counter
 
     "adc"|"ADC" { return KickAssemblerTypes.MNEMONIC; }
@@ -206,9 +206,9 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "null"            { return KickAssemblerTypes.NULL; }
 
     {LABEL_DEF}       { return KickAssemblerTypes.LABEL_DEF; }
-    {LOCAL_LABEL_DEF} { return KickAssemblerTypes.LOCAL_LABEL_DEF; }
+    {MULTILABEL_DEF} { return KickAssemblerTypes.MULTILABEL_DEF; }
     {LABEL}           { return KickAssemblerTypes.LABEL; }
-    {LOCAL_LABEL}     { return KickAssemblerTypes.LOCAL_LABEL; }
+    {MULTILABEL}     { return KickAssemblerTypes.MULTILABEL; }
 
     "("  { return KickAssemblerTypes.LEFT_PARENTHESES; }
     ")"  { return KickAssemblerTypes.RIGHT_PARENTHESES; }

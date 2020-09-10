@@ -1,0 +1,3 @@
+Kick Assembler file
+  PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// line comment /* not a nested comment */')
+  PsiComment(KickAssemblerTokenType.COMMENT_BLOCK)('/*\nblock comment // not a nested comment\n*/')
