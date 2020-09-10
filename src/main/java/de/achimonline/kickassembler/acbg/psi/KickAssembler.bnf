@@ -68,7 +68,6 @@ root ::= (
            DIRECTIVE_RETURN |
            DIRECTIVE_DATA |
            DIRECTIVE |
-           DEPRECATED_DIRECTIVE |
            LABEL_DEF |
            MULTILABEL_DEF |
            MNEMONIC |
@@ -105,10 +104,12 @@ argument ::= (
 
 block ::= LEFT_BRACE statement* RIGHT_BRACE
 
+private qualifiedMnemonic ::= MNEMONIC ( MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )?
+
 instruction ::= (
-    ( MNEMONIC argument argument ) |
-    ( MNEMONIC argument ) |
-    MNEMONIC
+    ( qualifiedMnemonic argument COMMA argument ) |
+    ( qualifiedMnemonic argument ) |
+    qualifiedMnemonic
 )
 
 // cannot include macro definitions
@@ -122,7 +123,8 @@ statement ::= (
     cpuDirective |
     encodingDirective |
     instruction |
-    forLoop
+    forLoop |
+    ifElse
 )
 
 macroDefinition ::= (
@@ -157,7 +159,7 @@ basicValue ::= STRING | NUMBER | BOOLEAN | NULL
 scopedLabel ::= LABEL ( DOT LABEL )*
 
 // left hand non-recursive expression to avoid left-recursion
-exprLeft ::= (
+private exprLeft ::= (
     (
         bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |
         ( prefixOperator exprLeft )
@@ -188,4 +190,9 @@ forLoop ::= (
     // TODO need lots of test cases around the expression legality
     DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprList SEMICOLON exprList RIGHT_PARENTHESES
     (statement | block)
+)
+
+ifElse ::= (
+    DIRECTIVE_IF LEFT_PARENTHESES expr RIGHT_PARENTHESES ( statement | block )
+    ( "else" (statement | block) )
 )

@@ -134,7 +134,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF_MACRO, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_ENCODING, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.STRING, KICK_ASSEMBLER_STRING);
-        typeKeyMap.put(KickAssemblerTypes.DEPRECATED_DIRECTIVE, KICK_ASSEMBLER_DEPRECATED);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED, KICK_ASSEMBLER_DEPRECATED);
         typeKeyMap.put(KickAssemblerTypes.DUMMY, KICK_ASSEMBLER_DUMMY);
 
         return Collections.unmodifiableMap(typeKeyMap);

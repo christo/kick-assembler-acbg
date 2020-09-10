@@ -23,6 +23,9 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerForLoop getForLoop();
 
   @Nullable
+  KickAssemblerIfElse getIfElse();
+
+  @Nullable
   KickAssemblerImport getImport();
 
   @Nullable

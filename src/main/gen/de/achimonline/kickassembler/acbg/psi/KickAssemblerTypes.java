@@ -18,10 +18,10 @@ public interface KickAssemblerTypes {
   IElementType DEF_EXPR_LIST = new KickAssemblerElementType("DEF_EXPR_LIST");
   IElementType ENCODING_DIRECTIVE = new KickAssemblerElementType("ENCODING_DIRECTIVE");
   IElementType EXPR = new KickAssemblerElementType("EXPR");
-  IElementType EXPR_LEFT = new KickAssemblerElementType("EXPR_LEFT");
   IElementType EXPR_LIST = new KickAssemblerElementType("EXPR_LIST");
   IElementType FOR_LOOP = new KickAssemblerElementType("FOR_LOOP");
   IElementType IDENTIFIER_LIST = new KickAssemblerElementType("IDENTIFIER_LIST");
+  IElementType IF_ELSE = new KickAssemblerElementType("IF_ELSE");
   IElementType IMPORT = new KickAssemblerElementType("IMPORT");
   IElementType INFIX_OPERATOR = new KickAssemblerElementType("INFIX_OPERATOR");
   IElementType INSTRUCTION = new KickAssemblerElementType("INSTRUCTION");
@@ -48,7 +48,6 @@ public interface KickAssemblerTypes {
   IElementType COMMA = new KickAssemblerTokenType("COMMA");
   IElementType COMMENT_BLOCK = new KickAssemblerTokenType("COMMENT_BLOCK");
   IElementType COMMENT_LINE = new KickAssemblerTokenType("COMMENT_LINE");
-  IElementType DEPRECATED_DIRECTIVE = new KickAssemblerTokenType("DEPRECATED_DIRECTIVE");
   IElementType DIRECTIVE = new KickAssemblerTokenType("DIRECTIVE");
   IElementType DIRECTIVE_BUILTIN = new KickAssemblerTokenType("DIRECTIVE_BUILTIN");
   IElementType DIRECTIVE_CPU = new KickAssemblerTokenType("DIRECTIVE_CPU");
@@ -57,6 +56,7 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_DEF_MACRO = new KickAssemblerTokenType("DIRECTIVE_DEF_MACRO");
   IElementType DIRECTIVE_ENCODING = new KickAssemblerTokenType("DIRECTIVE_ENCODING");
   IElementType DIRECTIVE_FOR = new KickAssemblerTokenType("DIRECTIVE_FOR");
+  IElementType DIRECTIVE_IF = new KickAssemblerTokenType("DIRECTIVE_IF");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
   IElementType DIVIDE = new KickAssemblerTokenType("DIVIDE");
   IElementType DIVIDE_EQUAL = new KickAssemblerTokenType("DIVIDE_EQUAL");
@@ -77,6 +77,8 @@ public interface KickAssemblerTypes {
   IElementType MINUS_EQUAL = new KickAssemblerTokenType("MINUS_EQUAL");
   IElementType MINUS_MINUS = new KickAssemblerTokenType("MINUS_MINUS");
   IElementType MNEMONIC = new KickAssemblerTokenType("MNEMONIC");
+  IElementType MNEMONIC_EXTENSION = new KickAssemblerTokenType("MNEMONIC_EXTENSION");
+  IElementType MNEMONIC_EXTENSION_DEPRECATED = new KickAssemblerTokenType("MNEMONIC_EXTENSION_DEPRECATED");
   IElementType MULTILABEL = new KickAssemblerTokenType("MULTILABEL");
   IElementType MULTILABEL_DEF = new KickAssemblerTokenType("MULTILABEL_DEF");
   IElementType NOT = new KickAssemblerTokenType("NOT");
@@ -132,9 +134,6 @@ public interface KickAssemblerTypes {
       else if (type == EXPR) {
         return new KickAssemblerExprImpl(node);
       }
-      else if (type == EXPR_LEFT) {
-        return new KickAssemblerExprLeftImpl(node);
-      }
       else if (type == EXPR_LIST) {
         return new KickAssemblerExprListImpl(node);
       }
@@ -143,6 +142,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == IDENTIFIER_LIST) {
         return new KickAssemblerIdentifierListImpl(node);
+      }
+      else if (type == IF_ELSE) {
+        return new KickAssemblerIfElseImpl(node);
       }
       else if (type == IMPORT) {
         return new KickAssemblerImportImpl(node);

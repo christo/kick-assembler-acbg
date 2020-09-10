@@ -27,6 +27,18 @@ public class KickAssemblerExprImpl extends ASTWrapperPsiElement implements KickA
   }
 
   @Override
+  @Nullable
+  public KickAssemblerBasicValue getBasicValue() {
+    return findChildByClass(KickAssemblerBasicValue.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerBracketed getBracketed() {
+    return findChildByClass(KickAssemblerBracketed.class);
+  }
+
+  @Override
   @NotNull
   public List<KickAssemblerExpr> getExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
@@ -34,14 +46,32 @@ public class KickAssemblerExprImpl extends ASTWrapperPsiElement implements KickA
 
   @Override
   @NotNull
-  public KickAssemblerExprLeft getExprLeft() {
-    return findNotNullChildByClass(KickAssemblerExprLeft.class);
+  public List<KickAssemblerInfixOperator> getInfixOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerInfixOperator.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerInvocation getInvocation() {
+    return findChildByClass(KickAssemblerInvocation.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerPostfixOperator getPostfixOperator() {
+    return findChildByClass(KickAssemblerPostfixOperator.class);
   }
 
   @Override
   @NotNull
-  public List<KickAssemblerInfixOperator> getInfixOperatorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerInfixOperator.class);
+  public List<KickAssemblerPrefixOperator> getPrefixOperatorList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPrefixOperator.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerScopedLabel getScopedLabel() {
+    return findChildByClass(KickAssemblerScopedLabel.class);
   }
 
 }

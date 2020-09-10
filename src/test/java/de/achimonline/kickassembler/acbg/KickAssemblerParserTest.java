@@ -46,6 +46,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testIfElse() {
+        doTest(true);
+    }
+
     //    public void testLocalLabelOfIfBlock() {
     //        doTest(true);
     //    }
@@ -54,13 +58,13 @@ public class KickAssemblerParserTest extends ParsingTestCase {
     //        doTest(true);
     //    }
 
-    //    public void testMacroArguments() {
-    //        doTest(true);
-    //    }
+    public void testMacroArguments() {
+        doTest(true);
+    }
 
-//        public void testAddressingModeDirectives() {
-//            doTest(true);
-//        }
+    public void testAddressingModeDirectives() {
+        doTest(true);
+    }
 
     //    public void testImportExpressionFail() {
     //        doTest(true);

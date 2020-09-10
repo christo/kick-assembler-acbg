@@ -55,8 +55,6 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "#importonce" { return KickAssemblerTypes.PREPROCESSOR_IMPORT; }
     "#undef"      { return KickAssemblerTypes.PREPROCESSOR; }
 
-    ".a"             { return KickAssemblerTypes.DIRECTIVE; }
-    ".abs"           { return KickAssemblerTypes.DIRECTIVE; }
     ".align"         { return KickAssemblerTypes.DIRECTIVE; }
     ".assert"        { return KickAssemblerTypes.DIRECTIVE; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE; }
@@ -81,7 +79,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".fillword"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".for"           { return KickAssemblerTypes.DIRECTIVE_FOR; }
     ".function"      { return KickAssemblerTypes.DIRECTIVE; }
-    ".if"            { return KickAssemblerTypes.DIRECTIVE; }
+    ".if"            { return KickAssemblerTypes.DIRECTIVE_IF; }
     ".import"        { return KickAssemblerTypes.DIRECTIVE; }
     ".importonce"    { return KickAssemblerTypes.DIRECTIVE; }
     ".label"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
@@ -107,19 +105,26 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".while"         { return KickAssemblerTypes.DIRECTIVE; }
     ".wo"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".word"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".zp"            { return KickAssemblerTypes.DIRECTIVE; }
-    ".z"             { return KickAssemblerTypes.DIRECTIVE; }
 
-    /* DEPRECATED DIRECTIVES */
-    ".im"  | ".imm"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Immediate
-    ".zx"  | ".zpx"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Zeropage,x	lda.zpx table
-    ".zy"  | ".zpy"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Zeropage,y
-    ".izx" | ".izpx"	{ return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Indirect zeropage,x
-    ".izy" | ".izpy"	{ return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Indirect zeropage,y
-    ".ax"  | ".absx"    { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Absolute,x	lda.absx $1234
-    ".ay"  | ".absy"    { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Absolute,y
-    ".i"   | ".ind"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Indirect	jmp.i $1000
-    ".r"   | ".rel"     { return KickAssemblerTypes.DEPRECATED_DIRECTIVE; } // Relative to program counter
+    /*
+    These override the addressing mode of a mnemonic
+    As at v5.16 see http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html
+    */
+    ".a"             { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    ".abs"           { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    ".zp"            { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    ".z"             { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+
+    /* Deprecated mnemonic extensions supported but discouraged. */
+    ".im"  | ".imm"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Immediate
+    ".zx"  | ".zpx"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Zeropage,x	lda.zpx table
+    ".zy"  | ".zpy"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Zeropage,y
+    ".izx" | ".izpx"	{ return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect zeropage,x
+    ".izy" | ".izpy"	{ return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect zeropage,y
+    ".ax"  | ".absx"    { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Absolute,x	lda.absx $1234
+    ".ay"  | ".absy"    { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Absolute,y
+    ".i"   | ".ind"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect	jmp.i $1000
+    ".r"   | ".rel"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Relative to program counter
 
     "adc"|"ADC" { return KickAssemblerTypes.MNEMONIC; }
     "ahx"|"AHX" { return KickAssemblerTypes.MNEMONIC; }

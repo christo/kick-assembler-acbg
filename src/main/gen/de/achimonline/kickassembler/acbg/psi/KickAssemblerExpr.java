@@ -7,13 +7,28 @@ import com.intellij.psi.PsiElement;
 
 public interface KickAssemblerExpr extends PsiElement {
 
+  @Nullable
+  KickAssemblerBasicValue getBasicValue();
+
+  @Nullable
+  KickAssemblerBracketed getBracketed();
+
   @NotNull
   List<KickAssemblerExpr> getExprList();
 
   @NotNull
-  KickAssemblerExprLeft getExprLeft();
+  List<KickAssemblerInfixOperator> getInfixOperatorList();
+
+  @Nullable
+  KickAssemblerInvocation getInvocation();
+
+  @Nullable
+  KickAssemblerPostfixOperator getPostfixOperator();
 
   @NotNull
-  List<KickAssemblerInfixOperator> getInfixOperatorList();
+  List<KickAssemblerPrefixOperator> getPrefixOperatorList();
+
+  @Nullable
+  KickAssemblerScopedLabel getScopedLabel();
 
 }
