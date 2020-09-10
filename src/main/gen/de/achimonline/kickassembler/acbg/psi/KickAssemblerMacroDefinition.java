@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerRoot extends PsiElement {
+public interface KickAssemblerMacroDefinition extends PsiElement {
 
   @Nullable
-  KickAssemblerMacroDefinition getMacroDefinition();
+  KickAssemblerIdentifierList getIdentifierList();
 
-  @Nullable
-  KickAssemblerStatement getStatement();
+  @NotNull
+  List<KickAssemblerStatement> getStatementList();
 
 }

@@ -5,10 +5,16 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerRoot extends PsiElement {
+public interface KickAssemblerForLoop extends PsiElement {
 
   @Nullable
-  KickAssemblerMacroDefinition getMacroDefinition();
+  KickAssemblerBlock getBlock();
+
+  @NotNull
+  KickAssemblerDefExprList getDefExprList();
+
+  @NotNull
+  List<KickAssemblerExprList> getExprListList();
 
   @Nullable
   KickAssemblerStatement getStatement();

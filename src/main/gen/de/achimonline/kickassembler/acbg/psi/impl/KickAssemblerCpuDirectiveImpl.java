@@ -11,31 +11,19 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerRootImpl extends ASTWrapperPsiElement implements KickAssemblerRoot {
+public class KickAssemblerCpuDirectiveImpl extends ASTWrapperPsiElement implements KickAssemblerCpuDirective {
 
-  public KickAssemblerRootImpl(@NotNull ASTNode node) {
+  public KickAssemblerCpuDirectiveImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitRoot(this);
+    visitor.visitCpuDirective(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof KickAssemblerVisitor) accept((KickAssemblerVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public KickAssemblerMacroDefinition getMacroDefinition() {
-    return findChildByClass(KickAssemblerMacroDefinition.class);
-  }
-
-  @Override
-  @Nullable
-  public KickAssemblerStatement getStatement() {
-    return findChildByClass(KickAssemblerStatement.class);
   }
 
 }

@@ -174,6 +174,12 @@ public interface KickAssemblerTypes {
       else if (type == ROOT) {
         return new KickAssemblerRootImpl(node);
       }
+      else if (type == SCOPED_LABEL) {
+        return new KickAssemblerScopedLabelImpl(node);
+      }
+      else if (type == STATEMENT) {
+        return new KickAssemblerStatementImpl(node);
+      }
       throw new AssertionError("Unknown element type: " + type);
     }
   }
