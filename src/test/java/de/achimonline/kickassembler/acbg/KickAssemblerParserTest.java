@@ -50,6 +50,26 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testFill() {
+        doTest(true);
+    }
+
+    public void testBreakAndWatch() {
+        doTest(true);
+    }
+
+    public void testWhile() {
+        doTest(true);
+    }
+
+    public void testAllKindsOfLabelDef() {
+        doTest(true);
+    }
+
+//    public void testMultipleLabelDefs() {
+//        doTest(true);
+//    }
+
     //    public void testLocalLabelOfIfBlock() {
     //        doTest(true);
     //    }

@@ -23,6 +23,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBreakDirective(@NotNull KickAssemblerBreakDirective o) {
+    visitPsiElement(o);
+  }
+
   public void visitCpuDirective(@NotNull KickAssemblerCpuDirective o) {
     visitPsiElement(o);
   }
@@ -108,6 +112,14 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitStatement(@NotNull KickAssemblerStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWatchDirective(@NotNull KickAssemblerWatchDirective o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWhile(@NotNull KickAssemblerWhile o) {
     visitPsiElement(o);
   }
 

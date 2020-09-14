@@ -11,6 +11,9 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerBlock getBlock();
 
   @Nullable
+  KickAssemblerBreakDirective getBreakDirective();
+
+  @Nullable
   KickAssemblerCpuDirective getCpuDirective();
 
   @Nullable
@@ -39,5 +42,11 @@ public interface KickAssemblerStatement extends PsiElement {
 
   @Nullable
   KickAssemblerPcAssignment getPcAssignment();
+
+  @Nullable
+  KickAssemblerWatchDirective getWatchDirective();
+
+  @Nullable
+  KickAssemblerWhile getWhile();
 
 }

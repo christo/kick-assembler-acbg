@@ -12,6 +12,7 @@ public interface KickAssemblerTypes {
   IElementType BASIC_VALUE = new KickAssemblerElementType("BASIC_VALUE");
   IElementType BLOCK = new KickAssemblerElementType("BLOCK");
   IElementType BRACKETED = new KickAssemblerElementType("BRACKETED");
+  IElementType BREAK_DIRECTIVE = new KickAssemblerElementType("BREAK_DIRECTIVE");
   IElementType CPU_DIRECTIVE = new KickAssemblerElementType("CPU_DIRECTIVE");
   IElementType DATA_DEFINITION = new KickAssemblerElementType("DATA_DEFINITION");
   IElementType DEF_EXPR = new KickAssemblerElementType("DEF_EXPR");
@@ -34,6 +35,8 @@ public interface KickAssemblerTypes {
   IElementType ROOT = new KickAssemblerElementType("ROOT");
   IElementType SCOPED_LABEL = new KickAssemblerElementType("SCOPED_LABEL");
   IElementType STATEMENT = new KickAssemblerElementType("STATEMENT");
+  IElementType WATCH_DIRECTIVE = new KickAssemblerElementType("WATCH_DIRECTIVE");
+  IElementType WHILE = new KickAssemblerElementType("WHILE");
 
   IElementType AND = new KickAssemblerTokenType("AND");
   IElementType ASSIGN = new KickAssemblerTokenType("ASSIGN");
@@ -49,6 +52,7 @@ public interface KickAssemblerTypes {
   IElementType COMMENT_BLOCK = new KickAssemblerTokenType("COMMENT_BLOCK");
   IElementType COMMENT_LINE = new KickAssemblerTokenType("COMMENT_LINE");
   IElementType DIRECTIVE = new KickAssemblerTokenType("DIRECTIVE");
+  IElementType DIRECTIVE_BREAK = new KickAssemblerTokenType("DIRECTIVE_BREAK");
   IElementType DIRECTIVE_BUILTIN = new KickAssemblerTokenType("DIRECTIVE_BUILTIN");
   IElementType DIRECTIVE_CPU = new KickAssemblerTokenType("DIRECTIVE_CPU");
   IElementType DIRECTIVE_DATA = new KickAssemblerTokenType("DIRECTIVE_DATA");
@@ -58,6 +62,8 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_FOR = new KickAssemblerTokenType("DIRECTIVE_FOR");
   IElementType DIRECTIVE_IF = new KickAssemblerTokenType("DIRECTIVE_IF");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
+  IElementType DIRECTIVE_WATCH = new KickAssemblerTokenType("DIRECTIVE_WATCH");
+  IElementType DIRECTIVE_WHILE = new KickAssemblerTokenType("DIRECTIVE_WHILE");
   IElementType DIVIDE = new KickAssemblerTokenType("DIVIDE");
   IElementType DIVIDE_EQUAL = new KickAssemblerTokenType("DIVIDE_EQUAL");
   IElementType DOT = new KickAssemblerTokenType("DOT");
@@ -115,6 +121,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == BRACKETED) {
         return new KickAssemblerBracketedImpl(node);
+      }
+      else if (type == BREAK_DIRECTIVE) {
+        return new KickAssemblerBreakDirectiveImpl(node);
       }
       else if (type == CPU_DIRECTIVE) {
         return new KickAssemblerCpuDirectiveImpl(node);
@@ -181,6 +190,12 @@ public interface KickAssemblerTypes {
       }
       else if (type == STATEMENT) {
         return new KickAssemblerStatementImpl(node);
+      }
+      else if (type == WATCH_DIRECTIVE) {
+        return new KickAssemblerWatchDirectiveImpl(node);
+      }
+      else if (type == WHILE) {
+        return new KickAssemblerWhileImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

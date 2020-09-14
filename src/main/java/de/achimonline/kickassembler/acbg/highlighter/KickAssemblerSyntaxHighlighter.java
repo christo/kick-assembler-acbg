@@ -23,7 +23,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey KICK_ASSEMBLER_METADATA = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "METADATA", METADATA);
     public static final TextAttributesKey KICK_ASSEMBLER_LINE_COMMENT = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "LINE_COMMENT", LINE_COMMENT);
     public static final TextAttributesKey KICK_ASSEMBLER_BLOCK_COMMENT = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BLOCK_COMMENT", BLOCK_COMMENT);
-    public static final TextAttributesKey KICK_ASSEMBLER_LABEL = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "LABEL", /* LABEL */ INSTANCE_METHOD);
+    public static final TextAttributesKey KICK_ASSEMBLER_LABEL = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "LABEL", /* LABEL */ IDENTIFIER);
     public static final TextAttributesKey KICK_ASSEMBLER_NUMBER = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "NUMBER", NUMBER);
     public static final TextAttributesKey KICK_ASSEMBLER_BOOLEAN = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BOOLEAN", NUMBER);
     public static final TextAttributesKey KICK_ASSEMBLER_NULL = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "NULL", NUMBER);
@@ -34,6 +34,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey KICK_ASSEMBLER_BRACKETS = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "BRACKETS", BRACKETS);
     public static final TextAttributesKey KICK_ASSEMBLER_OPERATION_SIGN = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "OPERATION_SIGN", /* OPERATION_SIGN */ INSTANCE_FIELD);
     public static final TextAttributesKey KICK_ASSEMBLER_DIRECTIVE = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DIRECTIVE", STATIC_METHOD);
+    public static final TextAttributesKey KICK_ASSEMBLER_BUILTIN = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DIRECTIVE_BUILTIN", INSTANCE_METHOD);
     public static final TextAttributesKey KICK_ASSEMBLER_DUMMY = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DUMMY", NO_HIGHLIGHTING);
     public static final TextAttributesKey KICK_ASSEMBLER_DEPRECATED = createTextAttributesKey(EXTERNAL_NAME_PREFIX + "DEPRECATED", REASSIGNED_LOCAL_VARIABLE);
 
@@ -133,6 +134,12 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF_MACRO, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_ENCODING, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BREAK, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_WATCH, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_WHILE, KICK_ASSEMBLER_BUILTIN);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BUILTIN, KICK_ASSEMBLER_BUILTIN);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_FOR, KICK_ASSEMBLER_BUILTIN);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_IF, KICK_ASSEMBLER_BUILTIN);
         typeKeyMap.put(KickAssemblerTypes.STRING, KICK_ASSEMBLER_STRING);
         typeKeyMap.put(KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED, KICK_ASSEMBLER_DEPRECATED);
         typeKeyMap.put(KickAssemblerTypes.DUMMY, KICK_ASSEMBLER_DUMMY);

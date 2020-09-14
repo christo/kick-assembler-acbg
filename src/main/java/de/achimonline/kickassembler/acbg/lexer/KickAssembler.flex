@@ -58,7 +58,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".align"         { return KickAssemblerTypes.DIRECTIVE; }
     ".assert"        { return KickAssemblerTypes.DIRECTIVE; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE; }
-    ".break"         { return KickAssemblerTypes.DIRECTIVE; }
+    ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
     ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".byte"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".const"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
@@ -102,7 +102,8 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".te"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".text"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".var"           { return KickAssemblerTypes.DIRECTIVE_DEF; }
-    ".while"         { return KickAssemblerTypes.DIRECTIVE; }
+    ".watch"         { return KickAssemblerTypes.DIRECTIVE_WATCH; }
+    ".while"         { return KickAssemblerTypes.DIRECTIVE_WHILE; }
     ".wo"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".word"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
 

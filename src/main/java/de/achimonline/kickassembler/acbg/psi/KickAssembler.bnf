@@ -16,8 +16,9 @@
 kickAssemblerFile ::= root*
 
 root ::= (
-           statement |
+           statement SEMICOLON? |
            macroDefinition |
+           labelsDef |
 
            STRING |
            NUMBER |
@@ -58,7 +59,7 @@ root ::= (
            MINUS_MINUS |
            PLUS_EQUAL |
            MINUS_EQUAL |
-           TIMES_EQUAL |
+           //TIMES_EQUAL |
            DIVIDE_EQUAL |
            DOT |
            COLON |
@@ -68,11 +69,13 @@ root ::= (
            DIRECTIVE_RETURN |
            DIRECTIVE_DATA |
            DIRECTIVE |
+
            LABEL_DEF |
            MULTILABEL_DEF |
-           MNEMONIC |
+
            LABEL |
            MULTILABEL |
+
            COMMENT_LINE |
            COMMENT_BLOCK |
 
@@ -81,6 +84,8 @@ root ::= (
 encodingDirective ::= (
     DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
 )
+
+labelsDef ::= LABEL_DEF | MULTILABEL_DEF
 
 dataDefinition ::= DIRECTIVE_DATA exprList
 
@@ -92,19 +97,15 @@ pcAssignment ::= (
     (ASTERISK | ".pc") ASSIGN expr STRING? "virtual"?
 )
 
-labelAssignment ::= (
-    DIRECTIVE_DEF LABEL ASSIGN expr
-)
+labelAssignment ::= DIRECTIVE_DEF LABEL ASSIGN expr
 
 import ::= PREPROCESSOR_IMPORT STRING
 
-argument ::= (
-    LABEL_DEF? HASH? ( LESS | GREATER )? expr
-)
+argument ::= LABEL_DEF? HASH? expr
 
 block ::= LEFT_BRACE statement* RIGHT_BRACE
 
-private qualifiedMnemonic ::= MNEMONIC ( MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )?
+private qualifiedMnemonic ::= MNEMONIC [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]
 
 instruction ::= (
     ( qualifiedMnemonic argument COMMA argument ) |
@@ -118,13 +119,20 @@ statement ::= (
     dataDefinition |
     invocation |
     block |
-    labelAssignment |
     pcAssignment |
-    cpuDirective |
-    encodingDirective |
+    labelAssignment |
+    directive |
     instruction |
     forLoop |
-    ifElse
+    ifElse |
+    while
+)
+
+private directive ::= (
+    cpuDirective |
+    encodingDirective |
+    breakDirective |
+    watchDirective
 )
 
 macroDefinition ::= (
@@ -143,7 +151,7 @@ identifierList ::= LABEL ( COMMA LABEL )*
 
 infixOperator ::= (
     PLUS | MINUS | ASTERISK | DIVIDE |
-    LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
+    EQUAL | LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
     BIT_AND | BIT_OR | BIT_XOR |
     AND | OR |
     SHIFT_LEFT | SHIFT_RIGHT |
@@ -156,11 +164,13 @@ postfixOperator ::= PLUS_PLUS | MINUS_MINUS
 
 basicValue ::= STRING | NUMBER | BOOLEAN | NULL
 
-scopedLabel ::= LABEL ( DOT LABEL )*
+private labelExpr ::= LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
+
+scopedLabel ::= labelExpr ( DOT labelExpr )*
 
 // left hand non-recursive expression to avoid left-recursion
 private exprLeft ::= (
-    (
+    [ LESS | GREATER ] (
         bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |
         ( prefixOperator exprLeft )
     ) postfixOperator?
@@ -189,10 +199,21 @@ defExprList ::=  defExpr ( COMMA defExpr )*
 forLoop ::= (
     // TODO need lots of test cases around the expression legality
     DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprList SEMICOLON exprList RIGHT_PARENTHESES
-    (statement | block)
+    compound
 )
 
+private compound ::= (statement | block)
+
+// TODO .if else .if ...
 ifElse ::= (
-    DIRECTIVE_IF LEFT_PARENTHESES expr RIGHT_PARENTHESES ( statement | block )
-    ( "else" (statement | block) )
+    DIRECTIVE_IF LEFT_PARENTHESES expr RIGHT_PARENTHESES compound
+    [ "else" compound ]
 )
+
+while ::= (
+    DIRECTIVE_WHILE LEFT_PARENTHESES expr RIGHT_PARENTHESES compound
+)
+
+breakDirective ::= DIRECTIVE_BREAK STRING?
+
+watchDirective ::= DIRECTIVE_WATCH expr [ COMMA expr [ COMMA STRING ] ]

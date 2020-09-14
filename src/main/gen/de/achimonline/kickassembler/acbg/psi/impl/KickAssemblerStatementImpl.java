@@ -34,6 +34,12 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerBreakDirective getBreakDirective() {
+    return findChildByClass(KickAssemblerBreakDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerCpuDirective getCpuDirective() {
     return findChildByClass(KickAssemblerCpuDirective.class);
   }
@@ -90,6 +96,18 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
   @Nullable
   public KickAssemblerPcAssignment getPcAssignment() {
     return findChildByClass(KickAssemblerPcAssignment.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerWatchDirective getWatchDirective() {
+    return findChildByClass(KickAssemblerWatchDirective.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerWhile getWhile() {
+    return findChildByClass(KickAssemblerWhile.class);
   }
 
 }

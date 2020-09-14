@@ -26,4 +26,10 @@ public class KickAssemblerScopedLabelImpl extends ASTWrapperPsiElement implement
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<KickAssemblerExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
+  }
+
 }
