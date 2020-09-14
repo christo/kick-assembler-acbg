@@ -85,7 +85,7 @@ encodingDirective ::= (
     DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
 )
 
-labelsDef ::= LABEL_DEF | MULTILABEL_DEF
+private labelsDef ::= LABEL_DEF | MULTILABEL_DEF
 
 dataDefinition ::= DIRECTIVE_DATA exprList
 
@@ -122,10 +122,10 @@ statement ::= (
     pcAssignment |
     labelAssignment |
     directive |
-    instruction |
     forLoop |
     ifElse |
-    while
+    while |
+    instruction
 )
 
 private directive ::= (

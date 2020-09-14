@@ -9,6 +9,7 @@ Kick Assembler file
             PsiElement(KickAssemblerTokenType.NUMBER)('1000')
   KickAssemblerRootImpl(ROOT)
     PsiElement(KickAssemblerTokenType.LABEL_DEF)('Loop:')
+  KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
         PsiElement(KickAssemblerTokenType.MNEMONIC)('jmp')

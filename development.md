@@ -51,6 +51,7 @@
     * functions
     * get more sample code for kickassembler using 
     [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
+    * invalid macro invocation syntax: space between macro name and open paren 
 * decide whether to treat library functions like BasicUpstart2 specially - maybe they're just 
 macro invocations?
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text

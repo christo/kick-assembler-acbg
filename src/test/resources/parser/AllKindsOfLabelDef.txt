@@ -1,6 +1,7 @@
 Kick Assembler file
   KickAssemblerRootImpl(ROOT)
     PsiElement(KickAssemblerTokenType.LABEL_DEF)('SomeLabel:')
+  KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
         PsiElement(KickAssemblerTokenType.MNEMONIC)('nop')
@@ -10,6 +11,7 @@ Kick Assembler file
     PsiElement(KickAssemblerTokenType.LEFT_BRACE)('{')
   KickAssemblerRootImpl(ROOT)
     PsiElement(KickAssemblerTokenType.LABEL_DEF)('Bar:')
+  KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
         PsiElement(KickAssemblerTokenType.MNEMONIC)('nop')
