@@ -66,9 +66,9 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-//    public void testMultipleLabelDefs() {
-//        doTest(true);
-//    }
+    public void testMultipleLabelDefs() {
+        doTest(true);
+    }
 
     //    public void testLocalLabelOfIfBlock() {
     //        doTest(true);
@@ -86,6 +86,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testPcAssign() {
+        doTest(true);
+    }
+
     //    public void testImportExpressionFail() {
     //        doTest(true);
     //    }
@@ -97,10 +101,6 @@ public class KickAssemblerParserTest extends ParsingTestCase {
 
 
     //    public void testMixedCaseOpcodeFail() {
-    //        doTest(true);
-    //    }
-
-    //    public void testPcAssign() {
     //        doTest(true);
     //    }
 

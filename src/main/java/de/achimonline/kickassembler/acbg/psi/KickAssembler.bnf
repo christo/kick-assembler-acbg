@@ -16,9 +16,9 @@
 kickAssemblerFile ::= root*
 
 root ::= (
+           labelsDef |
            statement SEMICOLON? |
            macroDefinition |
-           labelsDef |
 
            STRING |
            NUMBER |
@@ -59,7 +59,6 @@ root ::= (
            MINUS_MINUS |
            PLUS_EQUAL |
            MINUS_EQUAL |
-           //TIMES_EQUAL |
            DIVIDE_EQUAL |
            DOT |
            COLON |
@@ -155,7 +154,7 @@ infixOperator ::= (
     BIT_AND | BIT_OR | BIT_XOR |
     AND | OR |
     SHIFT_LEFT | SHIFT_RIGHT |
-    PLUS_EQUAL | MINUS_EQUAL | TIMES_EQUAL | DIVIDE_EQUAL
+    PLUS_EQUAL | MINUS_EQUAL | ASTERISK ASSIGN | DIVIDE_EQUAL
 )
 
 prefixOperator ::= MINUS | NOT | BIT_NOT
@@ -168,7 +167,7 @@ private labelExpr ::= LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 
 scopedLabel ::= labelExpr ( DOT labelExpr )*
 
-// left hand non-recursive expression to avoid left-recursion
+// left-non-recursive left-factored rule
 private exprLeft ::= (
     [ LESS | GREATER ] (
         bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |

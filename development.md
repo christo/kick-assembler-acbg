@@ -58,7 +58,7 @@
     * `"" + 1 + " string"` is ok but `1 + " string"` fails to type cast string to float (this is common in dynamic
      languages)
 * decide whether to treat library functions like BasicUpstart2 specially - maybe they're just 
-macro invocations?
+macro invocations? Note that the asmInfo output dumps all loaded built-in library functions and macros
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text
 attributes for "Default" and "Darcula" bundled schemes with additionalTextAttributes 
 extension as per 

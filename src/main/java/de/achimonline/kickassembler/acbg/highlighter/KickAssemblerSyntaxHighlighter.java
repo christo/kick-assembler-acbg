@@ -66,7 +66,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
             KickAssemblerTypes.MINUS_MINUS,
             KickAssemblerTypes.PLUS_EQUAL,
             KickAssemblerTypes.MINUS_EQUAL,
-            KickAssemblerTypes.TIMES_EQUAL,
+//            KickAssemblerTypes.TIMES_EQUAL,
             KickAssemblerTypes.DIVIDE_EQUAL,
             KickAssemblerTypes.DOT,
             KickAssemblerTypes.COLON,

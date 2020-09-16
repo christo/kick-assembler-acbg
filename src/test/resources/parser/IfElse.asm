@@ -1,3 +1,6 @@
+.var x=1
+.var y=0.9
+
 .if (1 < 2) {
     lda #1
 } else {
@@ -11,5 +14,5 @@
 .if (x > y)
     lda #1
     else .if (2 > 1) {
-    lda #2
-}
+        lda #2
+    }

@@ -250,7 +250,6 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "--" { return KickAssemblerTypes.MINUS_MINUS; }
     "+=" { return KickAssemblerTypes.PLUS_EQUAL; }
     "-=" { return KickAssemblerTypes.MINUS_EQUAL; }
-    "*=" { return KickAssemblerTypes.TIMES_EQUAL; }
     "/=" { return KickAssemblerTypes.DIVIDE_EQUAL; }
     "."	 { return KickAssemblerTypes.DOT; }
     ":"	 { return KickAssemblerTypes.COLON; }

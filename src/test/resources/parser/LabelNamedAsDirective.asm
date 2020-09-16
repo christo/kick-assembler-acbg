@@ -1,4 +1,7 @@
-    jmp myIf.label
+    jmp scope.label
     nop
-label:
-    lda #0 // <-- Jumps here ...
+
+scope: {
+    label:
+    lda #0
+}

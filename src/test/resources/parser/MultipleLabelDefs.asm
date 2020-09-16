@@ -1,0 +1,5 @@
+OneLabel:
+AnotherLabel:
+Scope: {
+    ThirdLabel:
+}

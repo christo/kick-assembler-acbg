@@ -105,7 +105,6 @@ public interface KickAssemblerTypes {
   IElementType SHIFT_LEFT = new KickAssemblerTokenType("SHIFT_LEFT");
   IElementType SHIFT_RIGHT = new KickAssemblerTokenType("SHIFT_RIGHT");
   IElementType STRING = new KickAssemblerTokenType("STRING");
-  IElementType TIMES_EQUAL = new KickAssemblerTokenType("TIMES_EQUAL");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {

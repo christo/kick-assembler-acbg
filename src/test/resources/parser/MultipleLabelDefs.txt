@@ -1,0 +1,13 @@
+Kick Assembler file
+  KickAssemblerRootImpl(ROOT)
+    PsiElement(KickAssemblerTokenType.LABEL_DEF)('OneLabel:')
+  KickAssemblerRootImpl(ROOT)
+    PsiElement(KickAssemblerTokenType.LABEL_DEF)('AnotherLabel:')
+  KickAssemblerRootImpl(ROOT)
+    PsiElement(KickAssemblerTokenType.LABEL_DEF)('Scope:')
+  KickAssemblerRootImpl(ROOT)
+    PsiElement(KickAssemblerTokenType.LEFT_BRACE)('{')
+  KickAssemblerRootImpl(ROOT)
+    PsiElement(KickAssemblerTokenType.LABEL_DEF)('ThirdLabel:')
+  KickAssemblerRootImpl(ROOT)
+    PsiElement(KickAssemblerTokenType.RIGHT_BRACE)('}')
