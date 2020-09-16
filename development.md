@@ -51,7 +51,12 @@
     * functions
     * get more sample code for kickassembler using 
     [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
-    * invalid macro invocation syntax: space between macro name and open paren 
+    * prefix logical negation operator has precedence over infix/postfix arithmetic operators
+* kick parity: the following feel like maybe problems in kick    
+    * invalid macro invocation syntax: space between macro name and open paren
+    * kick produces a weird error for this logical expression: `! x++ > 3`
+    * `"" + 1 + " string"` is ok but `1 + " string"` fails to type cast string to float (this is common in dynamic
+     languages)
 * decide whether to treat library functions like BasicUpstart2 specially - maybe they're just 
 macro invocations?
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text
@@ -88,3 +93,20 @@ definitions can be established. This means macros cannot expand to #import files
 * macro bodies must contain a sequence of valid assembly instructions or invocations, 
 so they cannot provide an expansion to an instruction argument like a memory address.  
 
+# other environments for reference
+
+* [Sublime](https://www.sublimetext.com/) supports KA though adding a _package_ called 
+[Kick Assembler (C64)](https://sublime.wbond.net/packages/Kick%20Assembler%20%28C64%29) 
+this is part of the recommended toolchain of the legendary 
+[Shallan](https://www.youtube.com/c/Shallan64/videos). Supports syntax highlighting
+and various launch configurations for VICE and C64 Debugger. See: 
+https://goatpower.org/projects-releases/sublime-package-kick-assembler-c64/
+* [VSCode](https://code.visualstudio.com/) is Microsoft's modern development environment 
+with quite good KA support via [this extension](https://github.com/sanmont/vscode-kickass-studio) 
+which claims watchpoint setting, contextual help, error evaluation, reference and definition
+search and navigation. 
+* [VIM](https://www.vim.org/) the mighty and ancient editor of unix past and present supports
+syntax highlighting for KA with [this syntax file](https://bitbucket.org/gryf/kickass-syntax-vim/) 
+from [gryf](https://bitbucket.org/gryf/) 
+* [Relaunch64](http://www.popelganda.de/relaunch64.html) is a dedicated retrocoding IDE that 
+supports several assemblers including KA
