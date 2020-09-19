@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface KickAssemblerRoot extends PsiElement {
 
   @Nullable
+  KickAssemblerBlock getBlock();
+
+  @Nullable
   KickAssemblerMacroDefinition getMacroDefinition();
 
   @Nullable

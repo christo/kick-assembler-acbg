@@ -1,6 +1,7 @@
 Kick Assembler file
   KickAssemblerRootImpl(ROOT)
-    PsiElement(KickAssemblerTokenType.LABEL_DEF)('nopressure:')
+    KickAssemblerStatementImpl(STATEMENT)
+      PsiElement(KickAssemblerTokenType.LABEL_DEF)('nopressure:')
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)

@@ -199,13 +199,31 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // statement | block
+  // (statement | block) SEMICOLON?
   static boolean compound(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "compound")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = compound_0(builder_, level_ + 1);
+    result_ = result_ && compound_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // statement | block
+  private static boolean compound_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "compound_0")) return false;
     boolean result_;
     result_ = statement(builder_, level_ + 1);
     if (!result_) result_ = block(builder_, level_ + 1);
     return result_;
+  }
+
+  // SEMICOLON?
+  private static boolean compound_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "compound_1")) return false;
+    consumeToken(builder_, SEMICOLON);
+    return true;
   }
 
   /* ********************************************************** */
@@ -898,8 +916,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // labelsDef |
-  //            statement SEMICOLON? |
+  // compound |
   //            macroDefinition |
   //            STRING |
   //            NUMBER |
@@ -911,7 +928,6 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   //            RIGHT_BRACKET |
   //            LEFT_BRACE |
   //            RIGHT_BRACE |
-  // /* these operators cannot occur at the root
   //            HASH |
   //            ASSIGN |
   //            COMMA |
@@ -939,11 +955,9 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   //            MINUS_MINUS |
   //            PLUS_EQUAL |
   //            MINUS_EQUAL |
-  //            //TIMES_EQUAL |
   //            DIVIDE_EQUAL |
   //            DOT |
   //            COLON |
-  // */
   //            QUESTION_MARK |
   //            PREPROCESSOR |
   //            DIRECTIVE_RETURN |
@@ -960,8 +974,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(builder_, level_, "root")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, ROOT, "<root>");
-    result_ = labelsDef(builder_, level_ + 1);
-    if (!result_) result_ = root_1(builder_, level_ + 1);
+    result_ = compound(builder_, level_ + 1);
     if (!result_) result_ = macroDefinition(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, STRING);
     if (!result_) result_ = consumeToken(builder_, NUMBER);
@@ -973,6 +986,36 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = consumeToken(builder_, RIGHT_BRACKET);
     if (!result_) result_ = consumeToken(builder_, LEFT_BRACE);
     if (!result_) result_ = consumeToken(builder_, RIGHT_BRACE);
+    if (!result_) result_ = consumeToken(builder_, HASH);
+    if (!result_) result_ = consumeToken(builder_, ASSIGN);
+    if (!result_) result_ = consumeToken(builder_, COMMA);
+    if (!result_) result_ = consumeToken(builder_, SEMICOLON);
+    if (!result_) result_ = consumeToken(builder_, LESS_EQUALS);
+    if (!result_) result_ = consumeToken(builder_, GREATER_EQUALS);
+    if (!result_) result_ = consumeToken(builder_, LESS);
+    if (!result_) result_ = consumeToken(builder_, GREATER);
+    if (!result_) result_ = consumeToken(builder_, BIT_AND);
+    if (!result_) result_ = consumeToken(builder_, BIT_OR);
+    if (!result_) result_ = consumeToken(builder_, BIT_XOR);
+    if (!result_) result_ = consumeToken(builder_, BIT_NOT);
+    if (!result_) result_ = consumeToken(builder_, SHIFT_LEFT);
+    if (!result_) result_ = consumeToken(builder_, SHIFT_RIGHT);
+    if (!result_) result_ = consumeToken(builder_, PLUS);
+    if (!result_) result_ = consumeToken(builder_, MINUS);
+    if (!result_) result_ = consumeToken(builder_, ASTERISK);
+    if (!result_) result_ = consumeToken(builder_, DIVIDE);
+    if (!result_) result_ = consumeToken(builder_, NOT_EQUAL);
+    if (!result_) result_ = consumeToken(builder_, EQUAL);
+    if (!result_) result_ = consumeToken(builder_, AND);
+    if (!result_) result_ = consumeToken(builder_, OR);
+    if (!result_) result_ = consumeToken(builder_, NOT);
+    if (!result_) result_ = consumeToken(builder_, PLUS_PLUS);
+    if (!result_) result_ = consumeToken(builder_, MINUS_MINUS);
+    if (!result_) result_ = consumeToken(builder_, PLUS_EQUAL);
+    if (!result_) result_ = consumeToken(builder_, MINUS_EQUAL);
+    if (!result_) result_ = consumeToken(builder_, DIVIDE_EQUAL);
+    if (!result_) result_ = consumeToken(builder_, DOT);
+    if (!result_) result_ = consumeToken(builder_, COLON);
     if (!result_) result_ = consumeToken(builder_, QUESTION_MARK);
     if (!result_) result_ = consumeToken(builder_, PREPROCESSOR);
     if (!result_) result_ = consumeToken(builder_, DIRECTIVE_RETURN);
@@ -987,24 +1030,6 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = consumeToken(builder_, DUMMY);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
-  }
-
-  // statement SEMICOLON?
-  private static boolean root_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "root_1")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = statement(builder_, level_ + 1);
-    result_ = result_ && root_1_1(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // SEMICOLON?
-  private static boolean root_1_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "root_1_1")) return false;
-    consumeToken(builder_, SEMICOLON);
-    return true;
   }
 
   /* ********************************************************** */
@@ -1043,7 +1068,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // import |
+  // labelsDef |
+  //     import |
   //     dataDefinition |
   //     invocation |
   //     block |
@@ -1058,7 +1084,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(builder_, level_, "statement")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, STATEMENT, "<statement>");
-    result_ = import_$(builder_, level_ + 1);
+    result_ = labelsDef(builder_, level_ + 1);
+    if (!result_) result_ = import_$(builder_, level_ + 1);
     if (!result_) result_ = dataDefinition(builder_, level_ + 1);
     if (!result_) result_ = invocation(builder_, level_ + 1);
     if (!result_) result_ = block(builder_, level_ + 1);

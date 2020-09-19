@@ -70,13 +70,21 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-    //    public void testLocalLabelOfIfBlock() {
-    //        doTest(true);
-    //    }
+    public void testLabelsAreStatements() {
+        doTest(true);
+    }
 
-    //    public void testLocalLabelsOfForLoop() {
-    //        doTest(true);
-    //    }
+    public void testKickPuzzlers() {
+        doTest(true);
+    }
+
+    public void testLocalLabelOfIfBlock() {
+        doTest(true);
+    }
+
+    public void testLocalLabelsOfForLoop() {
+        doTest(true);
+    }
 
     public void testMacroArguments() {
         doTest(true);

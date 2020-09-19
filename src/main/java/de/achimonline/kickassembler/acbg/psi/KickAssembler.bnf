@@ -16,8 +16,7 @@
 kickAssemblerFile ::= root*
 
 root ::= (
-           labelsDef |
-           statement SEMICOLON? |
+           compound |
            macroDefinition |
 
            STRING |
@@ -114,6 +113,8 @@ instruction ::= (
 
 // cannot include macro definitions
 statement ::= (
+    // making label definition into a statement because braceless .if binds solely to it
+    labelsDef |
     import |
     dataDefinition |
     invocation |
@@ -201,7 +202,7 @@ forLoop ::= (
     compound
 )
 
-private compound ::= (statement | block)
+private compound ::= (statement | block) SEMICOLON?
 
 // TODO .if else .if ...
 ifElse ::= (

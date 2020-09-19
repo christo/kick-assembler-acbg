@@ -28,6 +28,12 @@ public class KickAssemblerRootImpl extends ASTWrapperPsiElement implements KickA
 
   @Override
   @Nullable
+  public KickAssemblerBlock getBlock() {
+    return findChildByClass(KickAssemblerBlock.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerMacroDefinition getMacroDefinition() {
     return findChildByClass(KickAssemblerMacroDefinition.class);
   }
