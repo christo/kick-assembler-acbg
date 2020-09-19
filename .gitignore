@@ -6,3 +6,4 @@ jflex-*.jar
 build
 out
 /test.log
+/asminfo.txt
