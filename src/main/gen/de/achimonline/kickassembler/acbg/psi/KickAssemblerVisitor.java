@@ -47,6 +47,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEscapedString(@NotNull KickAssemblerEscapedString o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpr(@NotNull KickAssemblerExpr o) {
     visitPsiElement(o);
   }

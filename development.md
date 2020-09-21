@@ -37,13 +37,15 @@
 
 * scopes are blocks - labels in scopes are sufficient
 
+* grammar: @ string-literal prefix and string escape sequences
+
 ## TODO:
+
 
 * ternary operator ( ? : )
 * segments
 * named attribute lists for certain directives
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
-
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces
     * ambiguity between scoped labels and mnemonic suffixes
@@ -69,7 +71,8 @@ attributes for "Default" and "Darcula" bundled schemes with additionalTextAttrib
 extension as per 
 [color scheme management](https://jetbrains.org/intellij/sdk/docs/reference_guide/color_scheme_management.html)
 * grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
-* grammar: @ string-literal prefix and string escape sequences
+* grammar: "@"-prefixed labels - the prefix is optional and not part of the label name (probably for all
+identifiers)
 * grammar: addressing modes - we can detect legal addressing modes
 * grammar: distinguishing functions and macros
 * grammar: pseudo commands 
@@ -77,9 +80,8 @@ extension as per
 * insights: missing include files
 * insights: byte and cycle count info (UI must be good and not annoying like vscode)
 * generally, all features of sublime plugin (anectodally identified as "best")
-* download all old versions of KickAss.jar (search github) and set up a jig to 
-automatically verify which versions a given project can build with (as a way of
-locating suitable test source)
+* Set up a jig to automatically verify which versions of KickAss.jar a given project 
+can build with (as a way of locating suitable test source) see also parsing asmInfo
 
 
 ## open questions

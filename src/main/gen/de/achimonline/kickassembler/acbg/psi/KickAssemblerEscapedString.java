@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerBasicValue extends PsiElement {
-
-  @Nullable
-  KickAssemblerEscapedString getEscapedString();
+public interface KickAssemblerEscapedString extends PsiElement {
 
 }

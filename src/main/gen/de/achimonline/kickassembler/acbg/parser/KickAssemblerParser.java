@@ -63,7 +63,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // STRING | NUMBER | BOOLEAN | NULL
+  // STRING | NUMBER | BOOLEAN | NULL | escapedString
   public static boolean basicValue(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "basicValue")) return false;
     boolean result_;
@@ -72,6 +72,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = consumeToken(builder_, NUMBER);
     if (!result_) result_ = consumeToken(builder_, BOOLEAN);
     if (!result_) result_ = consumeToken(builder_, NULL);
+    if (!result_) result_ = escapedString(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
@@ -372,6 +373,40 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     boolean result_;
     result_ = consumeToken(builder_, "\"screencode_mixed\"");
     if (!result_) result_ = consumeToken(builder_, "\"screencode_upper\"");
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR)* STRING_END
+  public static boolean escapedString(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "escapedString")) return false;
+    if (!nextTokenIs(builder_, STRING_ESCAPE_BEGIN)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, STRING_ESCAPE_BEGIN);
+    result_ = result_ && escapedString_1(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, STRING_END);
+    exit_section_(builder_, marker_, ESCAPED_STRING, result_);
+    return result_;
+  }
+
+  // ( STRING_VALUE | ESCAPE_CHAR)*
+  private static boolean escapedString_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "escapedString_1")) return false;
+    while (true) {
+      int pos_ = current_position_(builder_);
+      if (!escapedString_1_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "escapedString_1", pos_)) break;
+    }
+    return true;
+  }
+
+  // STRING_VALUE | ESCAPE_CHAR
+  private static boolean escapedString_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "escapedString_1_0")) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, STRING_VALUE);
+    if (!result_) result_ = consumeToken(builder_, ESCAPE_CHAR);
     return result_;
   }
 

@@ -162,7 +162,9 @@ prefixOperator ::= MINUS | NOT | BIT_NOT
 
 postfixOperator ::= PLUS_PLUS | MINUS_MINUS
 
-basicValue ::= STRING | NUMBER | BOOLEAN | NULL
+escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR)* STRING_END
+
+basicValue ::= STRING | NUMBER | BOOLEAN | NULL | escapedString
 
 private labelExpr ::= LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 

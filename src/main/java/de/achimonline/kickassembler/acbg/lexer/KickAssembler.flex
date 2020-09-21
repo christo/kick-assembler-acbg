@@ -20,6 +20,10 @@ import com.intellij.psi.TokenType;
     return;
 %eof}
 
+%{
+    StringBuffer string = new StringBuffer();
+%}
+
 LINE_BREAK  = \n|\r|\r\n
 WHITE_SPACE = [\ \t\f]
 
@@ -35,6 +39,8 @@ MULTILABEL_DEF = "!"{LABEL}?":"
 
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
+
+%state STRING_ESCAPE
 
 %%
 
@@ -255,10 +261,27 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ":"	 { return KickAssemblerTypes.COLON; }
     "?"	 { return KickAssemblerTypes.QUESTION_MARK; }
 
+    "@\"" { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN; }
+
     {DEC_LITERAL}|{FLT_LITERAL}|{HEX_LITERAL}|{BIN_LITERAL} { return KickAssemblerTypes.NUMBER; }
 
     {LINE_COMMENT}  { return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { return KickAssemblerTypes.COMMENT_BLOCK; }
 
     [^] { return KickAssemblerTypes.DUMMY; }
+}
+
+<STRING_ESCAPE> {
+    // TODO PETSCII conversions
+    \"              { yybegin(YYINITIAL); return KickAssemblerTypes.STRING_END; }
+
+    [^\n\r\"\\]+    { return KickAssemblerTypes.STRING_VALUE; }
+    \\n             { return KickAssemblerTypes.ESCAPE_CHAR; }
+    \\r             { return KickAssemblerTypes.ESCAPE_CHAR; }
+    \\t             { return KickAssemblerTypes.ESCAPE_CHAR; }
+    \\b             { return KickAssemblerTypes.ESCAPE_CHAR; }
+    \\f             { return KickAssemblerTypes.ESCAPE_CHAR; }
+    \\\"            { return KickAssemblerTypes.ESCAPE_CHAR; }
+    \\\\            { return KickAssemblerTypes.ESCAPE_CHAR; }
+
 }

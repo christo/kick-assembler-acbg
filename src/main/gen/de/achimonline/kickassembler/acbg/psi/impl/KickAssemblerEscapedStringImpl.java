@@ -11,25 +11,19 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerBasicValueImpl extends ASTWrapperPsiElement implements KickAssemblerBasicValue {
+public class KickAssemblerEscapedStringImpl extends ASTWrapperPsiElement implements KickAssemblerEscapedString {
 
-  public KickAssemblerBasicValueImpl(@NotNull ASTNode node) {
+  public KickAssemblerEscapedStringImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitBasicValue(this);
+    visitor.visitEscapedString(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof KickAssemblerVisitor) accept((KickAssemblerVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public KickAssemblerEscapedString getEscapedString() {
-    return findChildByClass(KickAssemblerEscapedString.class);
   }
 
 }

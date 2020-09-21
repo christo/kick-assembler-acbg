@@ -18,6 +18,7 @@ public interface KickAssemblerTypes {
   IElementType DEF_EXPR = new KickAssemblerElementType("DEF_EXPR");
   IElementType DEF_EXPR_LIST = new KickAssemblerElementType("DEF_EXPR_LIST");
   IElementType ENCODING_DIRECTIVE = new KickAssemblerElementType("ENCODING_DIRECTIVE");
+  IElementType ESCAPED_STRING = new KickAssemblerElementType("ESCAPED_STRING");
   IElementType EXPR = new KickAssemblerElementType("EXPR");
   IElementType EXPR_LIST = new KickAssemblerElementType("EXPR_LIST");
   IElementType FOR_LOOP = new KickAssemblerElementType("FOR_LOOP");
@@ -69,6 +70,7 @@ public interface KickAssemblerTypes {
   IElementType DOT = new KickAssemblerTokenType("DOT");
   IElementType DUMMY = new KickAssemblerTokenType("DUMMY");
   IElementType EQUAL = new KickAssemblerTokenType("EQUAL");
+  IElementType ESCAPE_CHAR = new KickAssemblerTokenType("ESCAPE_CHAR");
   IElementType GREATER = new KickAssemblerTokenType("GREATER");
   IElementType GREATER_EQUALS = new KickAssemblerTokenType("GREATER_EQUALS");
   IElementType HASH = new KickAssemblerTokenType("HASH");
@@ -105,6 +107,9 @@ public interface KickAssemblerTypes {
   IElementType SHIFT_LEFT = new KickAssemblerTokenType("SHIFT_LEFT");
   IElementType SHIFT_RIGHT = new KickAssemblerTokenType("SHIFT_RIGHT");
   IElementType STRING = new KickAssemblerTokenType("STRING");
+  IElementType STRING_END = new KickAssemblerTokenType("STRING_END");
+  IElementType STRING_ESCAPE_BEGIN = new KickAssemblerTokenType("STRING_ESCAPE_BEGIN");
+  IElementType STRING_VALUE = new KickAssemblerTokenType("STRING_VALUE");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -138,6 +143,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == ENCODING_DIRECTIVE) {
         return new KickAssemblerEncodingDirectiveImpl(node);
+      }
+      else if (type == ESCAPED_STRING) {
+        return new KickAssemblerEscapedStringImpl(node);
       }
       else if (type == EXPR) {
         return new KickAssemblerExprImpl(node);

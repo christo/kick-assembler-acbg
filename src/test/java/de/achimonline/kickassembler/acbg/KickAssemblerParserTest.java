@@ -112,9 +112,9 @@ public class KickAssemblerParserTest extends ParsingTestCase {
     //        doTest(true);
     //    }
 
-    //    public void testQuotedTextMacro() {
-    //        doTest(true);
-    //    }
+        public void testQuotedTextMacro() {
+            doTest(true);
+        }
 
     @Override
     protected String getTestDataPath() {
@@ -131,3 +131,4 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         return false;
     }
 }
+
