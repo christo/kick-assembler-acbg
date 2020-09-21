@@ -102,6 +102,14 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+//    public void testEval() {
+//        doTest(true);
+//    }
+
+    public void testAlign() {
+        doTest(true);
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/resources/parser";

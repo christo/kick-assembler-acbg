@@ -39,9 +39,11 @@
 
 * grammar: @ string-literal prefix and string escape sequences
 
+* fix .align, .importonce, #importonce
+
 ## TODO:
 
-
+* proper handling of negative numbers
 * ternary operator ( ? : )
 * segments
 * named attribute lists for certain directives
@@ -49,7 +51,8 @@
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces
     * ambiguity between scoped labels and mnemonic suffixes
-    * ? scopes equal to mnemonic names     
+    * ? scopes equal to mnemonic names
+    * complete coverage of operator precedence     
     * scope definitions
     * scoped macro and label refs
     * functions

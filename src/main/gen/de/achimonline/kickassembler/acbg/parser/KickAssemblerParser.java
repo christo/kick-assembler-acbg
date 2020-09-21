@@ -36,6 +36,19 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DIRECTIVE_ALIGN expr
+  public static boolean alignDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "alignDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_ALIGN)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_ALIGN);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, ALIGN_DIRECTIVE, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // LABEL_DEF? HASH? expr
   public static boolean argument(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "argument")) return false;
@@ -343,7 +356,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   // cpuDirective |
   //     encodingDirective |
   //     breakDirective |
-  //     watchDirective
+  //     watchDirective |
+  //     alignDirective
   static boolean directive(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "directive")) return false;
     boolean result_;
@@ -351,6 +365,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = encodingDirective(builder_, level_ + 1);
     if (!result_) result_ = breakDirective(builder_, level_ + 1);
     if (!result_) result_ = watchDirective(builder_, level_ + 1);
+    if (!result_) result_ = alignDirective(builder_, level_ + 1);
     return result_;
   }
 
@@ -858,6 +873,19 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE
+  public static boolean niladic(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "niladic")) return false;
+    if (!nextTokenIs(builder_, "<niladic>", DIRECTIVE_IMPORTONCE, PREPROCESSOR_IMPORTONCE)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, NILADIC, "<niladic>");
+    result_ = consumeToken(builder_, DIRECTIVE_IMPORTONCE);
+    if (!result_) result_ = consumeToken(builder_, PREPROCESSOR_IMPORTONCE);
+    exit_section_(builder_, level_, marker_, result_, false, null);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // (ASTERISK | ".pc") ASSIGN expr STRING? "virtual"?
   public static boolean pcAssignment(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pcAssignment")) return false;
@@ -953,46 +981,47 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // compound |
   //            macroDefinition |
-  //            STRING |
-  //            NUMBER |
-  //            BOOLEAN |
-  //            NULL |
+  //            niladic |
+  // //           STRING |
+  // //           NUMBER |
+  // //           BOOLEAN |
+  // //           NULL |
   //            LEFT_PARENTHESES |
   //            RIGHT_PARENTHESES |
   //            LEFT_BRACKET |
   //            RIGHT_BRACKET |
   //            LEFT_BRACE |
   //            RIGHT_BRACE |
-  //            HASH |
-  //            ASSIGN |
-  //            COMMA |
-  //            SEMICOLON |
-  //            LESS_EQUALS |
-  //            GREATER_EQUALS |
-  //            LESS |
-  //            GREATER |
-  //            BIT_AND |
-  //            BIT_OR |
-  //            BIT_XOR |
-  //            BIT_NOT |
-  //            SHIFT_LEFT |
-  //            SHIFT_RIGHT |
-  //            PLUS |
-  //            MINUS |
-  //            ASTERISK |
-  //            DIVIDE |
-  //            NOT_EQUAL |
-  //            EQUAL |
-  //            AND |
-  //            OR |
-  //            NOT |
-  //            PLUS_PLUS |
-  //            MINUS_MINUS |
-  //            PLUS_EQUAL |
-  //            MINUS_EQUAL |
-  //            DIVIDE_EQUAL |
-  //            DOT |
-  //            COLON |
+  // //           HASH |
+  // //           ASSIGN |
+  // //           COMMA |
+  // //           SEMICOLON |
+  // //           LESS_EQUALS |
+  // //           GREATER_EQUALS |
+  // //           LESS |
+  // //           GREATER |
+  // //           BIT_AND |
+  // //           BIT_OR |
+  // //           BIT_XOR |
+  // //           BIT_NOT |
+  // //           SHIFT_LEFT |
+  // //           SHIFT_RIGHT |
+  // //           PLUS |
+  // //           MINUS |
+  // //           ASTERISK |
+  // //           DIVIDE |
+  // //           NOT_EQUAL |
+  // //           EQUAL |
+  // //           AND |
+  // //           OR |
+  // //           NOT |
+  // //           PLUS_PLUS |
+  // //           MINUS_MINUS |
+  // //           PLUS_EQUAL |
+  // //           MINUS_EQUAL |
+  // //           DIVIDE_EQUAL |
+  // //           DOT |
+  // //           COLON |
   //            QUESTION_MARK |
   //            PREPROCESSOR |
   //            DIRECTIVE_RETURN |
@@ -1011,46 +1040,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_, level_, _NONE_, ROOT, "<root>");
     result_ = compound(builder_, level_ + 1);
     if (!result_) result_ = macroDefinition(builder_, level_ + 1);
-    if (!result_) result_ = consumeToken(builder_, STRING);
-    if (!result_) result_ = consumeToken(builder_, NUMBER);
-    if (!result_) result_ = consumeToken(builder_, BOOLEAN);
-    if (!result_) result_ = consumeToken(builder_, NULL);
+    if (!result_) result_ = niladic(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, LEFT_PARENTHESES);
     if (!result_) result_ = consumeToken(builder_, RIGHT_PARENTHESES);
     if (!result_) result_ = consumeToken(builder_, LEFT_BRACKET);
     if (!result_) result_ = consumeToken(builder_, RIGHT_BRACKET);
     if (!result_) result_ = consumeToken(builder_, LEFT_BRACE);
     if (!result_) result_ = consumeToken(builder_, RIGHT_BRACE);
-    if (!result_) result_ = consumeToken(builder_, HASH);
-    if (!result_) result_ = consumeToken(builder_, ASSIGN);
-    if (!result_) result_ = consumeToken(builder_, COMMA);
-    if (!result_) result_ = consumeToken(builder_, SEMICOLON);
-    if (!result_) result_ = consumeToken(builder_, LESS_EQUALS);
-    if (!result_) result_ = consumeToken(builder_, GREATER_EQUALS);
-    if (!result_) result_ = consumeToken(builder_, LESS);
-    if (!result_) result_ = consumeToken(builder_, GREATER);
-    if (!result_) result_ = consumeToken(builder_, BIT_AND);
-    if (!result_) result_ = consumeToken(builder_, BIT_OR);
-    if (!result_) result_ = consumeToken(builder_, BIT_XOR);
-    if (!result_) result_ = consumeToken(builder_, BIT_NOT);
-    if (!result_) result_ = consumeToken(builder_, SHIFT_LEFT);
-    if (!result_) result_ = consumeToken(builder_, SHIFT_RIGHT);
-    if (!result_) result_ = consumeToken(builder_, PLUS);
-    if (!result_) result_ = consumeToken(builder_, MINUS);
-    if (!result_) result_ = consumeToken(builder_, ASTERISK);
-    if (!result_) result_ = consumeToken(builder_, DIVIDE);
-    if (!result_) result_ = consumeToken(builder_, NOT_EQUAL);
-    if (!result_) result_ = consumeToken(builder_, EQUAL);
-    if (!result_) result_ = consumeToken(builder_, AND);
-    if (!result_) result_ = consumeToken(builder_, OR);
-    if (!result_) result_ = consumeToken(builder_, NOT);
-    if (!result_) result_ = consumeToken(builder_, PLUS_PLUS);
-    if (!result_) result_ = consumeToken(builder_, MINUS_MINUS);
-    if (!result_) result_ = consumeToken(builder_, PLUS_EQUAL);
-    if (!result_) result_ = consumeToken(builder_, MINUS_EQUAL);
-    if (!result_) result_ = consumeToken(builder_, DIVIDE_EQUAL);
-    if (!result_) result_ = consumeToken(builder_, DOT);
-    if (!result_) result_ = consumeToken(builder_, COLON);
     if (!result_) result_ = consumeToken(builder_, QUESTION_MARK);
     if (!result_) result_ = consumeToken(builder_, PREPROCESSOR);
     if (!result_) result_ = consumeToken(builder_, DIRECTIVE_RETURN);

@@ -18,11 +18,12 @@ kickAssemblerFile ::= root*
 root ::= (
            compound |
            macroDefinition |
+           niladic |
 
-           STRING |
-           NUMBER |
-           BOOLEAN |
-           NULL |
+//           STRING |
+//           NUMBER |
+//           BOOLEAN |
+//           NULL |
 
            LEFT_PARENTHESES |
            RIGHT_PARENTHESES |
@@ -31,36 +32,36 @@ root ::= (
            LEFT_BRACE |
            RIGHT_BRACE |
 
-           HASH |
-           ASSIGN |
-           COMMA |
-           SEMICOLON |
-           LESS_EQUALS |
-           GREATER_EQUALS |
-           LESS |
-           GREATER |
-           BIT_AND |
-           BIT_OR |
-           BIT_XOR |
-           BIT_NOT |
-           SHIFT_LEFT |
-           SHIFT_RIGHT |
-           PLUS |
-           MINUS |
-           ASTERISK |
-           DIVIDE |
-           NOT_EQUAL |
-           EQUAL |
-           AND |
-           OR |
-           NOT |
-           PLUS_PLUS |
-           MINUS_MINUS |
-           PLUS_EQUAL |
-           MINUS_EQUAL |
-           DIVIDE_EQUAL |
-           DOT |
-           COLON |
+//           HASH |
+//           ASSIGN |
+//           COMMA |
+//           SEMICOLON |
+//           LESS_EQUALS |
+//           GREATER_EQUALS |
+//           LESS |
+//           GREATER |
+//           BIT_AND |
+//           BIT_OR |
+//           BIT_XOR |
+//           BIT_NOT |
+//           SHIFT_LEFT |
+//           SHIFT_RIGHT |
+//           PLUS |
+//           MINUS |
+//           ASTERISK |
+//           DIVIDE |
+//           NOT_EQUAL |
+//           EQUAL |
+//           AND |
+//           OR |
+//           NOT |
+//           PLUS_PLUS |
+//           MINUS_MINUS |
+//           PLUS_EQUAL |
+//           MINUS_EQUAL |
+//           DIVIDE_EQUAL |
+//           DOT |
+//           COLON |
            QUESTION_MARK |
 
            PREPROCESSOR |
@@ -132,7 +133,8 @@ private directive ::= (
     cpuDirective |
     encodingDirective |
     breakDirective |
-    watchDirective
+    watchDirective |
+    alignDirective
 )
 
 macroDefinition ::= (
@@ -219,3 +221,7 @@ while ::= (
 breakDirective ::= DIRECTIVE_BREAK STRING?
 
 watchDirective ::= DIRECTIVE_WATCH expr [ COMMA expr [ COMMA STRING ] ]
+
+alignDirective ::= DIRECTIVE_ALIGN expr
+
+niladic ::= DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE

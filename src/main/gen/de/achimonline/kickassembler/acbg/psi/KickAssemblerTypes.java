@@ -8,6 +8,7 @@ import de.achimonline.kickassembler.acbg.psi.impl.*;
 
 public interface KickAssemblerTypes {
 
+  IElementType ALIGN_DIRECTIVE = new KickAssemblerElementType("ALIGN_DIRECTIVE");
   IElementType ARGUMENT = new KickAssemblerElementType("ARGUMENT");
   IElementType BASIC_VALUE = new KickAssemblerElementType("BASIC_VALUE");
   IElementType BLOCK = new KickAssemblerElementType("BLOCK");
@@ -30,6 +31,7 @@ public interface KickAssemblerTypes {
   IElementType INVOCATION = new KickAssemblerElementType("INVOCATION");
   IElementType LABEL_ASSIGNMENT = new KickAssemblerElementType("LABEL_ASSIGNMENT");
   IElementType MACRO_DEFINITION = new KickAssemblerElementType("MACRO_DEFINITION");
+  IElementType NILADIC = new KickAssemblerElementType("NILADIC");
   IElementType PC_ASSIGNMENT = new KickAssemblerElementType("PC_ASSIGNMENT");
   IElementType POSTFIX_OPERATOR = new KickAssemblerElementType("POSTFIX_OPERATOR");
   IElementType PREFIX_OPERATOR = new KickAssemblerElementType("PREFIX_OPERATOR");
@@ -53,6 +55,7 @@ public interface KickAssemblerTypes {
   IElementType COMMENT_BLOCK = new KickAssemblerTokenType("COMMENT_BLOCK");
   IElementType COMMENT_LINE = new KickAssemblerTokenType("COMMENT_LINE");
   IElementType DIRECTIVE = new KickAssemblerTokenType("DIRECTIVE");
+  IElementType DIRECTIVE_ALIGN = new KickAssemblerTokenType("DIRECTIVE_ALIGN");
   IElementType DIRECTIVE_BREAK = new KickAssemblerTokenType("DIRECTIVE_BREAK");
   IElementType DIRECTIVE_BUILTIN = new KickAssemblerTokenType("DIRECTIVE_BUILTIN");
   IElementType DIRECTIVE_CPU = new KickAssemblerTokenType("DIRECTIVE_CPU");
@@ -62,6 +65,7 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_ENCODING = new KickAssemblerTokenType("DIRECTIVE_ENCODING");
   IElementType DIRECTIVE_FOR = new KickAssemblerTokenType("DIRECTIVE_FOR");
   IElementType DIRECTIVE_IF = new KickAssemblerTokenType("DIRECTIVE_IF");
+  IElementType DIRECTIVE_IMPORTONCE = new KickAssemblerTokenType("DIRECTIVE_IMPORTONCE");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
   IElementType DIRECTIVE_WATCH = new KickAssemblerTokenType("DIRECTIVE_WATCH");
   IElementType DIRECTIVE_WHILE = new KickAssemblerTokenType("DIRECTIVE_WHILE");
@@ -99,6 +103,7 @@ public interface KickAssemblerTypes {
   IElementType PLUS_PLUS = new KickAssemblerTokenType("PLUS_PLUS");
   IElementType PREPROCESSOR = new KickAssemblerTokenType("PREPROCESSOR");
   IElementType PREPROCESSOR_IMPORT = new KickAssemblerTokenType("PREPROCESSOR_IMPORT");
+  IElementType PREPROCESSOR_IMPORTONCE = new KickAssemblerTokenType("PREPROCESSOR_IMPORTONCE");
   IElementType QUESTION_MARK = new KickAssemblerTokenType("QUESTION_MARK");
   IElementType RIGHT_BRACE = new KickAssemblerTokenType("RIGHT_BRACE");
   IElementType RIGHT_BRACKET = new KickAssemblerTokenType("RIGHT_BRACKET");
@@ -114,7 +119,10 @@ public interface KickAssemblerTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ARGUMENT) {
+      if (type == ALIGN_DIRECTIVE) {
+        return new KickAssemblerAlignDirectiveImpl(node);
+      }
+      else if (type == ARGUMENT) {
         return new KickAssemblerArgumentImpl(node);
       }
       else if (type == BASIC_VALUE) {
@@ -179,6 +187,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == MACRO_DEFINITION) {
         return new KickAssemblerMacroDefinitionImpl(node);
+      }
+      else if (type == NILADIC) {
+        return new KickAssemblerNiladicImpl(node);
       }
       else if (type == PC_ASSIGNMENT) {
         return new KickAssemblerPcAssignmentImpl(node);

@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface KickAssemblerStatement extends PsiElement {
 
   @Nullable
+  KickAssemblerAlignDirective getAlignDirective();
+
+  @Nullable
   KickAssemblerBlock getBlock();
 
   @Nullable

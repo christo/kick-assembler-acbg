@@ -28,6 +28,12 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerAlignDirective getAlignDirective() {
+    return findChildByClass(KickAssemblerAlignDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerBlock getBlock() {
     return findChildByClass(KickAssemblerBlock.class);
   }

@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class KickAssemblerVisitor extends PsiElementVisitor {
 
+  public void visitAlignDirective(@NotNull KickAssemblerAlignDirective o) {
+    visitPsiElement(o);
+  }
+
   public void visitArgument(@NotNull KickAssemblerArgument o) {
     visitPsiElement(o);
   }
@@ -92,6 +96,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitMacroDefinition(@NotNull KickAssemblerMacroDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNiladic(@NotNull KickAssemblerNiladic o) {
     visitPsiElement(o);
   }
 

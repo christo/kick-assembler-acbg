@@ -58,10 +58,10 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "#if"         { return KickAssemblerTypes.PREPROCESSOR; }
     "#import"     { return KickAssemblerTypes.PREPROCESSOR_IMPORT; }
     "#importif"   { return KickAssemblerTypes.PREPROCESSOR; }
-    "#importonce" { return KickAssemblerTypes.PREPROCESSOR_IMPORT; }
+    "#importonce" { return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE; }
     "#undef"      { return KickAssemblerTypes.PREPROCESSOR; }
 
-    ".align"         { return KickAssemblerTypes.DIRECTIVE; }
+    ".align"         { return KickAssemblerTypes.DIRECTIVE_ALIGN; }
     ".assert"        { return KickAssemblerTypes.DIRECTIVE; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE; }
     ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
@@ -87,7 +87,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".function"      { return KickAssemblerTypes.DIRECTIVE; }
     ".if"            { return KickAssemblerTypes.DIRECTIVE_IF; }
     ".import"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".importonce"    { return KickAssemblerTypes.DIRECTIVE; }
+    ".importonce"    { return KickAssemblerTypes.DIRECTIVE_IMPORTONCE; }   // deprecated
     ".label"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
     ".lohifill"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".macro"         { return KickAssemblerTypes.DIRECTIVE_DEF_MACRO; }
