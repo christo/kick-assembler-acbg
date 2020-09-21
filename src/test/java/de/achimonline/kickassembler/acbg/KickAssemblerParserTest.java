@@ -98,23 +98,9 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-    //    public void testImportExpressionFail() {
-    //        doTest(true);
-    //    }
-
-
-    //    public void testLocalLabelsFail() {
-    //        doTest(true);
-    //    }
-
-
-    //    public void testMixedCaseOpcodeFail() {
-    //        doTest(true);
-    //    }
-
-        public void testQuotedTextMacro() {
-            doTest(true);
-        }
+    public void testQuotedTextMacro() {
+        doTest(true);
+    }
 
     @Override
     protected String getTestDataPath() {
