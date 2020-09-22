@@ -853,13 +853,15 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES |
-  //         DIRECTIVE_UNARY expr
+  //         DIRECTIVE_UNARY expr |
+  //         DIRECTIVE_BINARY expr COMMA expr
   public static boolean invocation(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "invocation")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, INVOCATION, "<invocation>");
     result_ = invocation_0(builder_, level_ + 1);
     if (!result_) result_ = invocation_1(builder_, level_ + 1);
+    if (!result_) result_ = invocation_2(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
@@ -890,6 +892,19 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeToken(builder_, DIRECTIVE_UNARY);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // DIRECTIVE_BINARY expr COMMA expr
+  private static boolean invocation_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "invocation_2")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_BINARY);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, COMMA);
     result_ = result_ && expr(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;

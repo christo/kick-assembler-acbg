@@ -63,7 +63,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
     ".align"         { return KickAssemblerTypes.DIRECTIVE_ALIGN; }
     ".assert"        { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".asserterror"   { return KickAssemblerTypes.DIRECTIVE; }
+    ".asserterror"   { return KickAssemblerTypes.DIRECTIVE_BINARY; }
     ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
     ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".byte"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
@@ -76,7 +76,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".encoding"      { return KickAssemblerTypes.DIRECTIVE_ENCODING; }
     ".enum"          { return KickAssemblerTypes.DIRECTIVE; }
     ".error"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".errorif"       { return KickAssemblerTypes.DIRECTIVE; }
+    ".errorif"       { return KickAssemblerTypes.DIRECTIVE_BINARY; }
     ".eval"          { return KickAssemblerTypes.DIRECTIVE_EVAL; }
     ".file"          { return KickAssemblerTypes.DIRECTIVE; }
     ".filemodify"    { return KickAssemblerTypes.DIRECTIVE; }
@@ -91,7 +91,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".label"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
     ".lohifill"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".macro"         { return KickAssemblerTypes.DIRECTIVE_DEF_MACRO; }
-    ".memblock"      { return KickAssemblerTypes.DIRECTIVE; }
+    ".memblock"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".modify"        { return KickAssemblerTypes.DIRECTIVE; }
     ".namespace"     { return KickAssemblerTypes.DIRECTIVE; }
     ".pc"            { return KickAssemblerTypes.DIRECTIVE; }

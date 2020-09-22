@@ -46,9 +46,11 @@
 * no-parentheses invocations
 * proper handling of negative numbers
 
+* errorif
+* memblock
+
 ## TODO:
 
-* errorif
 * ternary operator ( ? : )
 * segments
 * named attribute lists for certain directives

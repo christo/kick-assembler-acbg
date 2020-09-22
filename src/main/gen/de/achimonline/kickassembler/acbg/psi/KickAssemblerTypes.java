@@ -57,6 +57,7 @@ public interface KickAssemblerTypes {
   IElementType COMMENT_LINE = new KickAssemblerTokenType("COMMENT_LINE");
   IElementType DIRECTIVE = new KickAssemblerTokenType("DIRECTIVE");
   IElementType DIRECTIVE_ALIGN = new KickAssemblerTokenType("DIRECTIVE_ALIGN");
+  IElementType DIRECTIVE_BINARY = new KickAssemblerTokenType("DIRECTIVE_BINARY");
   IElementType DIRECTIVE_BREAK = new KickAssemblerTokenType("DIRECTIVE_BREAK");
   IElementType DIRECTIVE_BUILTIN = new KickAssemblerTokenType("DIRECTIVE_BUILTIN");
   IElementType DIRECTIVE_CPU = new KickAssemblerTokenType("DIRECTIVE_CPU");

@@ -201,7 +201,8 @@ invocation ::= (
     // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
     (
         callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES |
-        DIRECTIVE_UNARY expr
+        DIRECTIVE_UNARY expr |
+        DIRECTIVE_BINARY expr COMMA expr
     )
 )
 

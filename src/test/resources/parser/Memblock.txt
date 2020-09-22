@@ -1,0 +1,8 @@
+Kick Assembler file
+  KickAssemblerRootImpl(ROOT)
+    KickAssemblerStatementImpl(STATEMENT)
+      KickAssemblerInvocationImpl(INVOCATION)
+        PsiElement(KickAssemblerTokenType.DIRECTIVE_UNARY)('.memblock')
+        KickAssemblerExprImpl(EXPR)
+          KickAssemblerBasicValueImpl(BASIC_VALUE)
+            PsiElement(KickAssemblerTokenType.STRING)('"the main // bit"')
