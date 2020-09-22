@@ -98,7 +98,12 @@ pcAssignment ::= (
 
 labelAssignment ::= DIRECTIVE_DEF LABEL ASSIGN expr
 
-import ::= PREPROCESSOR_IMPORT STRING
+import ::= ( PREPROCESSOR_IMPORT STRING | dotImport)
+
+private dotImport ::= DIRECTIVE_IMPORT (
+    "source" STRING |
+    ("binary"|"c64"|"text") STRING [ COMMA expr [ COMMA expr ]]
+)
 
 argument ::= LABEL_DEF? HASH? expr
 
@@ -126,6 +131,7 @@ statement ::= (
     forLoop |
     ifElse |
     while |
+    evalExpression |
     instruction
 )
 
@@ -151,13 +157,15 @@ bracketed ::= (
 // e.g. macro args
 identifierList ::= LABEL ( COMMA LABEL )*
 
+// TODO precendence
 infixOperator ::= (
     PLUS | MINUS | ASTERISK | DIVIDE |
     EQUAL | LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
     BIT_AND | BIT_OR | BIT_XOR |
     AND | OR |
     SHIFT_LEFT | SHIFT_RIGHT |
-    PLUS_EQUAL | MINUS_EQUAL | ASTERISK ASSIGN | DIVIDE_EQUAL
+    PLUS_EQUAL | MINUS_EQUAL | ASTERISK ASSIGN | DIVIDE_EQUAL |
+    ASSIGN
 )
 
 prefixOperator ::= MINUS | NOT | BIT_NOT
@@ -191,7 +199,10 @@ private callable ::= (
 invocation ::= (
     // docs as at v5.16: colon before macro invocation is optional from version 4
     // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
-    callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES
+    (
+        callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES |
+        DIRECTIVE_UNARY expr
+    )
 )
 
 private declarationKeyword ::= "var" | "const"
@@ -201,14 +212,12 @@ defExpr ::= ( declarationKeyword? LABEL ASSIGN expr ) | expr
 defExprList ::=  defExpr ( COMMA defExpr )*
 
 forLoop ::= (
-    // TODO need lots of test cases around the expression legality
     DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprList SEMICOLON exprList RIGHT_PARENTHESES
     compound
 )
 
 private compound ::= (statement | block) SEMICOLON?
 
-// TODO .if else .if ...
 ifElse ::= (
     DIRECTIVE_IF LEFT_PARENTHESES expr RIGHT_PARENTHESES compound
     [ "else" compound ]
@@ -223,5 +232,7 @@ breakDirective ::= DIRECTIVE_BREAK STRING?
 watchDirective ::= DIRECTIVE_WATCH expr [ COMMA expr [ COMMA STRING ] ]
 
 alignDirective ::= DIRECTIVE_ALIGN expr
+
+evalExpression ::= DIRECTIVE_EVAL expr
 
 niladic ::= DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE

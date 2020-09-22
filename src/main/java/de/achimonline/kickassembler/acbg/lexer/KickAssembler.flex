@@ -62,7 +62,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "#undef"      { return KickAssemblerTypes.PREPROCESSOR; }
 
     ".align"         { return KickAssemblerTypes.DIRECTIVE_ALIGN; }
-    ".assert"        { return KickAssemblerTypes.DIRECTIVE; }
+    ".assert"        { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE; }
     ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
     ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
@@ -75,9 +75,9 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".dword"         { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".encoding"      { return KickAssemblerTypes.DIRECTIVE_ENCODING; }
     ".enum"          { return KickAssemblerTypes.DIRECTIVE; }
-    ".error"         { return KickAssemblerTypes.DIRECTIVE; }
+    ".error"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".errorif"       { return KickAssemblerTypes.DIRECTIVE; }
-    ".eval"          { return KickAssemblerTypes.DIRECTIVE; }
+    ".eval"          { return KickAssemblerTypes.DIRECTIVE_EVAL; }
     ".file"          { return KickAssemblerTypes.DIRECTIVE; }
     ".filemodify"    { return KickAssemblerTypes.DIRECTIVE; }
     ".filenamespace" { return KickAssemblerTypes.DIRECTIVE; }
@@ -86,7 +86,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".for"           { return KickAssemblerTypes.DIRECTIVE_FOR; }
     ".function"      { return KickAssemblerTypes.DIRECTIVE; }
     ".if"            { return KickAssemblerTypes.DIRECTIVE_IF; }
-    ".import"        { return KickAssemblerTypes.DIRECTIVE; }
+    ".import"        { return KickAssemblerTypes.DIRECTIVE_IMPORT; }
     ".importonce"    { return KickAssemblerTypes.DIRECTIVE_IMPORTONCE; }   // deprecated
     ".label"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
     ".lohifill"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
@@ -96,8 +96,8 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".namespace"     { return KickAssemblerTypes.DIRECTIVE; }
     ".pc"            { return KickAssemblerTypes.DIRECTIVE; }
     ".plugin"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".print"         { return KickAssemblerTypes.DIRECTIVE_BUILTIN; }
-    ".printnow"      { return KickAssemblerTypes.DIRECTIVE_BUILTIN; }
+    ".print"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".printnow"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".pseudocommand" { return KickAssemblerTypes.DIRECTIVE; }
     ".pseudopc"      { return KickAssemblerTypes.DIRECTIVE; }
     ".return"        { return KickAssemblerTypes.DIRECTIVE_RETURN; }

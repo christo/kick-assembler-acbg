@@ -26,6 +26,9 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerEncodingDirective getEncodingDirective();
 
   @Nullable
+  KickAssemblerEvalExpression getEvalExpression();
+
+  @Nullable
   KickAssemblerForLoop getForLoop();
 
   @Nullable

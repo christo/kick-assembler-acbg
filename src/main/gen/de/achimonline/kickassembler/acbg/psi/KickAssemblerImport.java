@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface KickAssemblerImport extends PsiElement {
 
+  @NotNull
+  List<KickAssemblerExpr> getExprList();
+
 }

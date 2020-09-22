@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerInvocation extends PsiElement {
+public interface KickAssemblerEvalExpression extends PsiElement {
 
-  @Nullable
+  @NotNull
   KickAssemblerExpr getExpr();
-
-  @Nullable
-  KickAssemblerExprList getExprList();
-
-  @Nullable
-  KickAssemblerScopedLabel getScopedLabel();
 
 }

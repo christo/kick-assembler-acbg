@@ -102,11 +102,23 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-//    public void testEval() {
-//        doTest(true);
-//    }
+    public void testEval() {
+        doTest(true);
+    }
 
     public void testAlign() {
+        doTest(true);
+    }
+
+    public void testPrintAndError() {
+        doTest(true);
+    }
+
+    public void testPreprocessorPhase() {
+        doTest(true);
+    }
+
+    public void testImportDirective() {
         doTest(true);
     }
 

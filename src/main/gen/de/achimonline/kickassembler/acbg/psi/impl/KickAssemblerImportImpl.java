@@ -26,4 +26,10 @@ public class KickAssemblerImportImpl extends ASTWrapperPsiElement implements Kic
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<KickAssemblerExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
+  }
+
 }

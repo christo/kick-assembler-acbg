@@ -55,6 +55,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEvalExpression(@NotNull KickAssemblerEvalExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpr(@NotNull KickAssemblerExpr o) {
     visitPsiElement(o);
   }

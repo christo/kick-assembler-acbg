@@ -40,10 +40,15 @@
 * grammar: @ string-literal prefix and string escape sequences
 
 * fix .align, .importonce, #importonce
+* .eval
+* .error
+* .assert
+* no-parentheses invocations
+* proper handling of negative numbers
 
 ## TODO:
 
-* proper handling of negative numbers
+* errorif
 * ternary operator ( ? : )
 * segments
 * named attribute lists for certain directives
@@ -91,8 +96,8 @@ can build with (as a way of locating suitable test source) see also parsing asmI
 
 * how to parse pseudocommand calls?
 * can a function call a macro which calls a function?
-* how static is the type system? Boolean expressions are required in for loop but
-surely it needs to execute the expression to know if it's not boolean
+* do hash-prefixed preprocessor directives and their dot-prefixed alternates (like importonce)
+bind to the conditionally executed braceless instruction after `.if(foo)`?
 
 ## lessons learned
 
@@ -120,3 +125,9 @@ syntax highlighting for KA with [this syntax file](https://bitbucket.org/gryf/ki
 from [gryf](https://bitbucket.org/gryf/) 
 * [Relaunch64](http://www.popelganda.de/relaunch64.html) is a dedicated retrocoding IDE that 
 supports several assemblers including KA
+
+# 6502 optimisations and fixes
+
+* `ora <arg>` instead of `clc; adc <arg>` under certain circumstances
+* https://wiki.nesdev.com/w/index.php/6502_assembly_optimisations
+* https://codebase64.org/doku.php?id=base:advanced_optimizing

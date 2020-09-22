@@ -20,6 +20,7 @@ public interface KickAssemblerTypes {
   IElementType DEF_EXPR_LIST = new KickAssemblerElementType("DEF_EXPR_LIST");
   IElementType ENCODING_DIRECTIVE = new KickAssemblerElementType("ENCODING_DIRECTIVE");
   IElementType ESCAPED_STRING = new KickAssemblerElementType("ESCAPED_STRING");
+  IElementType EVAL_EXPRESSION = new KickAssemblerElementType("EVAL_EXPRESSION");
   IElementType EXPR = new KickAssemblerElementType("EXPR");
   IElementType EXPR_LIST = new KickAssemblerElementType("EXPR_LIST");
   IElementType FOR_LOOP = new KickAssemblerElementType("FOR_LOOP");
@@ -63,10 +64,13 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_DEF = new KickAssemblerTokenType("DIRECTIVE_DEF");
   IElementType DIRECTIVE_DEF_MACRO = new KickAssemblerTokenType("DIRECTIVE_DEF_MACRO");
   IElementType DIRECTIVE_ENCODING = new KickAssemblerTokenType("DIRECTIVE_ENCODING");
+  IElementType DIRECTIVE_EVAL = new KickAssemblerTokenType("DIRECTIVE_EVAL");
   IElementType DIRECTIVE_FOR = new KickAssemblerTokenType("DIRECTIVE_FOR");
   IElementType DIRECTIVE_IF = new KickAssemblerTokenType("DIRECTIVE_IF");
+  IElementType DIRECTIVE_IMPORT = new KickAssemblerTokenType("DIRECTIVE_IMPORT");
   IElementType DIRECTIVE_IMPORTONCE = new KickAssemblerTokenType("DIRECTIVE_IMPORTONCE");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
+  IElementType DIRECTIVE_UNARY = new KickAssemblerTokenType("DIRECTIVE_UNARY");
   IElementType DIRECTIVE_WATCH = new KickAssemblerTokenType("DIRECTIVE_WATCH");
   IElementType DIRECTIVE_WHILE = new KickAssemblerTokenType("DIRECTIVE_WHILE");
   IElementType DIVIDE = new KickAssemblerTokenType("DIVIDE");
@@ -154,6 +158,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == ESCAPED_STRING) {
         return new KickAssemblerEscapedStringImpl(node);
+      }
+      else if (type == EVAL_EXPRESSION) {
+        return new KickAssemblerEvalExpressionImpl(node);
       }
       else if (type == EXPR) {
         return new KickAssemblerExprImpl(node);
