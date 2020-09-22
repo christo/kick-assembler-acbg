@@ -142,6 +142,13 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    /**
+     * Note this test fails on kick but only after parsing correctly.
+     */
+    public void testForLoopStaticFail() {
+        doTest(true);
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/resources/parser";
