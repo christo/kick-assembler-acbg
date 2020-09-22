@@ -71,6 +71,7 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_IMPORT = new KickAssemblerTokenType("DIRECTIVE_IMPORT");
   IElementType DIRECTIVE_IMPORTONCE = new KickAssemblerTokenType("DIRECTIVE_IMPORTONCE");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
+  IElementType DIRECTIVE_TERNARY = new KickAssemblerTokenType("DIRECTIVE_TERNARY");
   IElementType DIRECTIVE_UNARY = new KickAssemblerTokenType("DIRECTIVE_UNARY");
   IElementType DIRECTIVE_WATCH = new KickAssemblerTokenType("DIRECTIVE_WATCH");
   IElementType DIRECTIVE_WHILE = new KickAssemblerTokenType("DIRECTIVE_WHILE");

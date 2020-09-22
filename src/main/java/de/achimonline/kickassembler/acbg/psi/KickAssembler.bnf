@@ -201,8 +201,10 @@ invocation ::= (
     // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
     (
         callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES |
+        // the following invocations do not require parentheses:
         DIRECTIVE_UNARY expr |
-        DIRECTIVE_BINARY expr COMMA expr
+        DIRECTIVE_BINARY expr COMMA expr |
+        DIRECTIVE_TERNARY expr COMMA expr COMMA expr
     )
 )
 

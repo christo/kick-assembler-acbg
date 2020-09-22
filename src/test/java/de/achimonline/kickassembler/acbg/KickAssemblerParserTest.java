@@ -122,15 +122,23 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-//    public void testScopedLabelClash() {
-//        doTest(true);
-//    }
+    //    public void testScopedLabelClash() {
+    //        doTest(true);
+    //    }
 
     public void testNegativeNumbers() {
         doTest(true);
     }
 
     public void testMemblock() {
+        doTest(true);
+    }
+
+    public void testUnaryDirectives() {
+        doTest(true);
+    }
+
+    public void testAssert() {
         doTest(true);
     }
 

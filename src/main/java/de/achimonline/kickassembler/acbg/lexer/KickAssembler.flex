@@ -62,7 +62,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "#undef"      { return KickAssemblerTypes.PREPROCESSOR; }
 
     ".align"         { return KickAssemblerTypes.DIRECTIVE_ALIGN; }
-    ".assert"        { return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".assert"        { return KickAssemblerTypes.DIRECTIVE_TERNARY; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE_BINARY; }
     ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
     ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
@@ -80,7 +80,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".eval"          { return KickAssemblerTypes.DIRECTIVE_EVAL; }
     ".file"          { return KickAssemblerTypes.DIRECTIVE; }
     ".filemodify"    { return KickAssemblerTypes.DIRECTIVE; }
-    ".filenamespace" { return KickAssemblerTypes.DIRECTIVE; }
+    ".filenamespace" { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".fill"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".fillword"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".for"           { return KickAssemblerTypes.DIRECTIVE_FOR; }
@@ -95,7 +95,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".modify"        { return KickAssemblerTypes.DIRECTIVE; }
     ".namespace"     { return KickAssemblerTypes.DIRECTIVE; }
     ".pc"            { return KickAssemblerTypes.DIRECTIVE; }
-    ".plugin"        { return KickAssemblerTypes.DIRECTIVE; }
+    ".plugin"        { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".print"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".printnow"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".pseudocommand" { return KickAssemblerTypes.DIRECTIVE; }
