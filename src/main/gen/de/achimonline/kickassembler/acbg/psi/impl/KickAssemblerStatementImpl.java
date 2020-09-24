@@ -34,6 +34,12 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerAssert getAssert() {
+    return findChildByClass(KickAssemblerAssert.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerBlock getBlock() {
     return findChildByClass(KickAssemblerBlock.class);
   }
@@ -58,14 +64,38 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerDefineDirective getDefineDirective() {
+    return findChildByClass(KickAssemblerDefineDirective.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerDiskDirective getDiskDirective() {
+    return findChildByClass(KickAssemblerDiskDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerEncodingDirective getEncodingDirective() {
     return findChildByClass(KickAssemblerEncodingDirective.class);
   }
 
   @Override
   @Nullable
+  public KickAssemblerEnumDirective getEnumDirective() {
+    return findChildByClass(KickAssemblerEnumDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerEvalExpression getEvalExpression() {
     return findChildByClass(KickAssemblerEvalExpression.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerFilemodifyDirective getFilemodifyDirective() {
+    return findChildByClass(KickAssemblerFilemodifyDirective.class);
   }
 
   @Override
@@ -106,8 +136,32 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerModifyDirective getModifyDirective() {
+    return findChildByClass(KickAssemblerModifyDirective.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerNamespaceDirective getNamespaceDirective() {
+    return findChildByClass(KickAssemblerNamespaceDirective.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerParamDirective getParamDirective() {
+    return findChildByClass(KickAssemblerParamDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerPcAssignment getPcAssignment() {
     return findChildByClass(KickAssemblerPcAssignment.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerSegmentDirective getSegmentDirective() {
+    return findChildByClass(KickAssemblerSegmentDirective.class);
   }
 
   @Override

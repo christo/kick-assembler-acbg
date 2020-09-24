@@ -12,6 +12,10 @@ public class ExpectedFailureTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testImportExpressionFail() {
+        doTest(true);
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/resources/parser";

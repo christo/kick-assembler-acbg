@@ -5,7 +5,10 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerDataDefinition extends PsiElement {
+public interface KickAssemblerAssert extends PsiElement {
+
+  @NotNull
+  List<KickAssemblerBlock> getBlockList();
 
   @NotNull
   List<KickAssemblerExpr> getExprList();

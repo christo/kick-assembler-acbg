@@ -40,8 +40,8 @@ public class KickAssemblerForLoopImpl extends ASTWrapperPsiElement implements Ki
 
   @Override
   @NotNull
-  public List<KickAssemblerExprList> getExprListList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExprList.class);
+  public List<KickAssemblerExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
   }
 
   @Override

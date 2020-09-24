@@ -76,6 +76,39 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DIRECTIVE_ASSERT STRING COMMA (expr | block) COMMA (expr | block)
+  public static boolean assert_$(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "assert_$")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_ASSERT)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, DIRECTIVE_ASSERT, STRING, COMMA);
+    result_ = result_ && assert_3(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, COMMA);
+    result_ = result_ && assert_5(builder_, level_ + 1);
+    exit_section_(builder_, marker_, ASSERT, result_);
+    return result_;
+  }
+
+  // expr | block
+  private static boolean assert_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "assert_3")) return false;
+    boolean result_;
+    result_ = expr(builder_, level_ + 1);
+    if (!result_) result_ = block(builder_, level_ + 1);
+    return result_;
+  }
+
+  // expr | block
+  private static boolean assert_5(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "assert_5")) return false;
+    boolean result_;
+    result_ = expr(builder_, level_ + 1);
+    if (!result_) result_ = block(builder_, level_ + 1);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // STRING | NUMBER | BOOLEAN | NULL | escapedString
   public static boolean basicValue(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "basicValue")) return false;
@@ -265,14 +298,14 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DIRECTIVE_DATA exprList
+  // DIRECTIVE_DATA exprs
   public static boolean dataDefinition(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "dataDefinition")) return false;
     if (!nextTokenIs(builder_, DIRECTIVE_DATA)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeToken(builder_, DIRECTIVE_DATA);
-    result_ = result_ && exprList(builder_, level_ + 1);
+    result_ = result_ && exprs(builder_, level_ + 1);
     exit_section_(builder_, marker_, DATA_DEFINITION, result_);
     return result_;
   }
@@ -353,11 +386,54 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DIRECTIVE_DEFINE LABEL ( COMMA LABEL)* block
+  public static boolean defineDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "defineDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_DEFINE)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, DIRECTIVE_DEFINE, LABEL);
+    result_ = result_ && defineDirective_2(builder_, level_ + 1);
+    result_ = result_ && block(builder_, level_ + 1);
+    exit_section_(builder_, marker_, DEFINE_DIRECTIVE, result_);
+    return result_;
+  }
+
+  // ( COMMA LABEL)*
+  private static boolean defineDirective_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "defineDirective_2")) return false;
+    while (true) {
+      int pos_ = current_position_(builder_);
+      if (!defineDirective_2_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "defineDirective_2", pos_)) break;
+    }
+    return true;
+  }
+
+  // COMMA LABEL
+  private static boolean defineDirective_2_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "defineDirective_2_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, COMMA, LABEL);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // cpuDirective |
   //     encodingDirective |
   //     breakDirective |
   //     watchDirective |
-  //     alignDirective
+  //     alignDirective |
+  //     paramDirective |
+  //     diskDirective |
+  //     enumDirective |
+  //     defineDirective |
+  //     filemodifyDirective |
+  //     modifyDirective |
+  //     namespaceDirective |
+  //     segmentDirective
   static boolean directive(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "directive")) return false;
     boolean result_;
@@ -366,7 +442,46 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = breakDirective(builder_, level_ + 1);
     if (!result_) result_ = watchDirective(builder_, level_ + 1);
     if (!result_) result_ = alignDirective(builder_, level_ + 1);
+    if (!result_) result_ = paramDirective(builder_, level_ + 1);
+    if (!result_) result_ = diskDirective(builder_, level_ + 1);
+    if (!result_) result_ = enumDirective(builder_, level_ + 1);
+    if (!result_) result_ = defineDirective(builder_, level_ + 1);
+    if (!result_) result_ = filemodifyDirective(builder_, level_ + 1);
+    if (!result_) result_ = modifyDirective(builder_, level_ + 1);
+    if (!result_) result_ = namespaceDirective(builder_, level_ + 1);
+    if (!result_) result_ = segmentDirective(builder_, level_ + 1);
     return result_;
+  }
+
+  /* ********************************************************** */
+  // DIRECTIVE_DISK [LABEL] [parameterMap] LEFT_BRACE parameterMapList RIGHT_BRACE
+  public static boolean diskDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "diskDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_DISK)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_DISK);
+    result_ = result_ && diskDirective_1(builder_, level_ + 1);
+    result_ = result_ && diskDirective_2(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, LEFT_BRACE);
+    result_ = result_ && parameterMapList(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    exit_section_(builder_, marker_, DISK_DIRECTIVE, result_);
+    return result_;
+  }
+
+  // [LABEL]
+  private static boolean diskDirective_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "diskDirective_1")) return false;
+    consumeToken(builder_, LABEL);
+    return true;
+  }
+
+  // [parameterMap]
+  private static boolean diskDirective_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "diskDirective_2")) return false;
+    parameterMap(builder_, level_ + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -486,6 +601,32 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     boolean result_;
     result_ = consumeToken(builder_, "\"screencode_mixed\"");
     if (!result_) result_ = consumeToken(builder_, "\"screencode_upper\"");
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // DIRECTIVE_ENUM LEFT_BRACE parameter (COMMA parameter) RIGHT_BRACE
+  public static boolean enumDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "enumDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_ENUM)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, DIRECTIVE_ENUM, LEFT_BRACE);
+    result_ = result_ && parameter(builder_, level_ + 1);
+    result_ = result_ && enumDirective_3(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    exit_section_(builder_, marker_, ENUM_DIRECTIVE, result_);
+    return result_;
+  }
+
+  // COMMA parameter
+  private static boolean enumDirective_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "enumDirective_3")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, COMMA);
+    result_ = result_ && parameter(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
@@ -639,30 +780,30 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // expr ( COMMA expr )*
-  public static boolean exprList(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "exprList")) return false;
+  static boolean exprs(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "exprs")) return false;
     boolean result_;
-    Marker marker_ = enter_section_(builder_, level_, _NONE_, EXPR_LIST, "<expr list>");
+    Marker marker_ = enter_section_(builder_);
     result_ = expr(builder_, level_ + 1);
-    result_ = result_ && exprList_1(builder_, level_ + 1);
-    exit_section_(builder_, level_, marker_, result_, false, null);
+    result_ = result_ && exprs_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
   // ( COMMA expr )*
-  private static boolean exprList_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "exprList_1")) return false;
+  private static boolean exprs_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "exprs_1")) return false;
     while (true) {
       int pos_ = current_position_(builder_);
-      if (!exprList_1_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "exprList_1", pos_)) break;
+      if (!exprs_1_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "exprs_1", pos_)) break;
     }
     return true;
   }
 
   // COMMA expr
-  private static boolean exprList_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "exprList_1_0")) return false;
+  private static boolean exprs_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "exprs_1_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeToken(builder_, COMMA);
@@ -672,7 +813,20 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprList SEMICOLON exprList RIGHT_PARENTHESES
+  // DIRECTIVE_FILEMODIFY invocation
+  public static boolean filemodifyDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "filemodifyDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_FILEMODIFY)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_FILEMODIFY);
+    result_ = result_ && invocation(builder_, level_ + 1);
+    exit_section_(builder_, marker_, FILEMODIFY_DIRECTIVE, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PARENTHESES
   //     compound
   public static boolean forLoop(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "forLoop")) return false;
@@ -682,12 +836,25 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = consumeTokens(builder_, 0, DIRECTIVE_FOR, LEFT_PARENTHESES);
     result_ = result_ && defExprList(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, SEMICOLON);
-    result_ = result_ && exprList(builder_, level_ + 1);
+    result_ = result_ && exprs(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, SEMICOLON);
-    result_ = result_ && exprList(builder_, level_ + 1);
+    result_ = result_ && exprs(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, RIGHT_PARENTHESES);
     result_ = result_ && compound(builder_, level_ + 1);
     exit_section_(builder_, marker_, FOR_LOOP, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // DIRECTIVE_FUNCTION invocableDefinition
+  public static boolean functionDefinition(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "functionDefinition")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_FUNCTION)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_FUNCTION);
+    result_ = result_ && invocableDefinition(builder_, level_ + 1);
+    exit_section_(builder_, marker_, FUNCTION_DEFINITION, result_);
     return result_;
   }
 
@@ -852,24 +1019,67 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES |
-  //         // the following invocations do not require parentheses:
-  //         DIRECTIVE_UNARY expr |
-  //         DIRECTIVE_BINARY expr COMMA expr |
-  //         DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+  // LABEL LEFT_PARENTHESES identifierList? RIGHT_PARENTHESES LEFT_BRACE
+  //         ( statement )*
+  //         RIGHT_BRACE
+  static boolean invocableDefinition(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "invocableDefinition")) return false;
+    if (!nextTokenIs(builder_, LABEL)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, LABEL, LEFT_PARENTHESES);
+    result_ = result_ && invocableDefinition_2(builder_, level_ + 1);
+    result_ = result_ && consumeTokens(builder_, 0, RIGHT_PARENTHESES, LEFT_BRACE);
+    result_ = result_ && invocableDefinition_5(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // identifierList?
+  private static boolean invocableDefinition_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "invocableDefinition_2")) return false;
+    identifierList(builder_, level_ + 1);
+    return true;
+  }
+
+  // ( statement )*
+  private static boolean invocableDefinition_5(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "invocableDefinition_5")) return false;
+    while (true) {
+      int pos_ = current_position_(builder_);
+      if (!invocableDefinition_5_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "invocableDefinition_5", pos_)) break;
+    }
+    return true;
+  }
+
+  // ( statement )
+  private static boolean invocableDefinition_5_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "invocableDefinition_5_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = statement(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // callable LEFT_PARENTHESES exprs? RIGHT_PARENTHESES |
+  //         nArityDirectives |
+  //         assert
   public static boolean invocation(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "invocation")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, INVOCATION, "<invocation>");
     result_ = invocation_0(builder_, level_ + 1);
-    if (!result_) result_ = invocation_1(builder_, level_ + 1);
-    if (!result_) result_ = invocation_2(builder_, level_ + 1);
-    if (!result_) result_ = invocation_3(builder_, level_ + 1);
+    if (!result_) result_ = nArityDirectives(builder_, level_ + 1);
+    if (!result_) result_ = assert_$(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
 
-  // callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES
+  // callable LEFT_PARENTHESES exprs? RIGHT_PARENTHESES
   private static boolean invocation_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "invocation_0")) return false;
     boolean result_;
@@ -882,50 +1092,11 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // exprList?
+  // exprs?
   private static boolean invocation_0_2(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "invocation_0_2")) return false;
-    exprList(builder_, level_ + 1);
+    exprs(builder_, level_ + 1);
     return true;
-  }
-
-  // DIRECTIVE_UNARY expr
-  private static boolean invocation_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "invocation_1")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, DIRECTIVE_UNARY);
-    result_ = result_ && expr(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // DIRECTIVE_BINARY expr COMMA expr
-  private static boolean invocation_2(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "invocation_2")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, DIRECTIVE_BINARY);
-    result_ = result_ && expr(builder_, level_ + 1);
-    result_ = result_ && consumeToken(builder_, COMMA);
-    result_ = result_ && expr(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // DIRECTIVE_TERNARY expr COMMA expr COMMA expr
-  private static boolean invocation_3(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "invocation_3")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, DIRECTIVE_TERNARY);
-    result_ = result_ && expr(builder_, level_ + 1);
-    result_ = result_ && consumeToken(builder_, COMMA);
-    result_ = result_ && expr(builder_, level_ + 1);
-    result_ = result_ && consumeToken(builder_, COMMA);
-    result_ = result_ && expr(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
   }
 
   /* ********************************************************** */
@@ -997,48 +1168,96 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DIRECTIVE_DEF_MACRO LABEL LEFT_PARENTHESES identifierList? RIGHT_PARENTHESES LEFT_BRACE
-  //     ( statement )*
-  //     RIGHT_BRACE
+  // DIRECTIVE_DEF_MACRO invocableDefinition
   public static boolean macroDefinition(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "macroDefinition")) return false;
     if (!nextTokenIs(builder_, DIRECTIVE_DEF_MACRO)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = consumeTokens(builder_, 0, DIRECTIVE_DEF_MACRO, LABEL, LEFT_PARENTHESES);
-    result_ = result_ && macroDefinition_3(builder_, level_ + 1);
-    result_ = result_ && consumeTokens(builder_, 0, RIGHT_PARENTHESES, LEFT_BRACE);
-    result_ = result_ && macroDefinition_6(builder_, level_ + 1);
-    result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    result_ = consumeToken(builder_, DIRECTIVE_DEF_MACRO);
+    result_ = result_ && invocableDefinition(builder_, level_ + 1);
     exit_section_(builder_, marker_, MACRO_DEFINITION, result_);
     return result_;
   }
 
-  // identifierList?
-  private static boolean macroDefinition_3(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "macroDefinition_3")) return false;
-    identifierList(builder_, level_ + 1);
-    return true;
-  }
-
-  // ( statement )*
-  private static boolean macroDefinition_6(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "macroDefinition_6")) return false;
-    while (true) {
-      int pos_ = current_position_(builder_);
-      if (!macroDefinition_6_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "macroDefinition_6", pos_)) break;
-    }
-    return true;
-  }
-
-  // ( statement )
-  private static boolean macroDefinition_6_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "macroDefinition_6_0")) return false;
+  /* ********************************************************** */
+  // DIRECTIVE_MODIFY invocation block
+  public static boolean modifyDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "modifyDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_MODIFY)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = statement(builder_, level_ + 1);
+    result_ = consumeToken(builder_, DIRECTIVE_MODIFY);
+    result_ = result_ && invocation(builder_, level_ + 1);
+    result_ = result_ && block(builder_, level_ + 1);
+    exit_section_(builder_, marker_, MODIFY_DIRECTIVE, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // DIRECTIVE_UNARY expr |
+  //         DIRECTIVE_BINARY expr COMMA expr |
+  //         DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+  static boolean nArityDirectives(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "nArityDirectives")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = nArityDirectives_0(builder_, level_ + 1);
+    if (!result_) result_ = nArityDirectives_1(builder_, level_ + 1);
+    if (!result_) result_ = nArityDirectives_2(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // DIRECTIVE_UNARY expr
+  private static boolean nArityDirectives_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "nArityDirectives_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_UNARY);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // DIRECTIVE_BINARY expr COMMA expr
+  private static boolean nArityDirectives_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "nArityDirectives_1")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_BINARY);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, COMMA);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+  private static boolean nArityDirectives_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "nArityDirectives_2")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_TERNARY);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, COMMA);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, COMMA);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // DIRECTIVE_NAMESPACE LABEL block
+  public static boolean namespaceDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "namespaceDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_NAMESPACE)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, DIRECTIVE_NAMESPACE, LABEL);
+    result_ = result_ && block(builder_, level_ + 1);
+    exit_section_(builder_, marker_, NAMESPACE_DIRECTIVE, result_);
     return result_;
   }
 
@@ -1056,9 +1275,141 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (ASTERISK | ".pc") ASSIGN expr STRING? "virtual"?
+  // DIRECTIVE_PARAM parameterMap
+  public static boolean paramDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "paramDirective")) return false;
+    if (!nextTokenIs(builder_, DIRECTIVE_PARAM)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DIRECTIVE_PARAM);
+    result_ = result_ && parameterMap(builder_, level_ + 1);
+    exit_section_(builder_, marker_, PARAM_DIRECTIVE, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // LABEL [ASSIGN expr]
+  public static boolean parameter(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameter")) return false;
+    if (!nextTokenIs(builder_, LABEL)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, LABEL);
+    result_ = result_ && parameter_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, PARAMETER, result_);
+    return result_;
+  }
+
+  // [ASSIGN expr]
+  private static boolean parameter_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameter_1")) return false;
+    parameter_1_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // ASSIGN expr
+  private static boolean parameter_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameter_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, ASSIGN);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // parameter ( COMMA parameter )*
+  static boolean parameterList(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterList")) return false;
+    if (!nextTokenIs(builder_, LABEL)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = parameter(builder_, level_ + 1);
+    result_ = result_ && parameterList_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // ( COMMA parameter )*
+  private static boolean parameterList_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterList_1")) return false;
+    while (true) {
+      int pos_ = current_position_(builder_);
+      if (!parameterList_1_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "parameterList_1", pos_)) break;
+    }
+    return true;
+  }
+
+  // COMMA parameter
+  private static boolean parameterList_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterList_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, COMMA);
+    result_ = result_ && parameter(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // LEFT_BRACKET [ parameterList ] RIGHT_BRACKET
+  public static boolean parameterMap(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterMap")) return false;
+    if (!nextTokenIs(builder_, LEFT_BRACKET)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, LEFT_BRACKET);
+    result_ = result_ && parameterMap_1(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_BRACKET);
+    exit_section_(builder_, marker_, PARAMETER_MAP, result_);
+    return result_;
+  }
+
+  // [ parameterList ]
+  private static boolean parameterMap_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterMap_1")) return false;
+    parameterList(builder_, level_ + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // parameterMap [ COMMA parameterMapList ]
+  static boolean parameterMapList(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterMapList")) return false;
+    if (!nextTokenIs(builder_, LEFT_BRACKET)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = parameterMap(builder_, level_ + 1);
+    result_ = result_ && parameterMapList_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // [ COMMA parameterMapList ]
+  private static boolean parameterMapList_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterMapList_1")) return false;
+    parameterMapList_1_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // COMMA parameterMapList
+  private static boolean parameterMapList_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterMapList_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, COMMA);
+    result_ = result_ && parameterMapList(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // (ASTERISK | DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
   public static boolean pcAssignment(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pcAssignment")) return false;
+    if (!nextTokenIs(builder_, "<pc assignment>", ASTERISK, DIRECTIVE_PC)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, PC_ASSIGNMENT, "<pc assignment>");
     result_ = pcAssignment_0(builder_, level_ + 1);
@@ -1070,12 +1421,12 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // ASTERISK | ".pc"
+  // ASTERISK | DIRECTIVE_PC
   private static boolean pcAssignment_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pcAssignment_0")) return false;
     boolean result_;
     result_ = consumeToken(builder_, ASTERISK);
-    if (!result_) result_ = consumeToken(builder_, ".pc");
+    if (!result_) result_ = consumeToken(builder_, DIRECTIVE_PC);
     return result_;
   }
 
@@ -1151,6 +1502,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // compound |
   //            macroDefinition |
+  //            functionDefinition |
   //            niladic |
   // //           STRING |
   // //           NUMBER |
@@ -1210,6 +1562,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_, level_, _NONE_, ROOT, "<root>");
     result_ = compound(builder_, level_ + 1);
     if (!result_) result_ = macroDefinition(builder_, level_ + 1);
+    if (!result_) result_ = functionDefinition(builder_, level_ + 1);
     if (!result_) result_ = niladic(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, LEFT_PARENTHESES);
     if (!result_) result_ = consumeToken(builder_, RIGHT_PARENTHESES);
@@ -1269,10 +1622,41 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
+  public static boolean segmentDirective(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "segmentDirective")) return false;
+    if (!nextTokenIs(builder_, "<segment directive>", DIRECTIVE_SEGMENT, DIRECTIVE_SEGMENT_DEF)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, SEGMENT_DIRECTIVE, "<segment directive>");
+    result_ = segmentDirective_0(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, LABEL);
+    result_ = result_ && segmentDirective_2(builder_, level_ + 1);
+    exit_section_(builder_, level_, marker_, result_, false, null);
+    return result_;
+  }
+
+  // DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF
+  private static boolean segmentDirective_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "segmentDirective_0")) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, DIRECTIVE_SEGMENT);
+    if (!result_) result_ = consumeToken(builder_, DIRECTIVE_SEGMENT_DEF);
+    return result_;
+  }
+
+  // [parameterMap]
+  private static boolean segmentDirective_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "segmentDirective_2")) return false;
+    parameterMap(builder_, level_ + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
   // labelsDef |
   //     import |
   //     dataDefinition |
   //     invocation |
+  //     assert |
   //     block |
   //     pcAssignment |
   //     labelAssignment |
@@ -1290,6 +1674,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = import_$(builder_, level_ + 1);
     if (!result_) result_ = dataDefinition(builder_, level_ + 1);
     if (!result_) result_ = invocation(builder_, level_ + 1);
+    if (!result_) result_ = assert_$(builder_, level_ + 1);
     if (!result_) result_ = block(builder_, level_ + 1);
     if (!result_) result_ = pcAssignment(builder_, level_ + 1);
     if (!result_) result_ = labelAssignment(builder_, level_ + 1);

@@ -52,11 +52,15 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 
 * .assert, .plugin and .filenamespace
 
+* functions
+* segments
+* parameter maps
+* automated negative tests
+* .modify, .namespace, .disk, .define, .filemodify
+
 ## TODO:
 
 * ternary operator ( ? : )
-* named attribute lists for certain directives
-* segments
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces
@@ -65,7 +69,6 @@ These imprpovements are comprised of a number of changes focused on the .flex an
     * complete coverage of operator precedence     
     * scope definitions
     * scoped macro and label refs
-    * functions
     * get more sample code for kickassembler using 
     [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
     * prefix logical negation operator has precedence over infix/postfix arithmetic operators
@@ -87,7 +90,6 @@ extension as per
 * grammar: "@"-prefixed labels - the prefix is optional and not part of the label name (probably for all
 identifiers)
 * grammar: addressing modes - we can detect legal addressing modes
-* grammar: distinguishing functions and macros
 * grammar: pseudo commands 
 * insights: undefined symbols
 * insights: missing include files

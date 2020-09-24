@@ -1,0 +1,13 @@
+Kick Assembler file
+  KickAssemblerRootImpl(ROOT)
+    KickAssemblerStatementImpl(STATEMENT)
+      KickAssemblerLabelAssignmentImpl(LABEL_ASSIGNMENT)
+        PsiElement(KickAssemblerTokenType.DIRECTIVE_DEF)('.const')
+        PsiElement(KickAssemblerTokenType.LABEL)('fname')
+        PsiElement(KickAssemblerTokenType.ASSIGN)('=')
+        KickAssemblerExprImpl(EXPR)
+          KickAssemblerBasicValueImpl(BASIC_VALUE)
+            PsiElement(KickAssemblerTokenType.STRING)('"thefile"')
+  PsiElement(KickAssemblerTokenType.PREPROCESSOR_IMPORT)('#import')
+  PsiErrorElement:KickAssemblerTokenType.STRING expected, got 'fname'
+    PsiElement(KickAssemblerTokenType.LABEL)('fname')

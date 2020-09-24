@@ -11,6 +11,9 @@ public interface KickAssemblerRoot extends PsiElement {
   KickAssemblerBlock getBlock();
 
   @Nullable
+  KickAssemblerFunctionDefinition getFunctionDefinition();
+
+  @Nullable
   KickAssemblerMacroDefinition getMacroDefinition();
 
   @Nullable

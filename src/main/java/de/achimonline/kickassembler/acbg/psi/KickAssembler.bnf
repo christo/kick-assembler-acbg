@@ -18,6 +18,8 @@ kickAssemblerFile ::= root*
 root ::= (
            compound |
            macroDefinition |
+           functionDefinition |
+
            niladic |
 
 //           STRING |
@@ -86,14 +88,14 @@ encodingDirective ::= (
 
 private labelsDef ::= LABEL_DEF | MULTILABEL_DEF
 
-dataDefinition ::= DIRECTIVE_DATA exprList
+dataDefinition ::= DIRECTIVE_DATA exprs
 
 cpuDirective ::= (
     DIRECTIVE_CPU ("_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
 )
 
 pcAssignment ::= (
-    (ASTERISK | ".pc") ASSIGN expr STRING? "virtual"?
+    (ASTERISK | DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
 )
 
 labelAssignment ::= DIRECTIVE_DEF LABEL ASSIGN expr
@@ -124,6 +126,7 @@ statement ::= (
     import |
     dataDefinition |
     invocation |
+    assert |
     block |
     pcAssignment |
     labelAssignment |
@@ -140,13 +143,25 @@ private directive ::= (
     encodingDirective |
     breakDirective |
     watchDirective |
-    alignDirective
+    alignDirective |
+    paramDirective |
+    diskDirective |
+    enumDirective |
+    defineDirective |
+    filemodifyDirective |
+    modifyDirective |
+    namespaceDirective |
+    segmentDirective
 )
 
-macroDefinition ::= (
-    DIRECTIVE_DEF_MACRO LABEL LEFT_PARENTHESES identifierList? RIGHT_PARENTHESES LEFT_BRACE
-    ( statement )*
-    RIGHT_BRACE
+macroDefinition ::= DIRECTIVE_DEF_MACRO invocableDefinition
+
+functionDefinition ::= DIRECTIVE_FUNCTION invocableDefinition
+
+private invocableDefinition ::= (
+    LABEL LEFT_PARENTHESES identifierList? RIGHT_PARENTHESES LEFT_BRACE
+        ( statement )*
+        RIGHT_BRACE
 )
 
 bracketed ::= (
@@ -190,23 +205,27 @@ private exprLeft ::= (
 
 expr ::= ( exprLeft ( infixOperator expr )* )
 
-exprList ::= expr ( COMMA expr )*
+private exprs ::= expr ( COMMA expr )*
 
 private callable ::= (
+    // docs as at v5.16: colon before macro invocation is optional from version 4
+    // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
     ( [COLON] ( scopedLabel | BASIC_UPSTART ) ) | DIRECTIVE_BUILTIN
 )
 
 invocation ::= (
-    // docs as at v5.16: colon before macro invocation is optional from version 4
-    // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
     (
-        callable LEFT_PARENTHESES exprList? RIGHT_PARENTHESES |
-        // the following invocations do not require parentheses:
-        DIRECTIVE_UNARY expr |
-        DIRECTIVE_BINARY expr COMMA expr |
-        DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+        callable LEFT_PARENTHESES exprs? RIGHT_PARENTHESES |
+        nArityDirectives |
+        assert
     )
 )
+
+private nArityDirectives ::= DIRECTIVE_UNARY expr |
+        DIRECTIVE_BINARY expr COMMA expr |
+        DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+
+assert ::= DIRECTIVE_ASSERT STRING COMMA (expr | block) COMMA (expr | block)
 
 private declarationKeyword ::= "var" | "const"
 
@@ -215,7 +234,7 @@ defExpr ::= ( declarationKeyword? LABEL ASSIGN expr ) | expr
 defExprList ::=  defExpr ( COMMA defExpr )*
 
 forLoop ::= (
-    DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprList SEMICOLON exprList RIGHT_PARENTHESES
+    DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PARENTHESES
     compound
 )
 
@@ -239,3 +258,28 @@ alignDirective ::= DIRECTIVE_ALIGN expr
 evalExpression ::= DIRECTIVE_EVAL expr
 
 niladic ::= DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE
+
+segmentDirective ::= (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
+
+paramDirective ::= DIRECTIVE_PARAM parameterMap
+
+diskDirective ::= DIRECTIVE_DISK [LABEL] [parameterMap] LEFT_BRACE parameterMapList RIGHT_BRACE
+
+enumDirective ::= DIRECTIVE_ENUM LEFT_BRACE parameter (COMMA parameter) RIGHT_BRACE
+
+defineDirective ::= DIRECTIVE_DEFINE LABEL ( COMMA LABEL)* block
+
+filemodifyDirective ::= DIRECTIVE_FILEMODIFY invocation
+
+modifyDirective ::= DIRECTIVE_MODIFY invocation block
+
+namespaceDirective ::= DIRECTIVE_NAMESPACE LABEL block
+
+private parameterMapList ::= parameterMap [ COMMA parameterMapList ]
+
+private parameterList ::= parameter ( COMMA parameter )*
+
+parameterMap ::= LEFT_BRACKET [ parameterList ] RIGHT_BRACKET
+
+parameter ::= LABEL [ASSIGN expr]
+

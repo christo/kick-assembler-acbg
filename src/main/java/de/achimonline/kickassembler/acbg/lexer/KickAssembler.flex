@@ -62,29 +62,29 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "#undef"      { return KickAssemblerTypes.PREPROCESSOR; }
 
     ".align"         { return KickAssemblerTypes.DIRECTIVE_ALIGN; }
-    ".assert"        { return KickAssemblerTypes.DIRECTIVE_TERNARY; }
+    ".assert"        { return KickAssemblerTypes.DIRECTIVE_ASSERT; }
     ".asserterror"   { return KickAssemblerTypes.DIRECTIVE_BINARY; }
     ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
     ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".byte"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".const"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
     ".cpu"           { return KickAssemblerTypes.DIRECTIVE_CPU; }
-    ".define"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".disk"          { return KickAssemblerTypes.DIRECTIVE; }
+    ".define"        { return KickAssemblerTypes.DIRECTIVE_DEFINE; }
+    ".disk"          { return KickAssemblerTypes.DIRECTIVE_DISK; }
     ".dw"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".dword"         { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".encoding"      { return KickAssemblerTypes.DIRECTIVE_ENCODING; }
-    ".enum"          { return KickAssemblerTypes.DIRECTIVE; }
+    ".enum"          { return KickAssemblerTypes.DIRECTIVE_ENUM; }
     ".error"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".errorif"       { return KickAssemblerTypes.DIRECTIVE_BINARY; }
     ".eval"          { return KickAssemblerTypes.DIRECTIVE_EVAL; }
-    ".file"          { return KickAssemblerTypes.DIRECTIVE; }
-    ".filemodify"    { return KickAssemblerTypes.DIRECTIVE; }
+    ".file"          { return KickAssemblerTypes.DIRECTIVE_PARAM; }
+    ".filemodify"    { return KickAssemblerTypes.DIRECTIVE_FILEMODIFY; }
     ".filenamespace" { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".fill"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".fillword"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".for"           { return KickAssemblerTypes.DIRECTIVE_FOR; }
-    ".function"      { return KickAssemblerTypes.DIRECTIVE; }
+    ".function"      { return KickAssemblerTypes.DIRECTIVE_FUNCTION; }
     ".if"            { return KickAssemblerTypes.DIRECTIVE_IF; }
     ".import"        { return KickAssemblerTypes.DIRECTIVE_IMPORT; }
     ".importonce"    { return KickAssemblerTypes.DIRECTIVE_IMPORTONCE; }   // deprecated
@@ -92,18 +92,18 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ".lohifill"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".macro"         { return KickAssemblerTypes.DIRECTIVE_DEF_MACRO; }
     ".memblock"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".modify"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".namespace"     { return KickAssemblerTypes.DIRECTIVE; }
-    ".pc"            { return KickAssemblerTypes.DIRECTIVE; }
+    ".modify"        { return KickAssemblerTypes.DIRECTIVE_MODIFY; }
+    ".namespace"     { return KickAssemblerTypes.DIRECTIVE_NAMESPACE; }
+    ".pc"            { return KickAssemblerTypes.DIRECTIVE_PC; }
     ".plugin"        { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".print"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".printnow"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
     ".pseudocommand" { return KickAssemblerTypes.DIRECTIVE; }
     ".pseudopc"      { return KickAssemblerTypes.DIRECTIVE; }
     ".return"        { return KickAssemblerTypes.DIRECTIVE_RETURN; }
-    ".segment"       { return KickAssemblerTypes.DIRECTIVE; }
-    ".segmentdef"    { return KickAssemblerTypes.DIRECTIVE; }
-    ".segmentout"    { return KickAssemblerTypes.DIRECTIVE; }
+    ".segment"       { return KickAssemblerTypes.DIRECTIVE_SEGMENT; }
+    ".segmentdef"    { return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF; }
+    ".segmentout"    { return KickAssemblerTypes.DIRECTIVE_PARAM; }
     ".struct"        { return KickAssemblerTypes.DIRECTIVE; }
     ".te"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
     ".text"          { return KickAssemblerTypes.DIRECTIVE_DATA; }

@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface KickAssemblerInvocation extends PsiElement {
 
   @Nullable
-  KickAssemblerExpr getExpr();
+  KickAssemblerAssert getAssert();
 
-  @Nullable
-  KickAssemblerExprList getExprList();
+  @NotNull
+  List<KickAssemblerExpr> getExprList();
 
   @Nullable
   KickAssemblerScopedLabel getScopedLabel();

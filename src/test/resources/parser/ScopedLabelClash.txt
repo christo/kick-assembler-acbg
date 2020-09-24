@@ -1,0 +1,11 @@
+Kick Assembler file
+  KickAssemblerRootImpl(ROOT)
+    KickAssemblerStatementImpl(STATEMENT)
+      KickAssemblerInstructionImpl(INSTRUCTION)
+        PsiElement(KickAssemblerTokenType.MNEMONIC)('lda')
+        KickAssemblerArgumentImpl(ARGUMENT)
+          KickAssemblerExprImpl(EXPR)
+            KickAssemblerScopedLabelImpl(SCOPED_LABEL)
+              PsiElement(KickAssemblerTokenType.LABEL)('TITLECARD')
+    PsiElement(KickAssemblerTokenType.MNEMONIC_EXTENSION_DEPRECATED)('.i')
+  PsiElement(KickAssemblerTokenType.LABEL)('sComplete')

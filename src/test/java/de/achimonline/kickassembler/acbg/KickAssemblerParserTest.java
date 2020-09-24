@@ -142,10 +142,22 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testAssertBlocks() {
+        doTest(true);
+    }
+
     /**
-     * Note this test fails on kick but only after parsing correctly.
+     * Note this source fail to assemble on kick but only after parsing correctly.
      */
     public void testForLoopStaticFail() {
+        doTest(true);
+    }
+
+    public void testParameterMaps() {
+        doTest(true);
+    }
+
+    public void testSegments() {
         doTest(true);
     }
 

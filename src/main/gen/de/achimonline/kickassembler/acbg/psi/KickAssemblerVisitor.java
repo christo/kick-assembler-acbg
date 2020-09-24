@@ -15,6 +15,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAssert(@NotNull KickAssemblerAssert o) {
+    visitPsiElement(o);
+  }
+
   public void visitBasicValue(@NotNull KickAssemblerBasicValue o) {
     visitPsiElement(o);
   }
@@ -47,7 +51,19 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDefineDirective(@NotNull KickAssemblerDefineDirective o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDiskDirective(@NotNull KickAssemblerDiskDirective o) {
+    visitPsiElement(o);
+  }
+
   public void visitEncodingDirective(@NotNull KickAssemblerEncodingDirective o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumDirective(@NotNull KickAssemblerEnumDirective o) {
     visitPsiElement(o);
   }
 
@@ -63,11 +79,15 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitExprList(@NotNull KickAssemblerExprList o) {
+  public void visitFilemodifyDirective(@NotNull KickAssemblerFilemodifyDirective o) {
     visitPsiElement(o);
   }
 
   public void visitForLoop(@NotNull KickAssemblerForLoop o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunctionDefinition(@NotNull KickAssemblerFunctionDefinition o) {
     visitPsiElement(o);
   }
 
@@ -103,7 +123,27 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitModifyDirective(@NotNull KickAssemblerModifyDirective o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamespaceDirective(@NotNull KickAssemblerNamespaceDirective o) {
+    visitPsiElement(o);
+  }
+
   public void visitNiladic(@NotNull KickAssemblerNiladic o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParamDirective(@NotNull KickAssemblerParamDirective o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParameter(@NotNull KickAssemblerParameter o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParameterMap(@NotNull KickAssemblerParameterMap o) {
     visitPsiElement(o);
   }
 
@@ -124,6 +164,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitScopedLabel(@NotNull KickAssemblerScopedLabel o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSegmentDirective(@NotNull KickAssemblerSegmentDirective o) {
     visitPsiElement(o);
   }
 

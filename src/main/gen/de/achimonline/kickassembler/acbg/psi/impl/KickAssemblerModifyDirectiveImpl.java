@@ -11,14 +11,14 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerExprListImpl extends ASTWrapperPsiElement implements KickAssemblerExprList {
+public class KickAssemblerModifyDirectiveImpl extends ASTWrapperPsiElement implements KickAssemblerModifyDirective {
 
-  public KickAssemblerExprListImpl(@NotNull ASTNode node) {
+  public KickAssemblerModifyDirectiveImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitExprList(this);
+    visitor.visitModifyDirective(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -28,8 +28,14 @@ public class KickAssemblerExprListImpl extends ASTWrapperPsiElement implements K
 
   @Override
   @NotNull
-  public List<KickAssemblerExpr> getExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
+  public KickAssemblerBlock getBlock() {
+    return findNotNullChildByClass(KickAssemblerBlock.class);
+  }
+
+  @Override
+  @NotNull
+  public KickAssemblerInvocation getInvocation() {
+    return findNotNullChildByClass(KickAssemblerInvocation.class);
   }
 
 }

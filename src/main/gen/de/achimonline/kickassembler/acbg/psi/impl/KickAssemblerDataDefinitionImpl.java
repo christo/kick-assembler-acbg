@@ -28,8 +28,8 @@ public class KickAssemblerDataDefinitionImpl extends ASTWrapperPsiElement implem
 
   @Override
   @NotNull
-  public KickAssemblerExprList getExprList() {
-    return findNotNullChildByClass(KickAssemblerExprList.class);
+  public List<KickAssemblerExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
   }
 
 }

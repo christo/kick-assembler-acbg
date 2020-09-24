@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerDataDefinition extends PsiElement {
+public interface KickAssemblerFilemodifyDirective extends PsiElement {
 
   @NotNull
-  List<KickAssemblerExpr> getExprList();
+  KickAssemblerInvocation getInvocation();
 
 }

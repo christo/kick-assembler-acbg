@@ -11,6 +11,9 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerAlignDirective getAlignDirective();
 
   @Nullable
+  KickAssemblerAssert getAssert();
+
+  @Nullable
   KickAssemblerBlock getBlock();
 
   @Nullable
@@ -23,10 +26,22 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerDataDefinition getDataDefinition();
 
   @Nullable
+  KickAssemblerDefineDirective getDefineDirective();
+
+  @Nullable
+  KickAssemblerDiskDirective getDiskDirective();
+
+  @Nullable
   KickAssemblerEncodingDirective getEncodingDirective();
 
   @Nullable
+  KickAssemblerEnumDirective getEnumDirective();
+
+  @Nullable
   KickAssemblerEvalExpression getEvalExpression();
+
+  @Nullable
+  KickAssemblerFilemodifyDirective getFilemodifyDirective();
 
   @Nullable
   KickAssemblerForLoop getForLoop();
@@ -47,7 +62,19 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerLabelAssignment getLabelAssignment();
 
   @Nullable
+  KickAssemblerModifyDirective getModifyDirective();
+
+  @Nullable
+  KickAssemblerNamespaceDirective getNamespaceDirective();
+
+  @Nullable
+  KickAssemblerParamDirective getParamDirective();
+
+  @Nullable
   KickAssemblerPcAssignment getPcAssignment();
+
+  @Nullable
+  KickAssemblerSegmentDirective getSegmentDirective();
 
   @Nullable
   KickAssemblerWatchDirective getWatchDirective();
