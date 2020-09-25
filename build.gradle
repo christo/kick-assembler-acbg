@@ -52,6 +52,7 @@ task generateLexer(type: GenerateLexer) {
     source = 'src/main/java/de/achimonline/kickassembler/acbg/lexer/KickAssembler.flex'
     targetDir = 'src/main/gen/de/achimonline/kickassembler/acbg/lexer/'
     targetClass = 'KickAssemblerLexer'
+    purgeOldFiles = true
 }
 
 task generateParser(type: GenerateParser) {
@@ -59,4 +60,13 @@ task generateParser(type: GenerateParser) {
     targetRoot = 'src/main/gen'
     pathToParser = '/de/achimonline/kickassembler/acbg/parser/KickAssemblerParser.java'
     pathToPsiRoot = '/de/achimonline/kickassembler/acbg/psi'
+    purgeOldFiles = true
+}
+
+clean.doFirst {
+    delete "${rootDir}/src/test/resources/parser/*.sym"
+    delete "${rootDir}/src/test/resources/parser/*.prg"
+    delete "${rootDir}/src/test/resources/parser/asminfo.txt"
+    delete "${rootDir}/src/test/resources/parser/ByteDump.txt"
+    delete "${rootDir}/src/test/resources/parser/DeleteMe.bin"
 }
