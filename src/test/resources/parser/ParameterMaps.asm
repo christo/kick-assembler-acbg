@@ -4,7 +4,7 @@
 .file [name="MyFile.prg", segments="Code"]
 
 // Save a bin file containing the code and data segment
-.file [name="MyFile.bin", type="bin", segments="Code,Data"]
+.file [name="DeleteMe.bin", type="bin", segments="Code,Data"]
 
 // Save one file for each memoryblock in the DATA segment
 // ('Data_Sinus.prg' and 'Data_Mul3.prg' are created)

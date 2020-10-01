@@ -1471,7 +1471,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MNEMONIC [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]
+  // MNEMONIC [ DOT [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]]
   static boolean qualifiedMnemonic(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "qualifiedMnemonic")) return false;
     if (!nextTokenIs(builder_, MNEMONIC)) return false;
@@ -1483,16 +1483,34 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]
+  // [ DOT [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]]
   private static boolean qualifiedMnemonic_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1")) return false;
     qualifiedMnemonic_1_0(builder_, level_ + 1);
     return true;
   }
 
-  // MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
+  // DOT [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]
   private static boolean qualifiedMnemonic_1_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DOT);
+    result_ = result_ && qualifiedMnemonic_1_0_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]
+  private static boolean qualifiedMnemonic_1_0_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1_0_1")) return false;
+    qualifiedMnemonic_1_0_1_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
+  private static boolean qualifiedMnemonic_1_0_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1_0_1_0")) return false;
     boolean result_;
     result_ = consumeToken(builder_, MNEMONIC_EXTENSION);
     if (!result_) result_ = consumeToken(builder_, MNEMONIC_EXTENSION_DEPRECATED);
@@ -1652,7 +1670,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // labelsDef |
+  // instruction |
+  //     labelsDef |
   //     import |
   //     dataDefinition |
   //     invocation |
@@ -1664,13 +1683,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   //     forLoop |
   //     ifElse |
   //     while |
-  //     evalExpression |
-  //     instruction
+  //     evalExpression
   public static boolean statement(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "statement")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, STATEMENT, "<statement>");
-    result_ = labelsDef(builder_, level_ + 1);
+    result_ = instruction(builder_, level_ + 1);
+    if (!result_) result_ = labelsDef(builder_, level_ + 1);
     if (!result_) result_ = import_$(builder_, level_ + 1);
     if (!result_) result_ = dataDefinition(builder_, level_ + 1);
     if (!result_) result_ = invocation(builder_, level_ + 1);
@@ -1683,7 +1702,6 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = ifElse(builder_, level_ + 1);
     if (!result_) result_ = while_$(builder_, level_ + 1);
     if (!result_) result_ = evalExpression(builder_, level_ + 1);
-    if (!result_) result_ = instruction(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }

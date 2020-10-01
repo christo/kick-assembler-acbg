@@ -33,7 +33,7 @@ Kick Assembler file
             PsiElement(KickAssemblerTokenType.ASSIGN)('=')
             KickAssemblerExprImpl(EXPR)
               KickAssemblerBasicValueImpl(BASIC_VALUE)
-                PsiElement(KickAssemblerTokenType.STRING)('"MyFile.bin"')
+                PsiElement(KickAssemblerTokenType.STRING)('"DeleteMe.bin"')
           PsiElement(KickAssemblerTokenType.COMMA)(',')
           KickAssemblerParameterImpl(PARAMETER)
             PsiElement(KickAssemblerTokenType.LABEL)('type')

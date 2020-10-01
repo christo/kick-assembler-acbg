@@ -21,7 +21,11 @@ import com.intellij.psi.TokenType;
 %eof}
 
 %{
-    StringBuffer string = new StringBuffer();
+
+private void pm() {
+      if (zzLexicalState == POST_MNEMONIC) yybegin(YYINITIAL);
+}
+
 %}
 
 LINE_BREAK  = \n|\r|\r\n
@@ -40,233 +44,244 @@ MULTILABEL_DEF = "!"{LABEL}?":"
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
-%state STRING_ESCAPE
+%xstate STRING_ESCAPE POST_MNEMONIC MNEMONIC_SUFFIX
 
 %%
 
-<YYINITIAL> {
-    ({WHITE_SPACE}|{LINE_BREAK})+ { return TokenType.WHITE_SPACE; }
+<YYINITIAL, POST_MNEMONIC> {
+    ({WHITE_SPACE}|{LINE_BREAK})+ { pm(); return TokenType.WHITE_SPACE; }
 
-    \"([^\"\r\n])*\" { return KickAssemblerTypes.STRING; }
+    \"([^\"\r\n])*\" { pm(); return KickAssemblerTypes.STRING; }
 
-    "BasicUpstart2" { return KickAssemblerTypes.BASIC_UPSTART; }
+    "BasicUpstart2" { pm(); return KickAssemblerTypes.BASIC_UPSTART; }
 
-    "#define"     { return KickAssemblerTypes.PREPROCESSOR; }
-    "#elif"       { return KickAssemblerTypes.PREPROCESSOR; }
-    "#else"       { return KickAssemblerTypes.PREPROCESSOR; }
-    "#endif"      { return KickAssemblerTypes.PREPROCESSOR; }
-    "#if"         { return KickAssemblerTypes.PREPROCESSOR; }
-    "#import"     { return KickAssemblerTypes.PREPROCESSOR_IMPORT; }
-    "#importif"   { return KickAssemblerTypes.PREPROCESSOR; }
-    "#importonce" { return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE; }
-    "#undef"      { return KickAssemblerTypes.PREPROCESSOR; }
+    "#define"     { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#elif"       { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#else"       { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#endif"      { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#if"         { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#import"     { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORT; }
+    "#importif"   { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#importonce" { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE; }
+    "#undef"      { pm(); return KickAssemblerTypes.PREPROCESSOR; }
 
-    ".align"         { return KickAssemblerTypes.DIRECTIVE_ALIGN; }
-    ".assert"        { return KickAssemblerTypes.DIRECTIVE_ASSERT; }
-    ".asserterror"   { return KickAssemblerTypes.DIRECTIVE_BINARY; }
-    ".break"         { return KickAssemblerTypes.DIRECTIVE_BREAK; }
-    ".by"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".byte"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".const"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
-    ".cpu"           { return KickAssemblerTypes.DIRECTIVE_CPU; }
-    ".define"        { return KickAssemblerTypes.DIRECTIVE_DEFINE; }
-    ".disk"          { return KickAssemblerTypes.DIRECTIVE_DISK; }
-    ".dw"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".dword"         { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".encoding"      { return KickAssemblerTypes.DIRECTIVE_ENCODING; }
-    ".enum"          { return KickAssemblerTypes.DIRECTIVE_ENUM; }
-    ".error"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".errorif"       { return KickAssemblerTypes.DIRECTIVE_BINARY; }
-    ".eval"          { return KickAssemblerTypes.DIRECTIVE_EVAL; }
-    ".file"          { return KickAssemblerTypes.DIRECTIVE_PARAM; }
-    ".filemodify"    { return KickAssemblerTypes.DIRECTIVE_FILEMODIFY; }
-    ".filenamespace" { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".fill"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".fillword"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".for"           { return KickAssemblerTypes.DIRECTIVE_FOR; }
-    ".function"      { return KickAssemblerTypes.DIRECTIVE_FUNCTION; }
-    ".if"            { return KickAssemblerTypes.DIRECTIVE_IF; }
-    ".import"        { return KickAssemblerTypes.DIRECTIVE_IMPORT; }
-    ".importonce"    { return KickAssemblerTypes.DIRECTIVE_IMPORTONCE; }   // deprecated
-    ".label"         { return KickAssemblerTypes.DIRECTIVE_DEF; }
-    ".lohifill"      { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".macro"         { return KickAssemblerTypes.DIRECTIVE_DEF_MACRO; }
-    ".memblock"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".modify"        { return KickAssemblerTypes.DIRECTIVE_MODIFY; }
-    ".namespace"     { return KickAssemblerTypes.DIRECTIVE_NAMESPACE; }
-    ".pc"            { return KickAssemblerTypes.DIRECTIVE_PC; }
-    ".plugin"        { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".print"         { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".printnow"      { return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    ".pseudocommand" { return KickAssemblerTypes.DIRECTIVE; }
-    ".pseudopc"      { return KickAssemblerTypes.DIRECTIVE; }
-    ".return"        { return KickAssemblerTypes.DIRECTIVE_RETURN; }
-    ".segment"       { return KickAssemblerTypes.DIRECTIVE_SEGMENT; }
-    ".segmentdef"    { return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF; }
-    ".segmentout"    { return KickAssemblerTypes.DIRECTIVE_PARAM; }
-    ".struct"        { return KickAssemblerTypes.DIRECTIVE; }
-    ".te"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".text"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".var"           { return KickAssemblerTypes.DIRECTIVE_DEF; }
-    ".watch"         { return KickAssemblerTypes.DIRECTIVE_WATCH; }
-    ".while"         { return KickAssemblerTypes.DIRECTIVE_WHILE; }
-    ".wo"            { return KickAssemblerTypes.DIRECTIVE_DATA; }
-    ".word"          { return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".align"         { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN; }
+    ".assert"        { pm(); return KickAssemblerTypes.DIRECTIVE_ASSERT; }
+    ".asserterror"   { pm(); return KickAssemblerTypes.DIRECTIVE_BINARY; }
+    ".break"         { pm(); return KickAssemblerTypes.DIRECTIVE_BREAK; }
+    ".by"            { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".byte"          { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".const"         { pm(); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    ".cpu"           { pm(); return KickAssemblerTypes.DIRECTIVE_CPU; }
+    ".define"        { pm(); return KickAssemblerTypes.DIRECTIVE_DEFINE; }
+    ".disk"          { pm(); return KickAssemblerTypes.DIRECTIVE_DISK; }
+    ".dw"            { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".dword"         { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".encoding"      { pm(); return KickAssemblerTypes.DIRECTIVE_ENCODING; }
+    ".enum"          { pm(); return KickAssemblerTypes.DIRECTIVE_ENUM; }
+    ".error"         { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".errorif"       { pm(); return KickAssemblerTypes.DIRECTIVE_BINARY; }
+    ".eval"          { pm(); return KickAssemblerTypes.DIRECTIVE_EVAL; }
+    ".file"          { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM; }
+    ".filemodify"    { pm(); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY; }
+    ".filenamespace" { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".fill"          { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".fillword"      { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".for"           { pm(); return KickAssemblerTypes.DIRECTIVE_FOR; }
+    ".function"      { pm(); return KickAssemblerTypes.DIRECTIVE_FUNCTION; }
+    ".if"            { pm(); return KickAssemblerTypes.DIRECTIVE_IF; }
+    ".import"        { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORT; }
+    ".importonce"    { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE; }   // deprecated
+    ".label"         { pm(); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    ".lohifill"      { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".macro"         { pm(); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO; }
+    ".memblock"      { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".modify"        { pm(); return KickAssemblerTypes.DIRECTIVE_MODIFY; }
+    ".namespace"     { pm(); return KickAssemblerTypes.DIRECTIVE_NAMESPACE; }
+    ".pc"            { pm(); return KickAssemblerTypes.DIRECTIVE_PC; }
+    ".plugin"        { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".print"         { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".printnow"      { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
+    ".pseudocommand" { pm(); return KickAssemblerTypes.DIRECTIVE; }
+    ".pseudopc"      { pm(); return KickAssemblerTypes.DIRECTIVE; }
+    ".return"        { pm(); return KickAssemblerTypes.DIRECTIVE_RETURN; }
+    ".segment"       { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT; }
+    ".segmentdef"    { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF; }
+    ".segmentout"    { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM; }
+    ".struct"        { pm(); return KickAssemblerTypes.DIRECTIVE; }
+    ".te"            { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".text"          { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".var"           { pm(); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    ".watch"         { pm(); return KickAssemblerTypes.DIRECTIVE_WATCH; }
+    ".while"         { pm(); return KickAssemblerTypes.DIRECTIVE_WHILE; }
+    ".wo"            { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
+    ".word"          { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
 
+    "adc"|"ADC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "ahx"|"AHX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "alr"|"ALR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "anc"|"ANC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "and"|"AND" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "arr"|"ARR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "asl"|"ASL" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "axs"|"AXS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bcc"|"BCC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bcs"|"BCS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "beq"|"BEQ" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bit"|"BIT" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bmi"|"BMI" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bne"|"BNE" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bpl"|"BPL" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "brk"|"BRK" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bvc"|"BVC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bvs"|"BVS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "clc"|"CLC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "cld"|"CLD" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "cli"|"CLI" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "clv"|"CLV" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "cmp"|"CMP" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "cpx"|"CPX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "cpy"|"CPY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "dcp"|"DCP" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "dec"|"DEC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "dex"|"DEX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "dey"|"DEY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "eor"|"EOR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "inc"|"INC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "inx"|"INX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "iny"|"INY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "isc"|"ISC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "jmp"|"JMP" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "jsr"|"JSR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "las"|"LAS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "lax"|"LAX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "lda"|"LDA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "ldx"|"LDX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "ldy"|"LDY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "lsr"|"LSR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "nop"|"NOP" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "ora"|"ORA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "pha"|"PHA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "php"|"PHP" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "pla"|"PLA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "plp"|"PLP" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "rla"|"RLA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "rol"|"ROL" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "ror"|"ROR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "rra"|"RRA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "rti"|"RTI" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "rts"|"RTS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sax"|"SAX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sbc"|"SBC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sec"|"SEC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sed"|"SED" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sei"|"SEI" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "shx"|"SHX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "shy"|"SHY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "slo"|"SLO" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sre"|"SRE" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sta"|"STA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "stx"|"STX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sty"|"STY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "tas"|"TAS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "tax"|"TAX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "tay"|"TAY" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "tsx"|"TSX" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "txa"|"TXA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "txs"|"TXS" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "tya"|"TYA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "xaa"|"XAA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "bra"|"BRA" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sac"|"SAC" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "sir"|"SIR" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+
+    "sbc2"|"SBC2" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    "anc2"|"ANC2" { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+
+    "true"|"false" 	  { pm(); return KickAssemblerTypes.BOOLEAN; }
+    "null"            { pm(); return KickAssemblerTypes.NULL; }
+
+    {LABEL_DEF}       { pm(); return KickAssemblerTypes.LABEL_DEF; }
+    {MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
+    {LABEL}           { pm(); return KickAssemblerTypes.LABEL; }
+    {MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
+
+    "("  { pm(); return KickAssemblerTypes.LEFT_PARENTHESES; }
+    ")"  { pm(); return KickAssemblerTypes.RIGHT_PARENTHESES; }
+    "{"  { pm(); return KickAssemblerTypes.LEFT_BRACE; }
+    "}"  { pm(); return KickAssemblerTypes.RIGHT_BRACE; }
+    "["  { pm(); return KickAssemblerTypes.LEFT_BRACKET; }
+    "]"  { pm(); return KickAssemblerTypes.RIGHT_BRACKET; }
+
+    "#"	 { pm(); return KickAssemblerTypes.HASH; }
+    "="	 { pm(); return KickAssemblerTypes.ASSIGN; }
+    ","	 { pm(); return KickAssemblerTypes.COMMA; }
+    ";"	 { pm(); return KickAssemblerTypes.SEMICOLON; }
+    "<=" { pm(); return KickAssemblerTypes.LESS_EQUALS; }
+    ">=" { pm(); return KickAssemblerTypes.GREATER_EQUALS; }
+    "<"	 { pm(); return KickAssemblerTypes.LESS; }
+    ">"	 { pm(); return KickAssemblerTypes.GREATER; }
+    "&"	 { pm(); return KickAssemblerTypes.BIT_AND; }
+    "|"	 { pm(); return KickAssemblerTypes.BIT_OR; }
+    "^"	 { pm(); return KickAssemblerTypes.BIT_XOR; }
+    "~"	 { pm(); return KickAssemblerTypes.BIT_NOT; }
+    "<<" { pm(); return KickAssemblerTypes.SHIFT_LEFT; }
+    ">>" { pm(); return KickAssemblerTypes.SHIFT_RIGHT; }
+    "+"	 { pm(); return KickAssemblerTypes.PLUS; }
+    "-"	 { pm(); return KickAssemblerTypes.MINUS; }
+    "*"	 { pm(); return KickAssemblerTypes.ASTERISK; }
+    "/"	 { pm(); return KickAssemblerTypes.DIVIDE; }
+    "!=" { pm(); return KickAssemblerTypes.NOT_EQUAL; }
+    "==" { pm(); return KickAssemblerTypes.EQUAL; }
+    "&&" { pm(); return KickAssemblerTypes.AND; }
+    "||" { pm(); return KickAssemblerTypes.OR; }
+    "!"	 { pm(); return KickAssemblerTypes.NOT; }
+    "++" { pm(); return KickAssemblerTypes.PLUS_PLUS; }
+    "--" { pm(); return KickAssemblerTypes.MINUS_MINUS; }
+    "+=" { pm(); return KickAssemblerTypes.PLUS_EQUAL; }
+    "-=" { pm(); return KickAssemblerTypes.MINUS_EQUAL; }
+    "/=" { pm(); return KickAssemblerTypes.DIVIDE_EQUAL; }
+    ":"	 { pm(); return KickAssemblerTypes.COLON; }
+    "?"	 { pm(); return KickAssemblerTypes.QUESTION_MARK; }
+
+    "." {
+        if(zzLexicalState == POST_MNEMONIC) {
+            yybegin(MNEMONIC_SUFFIX);
+        }
+        return KickAssemblerTypes.DOT;
+    }
+
+
+    "@\"" { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN; }
+
+    {DEC_LITERAL}|{FLT_LITERAL}|{HEX_LITERAL}|{BIN_LITERAL} { pm(); return KickAssemblerTypes.NUMBER; }
+
+    {LINE_COMMENT}  { pm(); return KickAssemblerTypes.COMMENT_LINE; }
+    {BLOCK_COMMENT} { pm(); return KickAssemblerTypes.COMMENT_BLOCK; }
+
+    [^] { pm(); return KickAssemblerTypes.DUMMY; }
+}
+
+<MNEMONIC_SUFFIX> {
     /*
     These override the addressing mode of a mnemonic
     As at v5.16 see http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html
     */
-    ".a"             { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
-    ".abs"           { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
-    ".zp"            { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
-    ".z"             { return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    "a"             { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    "abs"           { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    "zp"            { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION; }
+    "z"             { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION; }
 
     /* Deprecated mnemonic extensions supported but discouraged. */
-    ".im"  | ".imm"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Immediate
-    ".zx"  | ".zpx"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Zeropage,x	lda.zpx table
-    ".zy"  | ".zpy"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Zeropage,y
-    ".izx" | ".izpx"	{ return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect zeropage,x
-    ".izy" | ".izpy"	{ return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect zeropage,y
-    ".ax"  | ".absx"    { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Absolute,x	lda.absx $1234
-    ".ay"  | ".absy"    { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Absolute,y
-    ".i"   | ".ind"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect	jmp.i $1000
-    ".r"   | ".rel"     { return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Relative to program counter
-
-    "adc"|"ADC" { return KickAssemblerTypes.MNEMONIC; }
-    "ahx"|"AHX" { return KickAssemblerTypes.MNEMONIC; }
-    "alr"|"ALR" { return KickAssemblerTypes.MNEMONIC; }
-    "anc"|"ANC" { return KickAssemblerTypes.MNEMONIC; }
-    "and"|"AND" { return KickAssemblerTypes.MNEMONIC; }
-    "arr"|"ARR" { return KickAssemblerTypes.MNEMONIC; }
-    "asl"|"ASL" { return KickAssemblerTypes.MNEMONIC; }
-    "axs"|"AXS" { return KickAssemblerTypes.MNEMONIC; }
-    "bcc"|"BCC" { return KickAssemblerTypes.MNEMONIC; }
-    "bcs"|"BCS" { return KickAssemblerTypes.MNEMONIC; }
-    "beq"|"BEQ" { return KickAssemblerTypes.MNEMONIC; }
-    "bit"|"BIT" { return KickAssemblerTypes.MNEMONIC; }
-    "bmi"|"BMI" { return KickAssemblerTypes.MNEMONIC; }
-    "bne"|"BNE" { return KickAssemblerTypes.MNEMONIC; }
-    "bpl"|"BPL" { return KickAssemblerTypes.MNEMONIC; }
-    "brk"|"BRK" { return KickAssemblerTypes.MNEMONIC; }
-    "bvc"|"BVC" { return KickAssemblerTypes.MNEMONIC; }
-    "bvs"|"BVS" { return KickAssemblerTypes.MNEMONIC; }
-    "clc"|"CLC" { return KickAssemblerTypes.MNEMONIC; }
-    "cld"|"CLD" { return KickAssemblerTypes.MNEMONIC; }
-    "cli"|"CLI" { return KickAssemblerTypes.MNEMONIC; }
-    "clv"|"CLV" { return KickAssemblerTypes.MNEMONIC; }
-    "cmp"|"CMP" { return KickAssemblerTypes.MNEMONIC; }
-    "cpx"|"CPX" { return KickAssemblerTypes.MNEMONIC; }
-    "cpy"|"CPY" { return KickAssemblerTypes.MNEMONIC; }
-    "dcp"|"DCP" { return KickAssemblerTypes.MNEMONIC; }
-    "dec"|"DEC" { return KickAssemblerTypes.MNEMONIC; }
-    "dex"|"DEX" { return KickAssemblerTypes.MNEMONIC; }
-    "dey"|"DEY" { return KickAssemblerTypes.MNEMONIC; }
-    "eor"|"EOR" { return KickAssemblerTypes.MNEMONIC; }
-    "inc"|"INC" { return KickAssemblerTypes.MNEMONIC; }
-    "inx"|"INX" { return KickAssemblerTypes.MNEMONIC; }
-    "iny"|"INY" { return KickAssemblerTypes.MNEMONIC; }
-    "isc"|"ISC" { return KickAssemblerTypes.MNEMONIC; }
-    "jmp"|"JMP" { return KickAssemblerTypes.MNEMONIC; }
-    "jsr"|"JSR" { return KickAssemblerTypes.MNEMONIC; }
-    "las"|"LAS" { return KickAssemblerTypes.MNEMONIC; }
-    "lax"|"LAX" { return KickAssemblerTypes.MNEMONIC; }
-    "lda"|"LDA" { return KickAssemblerTypes.MNEMONIC; }
-    "ldx"|"LDX" { return KickAssemblerTypes.MNEMONIC; }
-    "ldy"|"LDY" { return KickAssemblerTypes.MNEMONIC; }
-    "lsr"|"LSR" { return KickAssemblerTypes.MNEMONIC; }
-    "nop"|"NOP" { return KickAssemblerTypes.MNEMONIC; }
-    "ora"|"ORA" { return KickAssemblerTypes.MNEMONIC; }
-    "pha"|"PHA" { return KickAssemblerTypes.MNEMONIC; }
-    "php"|"PHP" { return KickAssemblerTypes.MNEMONIC; }
-    "pla"|"PLA" { return KickAssemblerTypes.MNEMONIC; }
-    "plp"|"PLP" { return KickAssemblerTypes.MNEMONIC; }
-    "rla"|"RLA" { return KickAssemblerTypes.MNEMONIC; }
-    "rol"|"ROL" { return KickAssemblerTypes.MNEMONIC; }
-    "ror"|"ROR" { return KickAssemblerTypes.MNEMONIC; }
-    "rra"|"RRA" { return KickAssemblerTypes.MNEMONIC; }
-    "rti"|"RTI" { return KickAssemblerTypes.MNEMONIC; }
-    "rts"|"RTS" { return KickAssemblerTypes.MNEMONIC; }
-    "sax"|"SAX" { return KickAssemblerTypes.MNEMONIC; }
-    "sbc"|"SBC" { return KickAssemblerTypes.MNEMONIC; }
-    "sec"|"SEC" { return KickAssemblerTypes.MNEMONIC; }
-    "sed"|"SED" { return KickAssemblerTypes.MNEMONIC; }
-    "sei"|"SEI" { return KickAssemblerTypes.MNEMONIC; }
-    "shx"|"SHX" { return KickAssemblerTypes.MNEMONIC; }
-    "shy"|"SHY" { return KickAssemblerTypes.MNEMONIC; }
-    "slo"|"SLO" { return KickAssemblerTypes.MNEMONIC; }
-    "sre"|"SRE" { return KickAssemblerTypes.MNEMONIC; }
-    "sta"|"STA" { return KickAssemblerTypes.MNEMONIC; }
-    "stx"|"STX" { return KickAssemblerTypes.MNEMONIC; }
-    "sty"|"STY" { return KickAssemblerTypes.MNEMONIC; }
-    "tas"|"TAS" { return KickAssemblerTypes.MNEMONIC; }
-    "tax"|"TAX" { return KickAssemblerTypes.MNEMONIC; }
-    "tay"|"TAY" { return KickAssemblerTypes.MNEMONIC; }
-    "tsx"|"TSX" { return KickAssemblerTypes.MNEMONIC; }
-    "txa"|"TXA" { return KickAssemblerTypes.MNEMONIC; }
-    "txs"|"TXS" { return KickAssemblerTypes.MNEMONIC; }
-    "tya"|"TYA" { return KickAssemblerTypes.MNEMONIC; }
-    "xaa"|"XAA" { return KickAssemblerTypes.MNEMONIC; }
-    "bra"|"BRA" { return KickAssemblerTypes.MNEMONIC; }
-    "sac"|"SAC" { return KickAssemblerTypes.MNEMONIC; }
-    "sir"|"SIR" { return KickAssemblerTypes.MNEMONIC; }
-
-    "sbc2"|"SBC2" { return KickAssemblerTypes.MNEMONIC; }
-    "anc2"|"ANC2" { return KickAssemblerTypes.MNEMONIC; }
-
-    "true"|"false" 	  { return KickAssemblerTypes.BOOLEAN; }
-    "null"            { return KickAssemblerTypes.NULL; }
-
-    {LABEL_DEF}       { return KickAssemblerTypes.LABEL_DEF; }
-    {MULTILABEL_DEF} { return KickAssemblerTypes.MULTILABEL_DEF; }
-    {LABEL}           { return KickAssemblerTypes.LABEL; }
-    {MULTILABEL}     { return KickAssemblerTypes.MULTILABEL; }
-
-    "("  { return KickAssemblerTypes.LEFT_PARENTHESES; }
-    ")"  { return KickAssemblerTypes.RIGHT_PARENTHESES; }
-    "{"  { return KickAssemblerTypes.LEFT_BRACE; }
-    "}"  { return KickAssemblerTypes.RIGHT_BRACE; }
-    "["  { return KickAssemblerTypes.LEFT_BRACKET; }
-    "]"  { return KickAssemblerTypes.RIGHT_BRACKET; }
-
-    "#"	 { return KickAssemblerTypes.HASH; }
-    "="	 { return KickAssemblerTypes.ASSIGN; }
-    ","	 { return KickAssemblerTypes.COMMA; }
-    ";"	 { return KickAssemblerTypes.SEMICOLON; }
-    "<=" { return KickAssemblerTypes.LESS_EQUALS; }
-    ">=" { return KickAssemblerTypes.GREATER_EQUALS; }
-    "<"	 { return KickAssemblerTypes.LESS; }
-    ">"	 { return KickAssemblerTypes.GREATER; }
-    "&"	 { return KickAssemblerTypes.BIT_AND; }
-    "|"	 { return KickAssemblerTypes.BIT_OR; }
-    "^"	 { return KickAssemblerTypes.BIT_XOR; }
-    "~"	 { return KickAssemblerTypes.BIT_NOT; }
-    "<<" { return KickAssemblerTypes.SHIFT_LEFT; }
-    ">>" { return KickAssemblerTypes.SHIFT_RIGHT; }
-    "+"	 { return KickAssemblerTypes.PLUS; }
-    "-"	 { return KickAssemblerTypes.MINUS; }
-    "*"	 { return KickAssemblerTypes.ASTERISK; }
-    "/"	 { return KickAssemblerTypes.DIVIDE; }
-    "!=" { return KickAssemblerTypes.NOT_EQUAL; }
-    "==" { return KickAssemblerTypes.EQUAL; }
-    "&&" { return KickAssemblerTypes.AND; }
-    "||" { return KickAssemblerTypes.OR; }
-    "!"	 { return KickAssemblerTypes.NOT; }
-    "++" { return KickAssemblerTypes.PLUS_PLUS; }
-    "--" { return KickAssemblerTypes.MINUS_MINUS; }
-    "+=" { return KickAssemblerTypes.PLUS_EQUAL; }
-    "-=" { return KickAssemblerTypes.MINUS_EQUAL; }
-    "/=" { return KickAssemblerTypes.DIVIDE_EQUAL; }
-    "."	 { return KickAssemblerTypes.DOT; }
-    ":"	 { return KickAssemblerTypes.COLON; }
-    "?"	 { return KickAssemblerTypes.QUESTION_MARK; }
-
-    "@\"" { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN; }
-
-    {DEC_LITERAL}|{FLT_LITERAL}|{HEX_LITERAL}|{BIN_LITERAL} { return KickAssemblerTypes.NUMBER; }
-
-    {LINE_COMMENT}  { return KickAssemblerTypes.COMMENT_LINE; }
-    {BLOCK_COMMENT} { return KickAssemblerTypes.COMMENT_BLOCK; }
+    "im"  | "imm"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Immediate
+    "zx"  | "zpx"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Zeropage,x	lda.zpx table
+    "zy"  | "zpy"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Zeropage,y
+    "izx" | "izpx"	  { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect zeropage,x
+    "izy" | "izpy"	  { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect zeropage,y
+    "ax"  | "absx"    { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Absolute,x	lda.absx $1234
+    "ay"  | "absy"    { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Absolute,y
+    "i"   | "ind"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect	jmp.i $1000
+    "r"   | "rel"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Relative to program counter
 
     [^] { return KickAssemblerTypes.DUMMY; }
 }
