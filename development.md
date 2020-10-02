@@ -65,12 +65,13 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 
 * scopes equal to mnemonic names
 
+* various semicolon statement terminators
+
 ## TODO:
 * petscii conversions for escape strings
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * function return expressions
-    * various semicolon statement terminators
     * macro definition with no braces
     * complete coverage of operator precedence     
     * get more sample code for kickassembler using 

@@ -221,7 +221,6 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     [^] { pm(); return KickAssemblerTypes.DUMMY; }
 }
 
-// we are expecting a symbol as in a label with leading scope or a dot directive
 <POST_DOT> {
 
     "align"         { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN; }
@@ -282,8 +281,8 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
 <MNEMONIC_SUFFIX> {
     /*
-    These override the addressing mode of a mnemonic
-    As at v5.16 see http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html
+    These override the addressing mode of a mnemonic as at v5.16 see
+    http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html
     */
     "a"             { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION; }
     "abs"           { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION; }
@@ -359,6 +358,10 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     ";"	 { yybegin(YYINITIAL); return KickAssemblerTypes.SEMICOLON; }
 
     [^] { yybegin(YYINITIAL); return KickAssemblerTypes.DUMMY; }
+}
+
+<SYMBOL_DEF> {
+    {LABEL}           { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL; }
 }
 
 <STRING_ESCAPE> {

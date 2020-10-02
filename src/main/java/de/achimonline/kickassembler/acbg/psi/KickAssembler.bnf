@@ -36,7 +36,6 @@ root ::= (
            niladic |
 
            PREPROCESSOR |
-           DOT DIRECTIVE_RETURN |
            DOT DIRECTIVE |
 
            LABEL_DEF |
@@ -126,9 +125,8 @@ functionDefinition ::= DOT DIRECTIVE_FUNCTION invocableDefinition
 
 private invocableDefinition ::= (
     LABEL LEFT_PAREN identifierList? RIGHT_PAREN LEFT_BRACE
-        ( statement )*
-        [[DIRECTIVE_RETURN] expr]   // only valid in function not macro
-        RIGHT_BRACE
+    ( statement [DOT DIRECTIVE_RETURN [expr]] )*
+    RIGHT_BRACE
 )
 
 bracketed ::= (

@@ -7,8 +7,8 @@ import com.intellij.psi.PsiElement;
 
 public interface KickAssemblerFunctionDefinition extends PsiElement {
 
-  @Nullable
-  KickAssemblerExpr getExpr();
+  @NotNull
+  List<KickAssemblerExpr> getExprList();
 
   @Nullable
   KickAssemblerIdentifierList getIdentifierList();
