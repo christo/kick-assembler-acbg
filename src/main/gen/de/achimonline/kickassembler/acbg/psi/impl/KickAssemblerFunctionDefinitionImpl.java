@@ -28,6 +28,12 @@ public class KickAssemblerFunctionDefinitionImpl extends ASTWrapperPsiElement im
 
   @Override
   @Nullable
+  public KickAssemblerExpr getExpr() {
+    return findChildByClass(KickAssemblerExpr.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerIdentifierList getIdentifierList() {
     return findChildByClass(KickAssemblerIdentifierList.class);
   }

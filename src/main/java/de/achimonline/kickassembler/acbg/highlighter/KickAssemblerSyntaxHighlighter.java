@@ -84,8 +84,8 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
     );
 
     private static final TokenSet PARENTHESES_TOKENS = TokenSet.create(
-            KickAssemblerTypes.LEFT_PARENTHESES,
-            KickAssemblerTypes.RIGHT_PARENTHESES
+            KickAssemblerTypes.LEFT_PAREN,
+            KickAssemblerTypes.RIGHT_PAREN
     );
 
     private static final TokenSet BRACES_TOKENS = TokenSet.create(

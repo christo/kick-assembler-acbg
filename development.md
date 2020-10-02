@@ -63,12 +63,13 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 
 * ternary operator ( ? : )
 
-## TODO:
+* scopes equal to mnemonic names
 
+## TODO:
+* function return expressions
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces
-    * scopes equal to mnemonic names
     * complete coverage of operator precedence     
     * get more sample code for kickassembler using 
     [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)

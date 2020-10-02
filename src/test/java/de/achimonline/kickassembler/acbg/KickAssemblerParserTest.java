@@ -114,7 +114,15 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testPostDotCombo() {
+        doTest(true);
+    }
+
     public void testPreprocessorPhase() {
+        doTest(true);
+    }
+
+    public void testKoalaImport() {
         doTest(true);
     }
 
@@ -126,9 +134,21 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testLoadBinaryFill() {
+        doTest(true);
+    }
+
     public void testNegativeNumbers() {
         doTest(true);
     }
+
+    //    public void testKeywordClash() {
+    //        doTest(true);
+    //    }
+
+//    public void testFunctionReturn() {
+//        doTest(true);
+//    }
 
     public void testMemblock() {
         doTest(true);

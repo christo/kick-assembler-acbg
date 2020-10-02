@@ -48,14 +48,14 @@ apply plugin: 'org.jetbrains.grammarkit'
 
 import org.jetbrains.grammarkit.tasks.*
 
-task generateLexer(type: GenerateLexer) {
+task genLexer(type: GenerateLexer) {
     source = 'src/main/java/de/achimonline/kickassembler/acbg/lexer/KickAssembler.flex'
     targetDir = 'src/main/gen/de/achimonline/kickassembler/acbg/lexer/'
     targetClass = 'KickAssemblerLexer'
     purgeOldFiles = true
 }
 
-task generateParser(type: GenerateParser) {
+task genParser(type: GenerateParser) {
     source = 'src/main/java/de/achimonline/kickassembler/acbg/psi/KickAssembler.bnf'
     targetRoot = 'src/main/gen'
     pathToParser = '/de/achimonline/kickassembler/acbg/parser/KickAssemblerParser.java'

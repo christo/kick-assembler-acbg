@@ -67,6 +67,10 @@ public interface KickAssemblerTypes {
   IElementType COMMA = new KickAssemblerTokenType("COMMA");
   IElementType COMMENT_BLOCK = new KickAssemblerTokenType("COMMENT_BLOCK");
   IElementType COMMENT_LINE = new KickAssemblerTokenType("COMMENT_LINE");
+  IElementType CPU_6502 = new KickAssemblerTokenType("_6502");
+  IElementType CPU_6502_NO_ILLEGAL = new KickAssemblerTokenType("_6502NoIllegals");
+  IElementType CPU_65C02 = new KickAssemblerTokenType("_65c02");
+  IElementType CPU_DTV = new KickAssemblerTokenType("dtv");
   IElementType DIRECTIVE = new KickAssemblerTokenType("DIRECTIVE");
   IElementType DIRECTIVE_ALIGN = new KickAssemblerTokenType("DIRECTIVE_ALIGN");
   IElementType DIRECTIVE_ASSERT = new KickAssemblerTokenType("DIRECTIVE_ASSERT");
@@ -112,7 +116,7 @@ public interface KickAssemblerTypes {
   IElementType LABEL_DEF = new KickAssemblerTokenType("LABEL_DEF");
   IElementType LEFT_BRACE = new KickAssemblerTokenType("LEFT_BRACE");
   IElementType LEFT_BRACKET = new KickAssemblerTokenType("LEFT_BRACKET");
-  IElementType LEFT_PARENTHESES = new KickAssemblerTokenType("LEFT_PARENTHESES");
+  IElementType LEFT_PAREN = new KickAssemblerTokenType("LEFT_PAREN");
   IElementType LESS = new KickAssemblerTokenType("LESS");
   IElementType LESS_EQUALS = new KickAssemblerTokenType("LESS_EQUALS");
   IElementType MINUS = new KickAssemblerTokenType("MINUS");
@@ -137,7 +141,9 @@ public interface KickAssemblerTypes {
   IElementType QUESTION_MARK = new KickAssemblerTokenType("QUESTION_MARK");
   IElementType RIGHT_BRACE = new KickAssemblerTokenType("RIGHT_BRACE");
   IElementType RIGHT_BRACKET = new KickAssemblerTokenType("RIGHT_BRACKET");
-  IElementType RIGHT_PARENTHESES = new KickAssemblerTokenType("RIGHT_PARENTHESES");
+  IElementType RIGHT_PAREN = new KickAssemblerTokenType("RIGHT_PAREN");
+  IElementType SCREENCODE_MIXED = new KickAssemblerTokenType("\"screencode_mixed\"");
+  IElementType SCREENCODE_UPPER = new KickAssemblerTokenType("\"screencode_upper\"");
   IElementType SEMICOLON = new KickAssemblerTokenType("SEMICOLON");
   IElementType SHIFT_LEFT = new KickAssemblerTokenType("SHIFT_LEFT");
   IElementType SHIFT_RIGHT = new KickAssemblerTokenType("SHIFT_RIGHT");

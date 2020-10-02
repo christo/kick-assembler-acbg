@@ -11,6 +11,19 @@
     elementTypeHolderClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes"
     elementTypeClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerElementType"
     tokenTypeClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerTokenType"
+
+    tokens = [
+        //VAR = "var"
+        //CONST = "const"
+        //VIRTUAL = "virtual"
+        CPU_6502 = "_6502"
+        CPU_6502_NO_ILLEGAL = "_6502NoIllegals"
+        CPU_65C02 = "_65c02"
+        CPU_DTV  = "dtv"
+        SCREENCODE_MIXED = "\"screencode_mixed\""
+        SCREENCODE_UPPER = "\"screencode_upper\""
+    ]
+
 }
 
 kickAssemblerFile ::= root*
@@ -22,87 +35,40 @@ root ::= (
 
            niladic |
 
-//           STRING |
-//           NUMBER |
-//           BOOLEAN |
-//           NULL |
-
-           LEFT_PARENTHESES |
-           RIGHT_PARENTHESES |
-           LEFT_BRACKET |
-           RIGHT_BRACKET |
-           LEFT_BRACE |
-           RIGHT_BRACE |
-
-//           HASH |
-//           ASSIGN |
-//           COMMA |
-//           SEMICOLON |
-//           LESS_EQUALS |
-//           GREATER_EQUALS |
-//           LESS |
-//           GREATER |
-//           BIT_AND |
-//           BIT_OR |
-//           BIT_XOR |
-//           BIT_NOT |
-//           SHIFT_LEFT |
-//           SHIFT_RIGHT |
-//           PLUS |
-//           MINUS |
-//           ASTERISK |
-//           DIVIDE |
-//           NOT_EQUAL |
-//           EQUAL |
-//           AND |
-//           OR |
-//           NOT |
-//           PLUS_PLUS |
-//           MINUS_MINUS |
-//           PLUS_EQUAL |
-//           MINUS_EQUAL |
-//           DIVIDE_EQUAL |
-//           DOT |
-//           COLON |
-           QUESTION_MARK |
-
            PREPROCESSOR |
-           DIRECTIVE_RETURN |
-           DIRECTIVE_DATA |
-           DIRECTIVE |
+           DOT DIRECTIVE_RETURN |
+           DOT DIRECTIVE |
 
            LABEL_DEF |
            MULTILABEL_DEF |
-
-           LABEL |
-           MULTILABEL |
 
            COMMENT_LINE |
            COMMENT_BLOCK |
 
            DUMMY )
 
-encodingDirective ::= (
-    DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
+defExpr ::= ( ["var" | "const"] LABEL ASSIGN expr ) | expr
+
+forLoop ::= (
+    DOT DIRECTIVE_FOR LEFT_PAREN defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PAREN
+    compound
 )
+
+encodingDirective ::= DOT DIRECTIVE_ENCODING  ( SCREENCODE_MIXED | SCREENCODE_UPPER )
 
 private labelsDef ::= LABEL_DEF | MULTILABEL_DEF
 
-dataDefinition ::= DIRECTIVE_DATA exprs
+dataDefinition ::= DOT DIRECTIVE_DATA exprs
 
-cpuDirective ::= (
-    DIRECTIVE_CPU ("_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
-)
+cpuDirective ::= DOT DIRECTIVE_CPU ( CPU_6502_NO_ILLEGAL | CPU_6502 | CPU_DTV | CPU_65C02)
 
-pcAssignment ::= (
-    (ASTERISK | DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
-)
+pcAssignment ::= (ASTERISK | DOT DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
 
-labelAssignment ::= DIRECTIVE_DEF LABEL ASSIGN expr
+labelAssignment ::= DOT DIRECTIVE_DEF LABEL ASSIGN expr
 
 import ::= ( PREPROCESSOR_IMPORT STRING | dotImport)
 
-private dotImport ::= DIRECTIVE_IMPORT (
+private dotImport ::= DOT DIRECTIVE_IMPORT (
     "source" STRING |
     ("binary"|"c64"|"text") STRING [ COMMA expr [ COMMA expr ]]
 )
@@ -111,7 +77,7 @@ argument ::= LABEL_DEF? HASH? expr
 
 block ::= LEFT_BRACE statement* RIGHT_BRACE
 
-private qualifiedMnemonic ::= MNEMONIC [ DOT [ MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED ]]
+private qualifiedMnemonic ::= MNEMONIC [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
 
 instruction ::= (
     ( qualifiedMnemonic argument COMMA argument ) |
@@ -122,6 +88,7 @@ instruction ::= (
 // cannot include macro definitions
 statement ::= (
     // making label definition into a statement because braceless .if binds solely to it
+    directive |
     instruction |
     labelsDef |
     import |
@@ -131,7 +98,6 @@ statement ::= (
     block |
     pcAssignment |
     labelAssignment |
-    directive |
     forLoop |
     ifElse |
     while |
@@ -154,18 +120,19 @@ private directive ::= (
     segmentDirective
 )
 
-macroDefinition ::= DIRECTIVE_DEF_MACRO invocableDefinition
+macroDefinition ::= DOT DIRECTIVE_DEF_MACRO invocableDefinition
 
-functionDefinition ::= DIRECTIVE_FUNCTION invocableDefinition
+functionDefinition ::= DOT DIRECTIVE_FUNCTION invocableDefinition
 
 private invocableDefinition ::= (
-    LABEL LEFT_PARENTHESES identifierList? RIGHT_PARENTHESES LEFT_BRACE
+    LABEL LEFT_PAREN identifierList? RIGHT_PAREN LEFT_BRACE
         ( statement )*
+        [[DIRECTIVE_RETURN] expr]   // only valid in function not macro
         RIGHT_BRACE
 )
 
 bracketed ::= (
-    ( LEFT_PARENTHESES expr RIGHT_PARENTHESES )
+    ( LEFT_PAREN expr RIGHT_PAREN )
     | ( LEFT_BRACKET expr RIGHT_BRACKET )
 )
 
@@ -217,65 +184,55 @@ private callable ::= (
 
 invocation ::= (
     (
-        callable LEFT_PARENTHESES exprs? RIGHT_PARENTHESES |
+        callable LEFT_PAREN exprs? RIGHT_PAREN |
         nArityDirectives |
         assert
     )
 )
 
-private nArityDirectives ::= DIRECTIVE_UNARY expr |
-        DIRECTIVE_BINARY expr COMMA expr |
-        DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+private nArityDirectives ::= DOT DIRECTIVE_UNARY expr |
+        DOT DIRECTIVE_BINARY expr COMMA expr |
+        DOT DIRECTIVE_TERNARY expr COMMA expr COMMA expr
 
-assert ::= DIRECTIVE_ASSERT STRING COMMA (expr | block) COMMA (expr | block)
-
-private declarationKeyword ::= "var" | "const"
-
-defExpr ::= ( declarationKeyword? LABEL ASSIGN expr ) | expr
+assert ::= DOT DIRECTIVE_ASSERT STRING COMMA (block | expr) COMMA (block | expr)
 
 defExprList ::=  defExpr ( COMMA defExpr )*
-
-forLoop ::= (
-    DIRECTIVE_FOR LEFT_PARENTHESES defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PARENTHESES
-    compound
-)
 
 private compound ::= (statement | block) SEMICOLON?
 
 ifElse ::= (
-    DIRECTIVE_IF LEFT_PARENTHESES expr RIGHT_PARENTHESES compound
+    DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound
     [ "else" compound ]
 )
 
 while ::= (
-    DIRECTIVE_WHILE LEFT_PARENTHESES expr RIGHT_PARENTHESES compound
+    DOT DIRECTIVE_WHILE LEFT_PAREN expr RIGHT_PAREN compound
 )
 
-breakDirective ::= DIRECTIVE_BREAK STRING?
+breakDirective ::= DOT DIRECTIVE_BREAK STRING?
 
-watchDirective ::= DIRECTIVE_WATCH expr [ COMMA expr [ COMMA STRING ] ]
+watchDirective ::= DOT DIRECTIVE_WATCH expr [ COMMA expr [ COMMA STRING ] ]
 
-alignDirective ::= DIRECTIVE_ALIGN expr
+alignDirective ::= DOT DIRECTIVE_ALIGN expr
 
-evalExpression ::= DIRECTIVE_EVAL expr
+evalExpression ::= DOT DIRECTIVE_EVAL expr
 
-niladic ::= DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE
+niladic ::= DOT DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE
+segmentDirective ::= DOT (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
 
-segmentDirective ::= (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
+paramDirective ::= DOT DIRECTIVE_PARAM parameterMap
 
-paramDirective ::= DIRECTIVE_PARAM parameterMap
+diskDirective ::= DOT DIRECTIVE_DISK [LABEL] [parameterMap] LEFT_BRACE parameterMapList RIGHT_BRACE
 
-diskDirective ::= DIRECTIVE_DISK [LABEL] [parameterMap] LEFT_BRACE parameterMapList RIGHT_BRACE
+enumDirective ::= DOT DIRECTIVE_ENUM LEFT_BRACE parameter (COMMA parameter) RIGHT_BRACE
 
-enumDirective ::= DIRECTIVE_ENUM LEFT_BRACE parameter (COMMA parameter) RIGHT_BRACE
+defineDirective ::= DOT DIRECTIVE_DEFINE LABEL ( COMMA LABEL)* block
 
-defineDirective ::= DIRECTIVE_DEFINE LABEL ( COMMA LABEL)* block
+filemodifyDirective ::= DOT DIRECTIVE_FILEMODIFY invocation
 
-filemodifyDirective ::= DIRECTIVE_FILEMODIFY invocation
+modifyDirective ::= DOT DIRECTIVE_MODIFY invocation block
 
-modifyDirective ::= DIRECTIVE_MODIFY invocation block
-
-namespaceDirective ::= DIRECTIVE_NAMESPACE LABEL block
+namespaceDirective ::= DOT DIRECTIVE_NAMESPACE LABEL block
 
 private parameterMapList ::= parameterMap [ COMMA parameterMapList ]
 
