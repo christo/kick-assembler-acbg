@@ -146,9 +146,9 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-//    public void testKeywordClash() {
-//        doTest(true);
-//    }
+    public void testKeywordClash() {
+        doTest(true);
+    }
 
 //    public void testFunctionReturn() {
 //        doTest(true);

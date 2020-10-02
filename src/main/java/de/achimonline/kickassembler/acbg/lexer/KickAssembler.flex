@@ -130,7 +130,7 @@ MULTILABEL_DEF = "!"{LABEL}?":"
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
-%xstate STRING_ESCAPE POST_MNEMONIC MNEMONIC_SUFFIX POST_DOT
+%xstate STRING_ESCAPE POST_MNEMONIC MNEMONIC_SUFFIX POST_DOT SYMBOL_DEF
 
 %%
 
@@ -222,13 +222,14 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 }
 
 <POST_DOT> {
+    "const"         { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    "var"           { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
 
     "align"         { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN; }
     "assert"        { pm(); return KickAssemblerTypes.DIRECTIVE_ASSERT; }
     "asserterror"   { pm(); return KickAssemblerTypes.DIRECTIVE_BINARY; }
     "break"         { pm(); return KickAssemblerTypes.DIRECTIVE_BREAK; }
     "by"| "byte"    { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
-    "const"         { pm(); return KickAssemblerTypes.DIRECTIVE_DEF; }
     "cpu"           { pm(); return KickAssemblerTypes.DIRECTIVE_CPU; }
     "define"        { pm(); return KickAssemblerTypes.DIRECTIVE_DEFINE; }
     "disk"          { pm(); return KickAssemblerTypes.DIRECTIVE_DISK; }
@@ -267,7 +268,6 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "segmentout"    { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM; }
     "struct"        { pm(); return KickAssemblerTypes.DIRECTIVE; }
     "te" | "text"   { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
-    "var"           { pm(); return KickAssemblerTypes.DIRECTIVE_DEF; }
     "watch"         { pm(); return KickAssemblerTypes.DIRECTIVE_WATCH; }
     "while"         { pm(); return KickAssemblerTypes.DIRECTIVE_WHILE; }
     "wo" | "word"   { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
@@ -300,13 +300,15 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "i"   | "ind"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect	jmp.i $1000
     "r"   | "rel"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Relative to program counter
 
+    "const"         { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    "var"           { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
+
     "align"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ALIGN; }
     "assert"        { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ASSERT; }
     "asserterror"   { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BINARY; }
     "break"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BREAK; }
     "by"            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
     "byte"          { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
-    "const"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF; }
     "cpu"           { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_CPU; }
     "define"        { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEFINE; }
     "disk"          { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DISK; }
@@ -346,7 +348,6 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "struct"        { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE; }
     "te"            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
     "text"          { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
-    "var"           { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF; }
     "watch"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WATCH; }
     "while"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WHILE; }
     "wo"            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
@@ -362,6 +363,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
 <SYMBOL_DEF> {
     {LABEL}           { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL; }
+    {ANY_BLANKS}   { pm(); return TokenType.WHITE_SPACE; }
 }
 
 <STRING_ESCAPE> {

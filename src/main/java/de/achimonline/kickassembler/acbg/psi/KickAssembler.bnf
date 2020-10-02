@@ -12,18 +12,6 @@
     elementTypeClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerElementType"
     tokenTypeClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerTokenType"
 
-    tokens = [
-        //VAR = "var"
-        //CONST = "const"
-        //VIRTUAL = "virtual"
-        CPU_6502 = "_6502"
-        CPU_6502_NO_ILLEGAL = "_6502NoIllegals"
-        CPU_65C02 = "_65c02"
-        CPU_DTV  = "dtv"
-        SCREENCODE_MIXED = "\"screencode_mixed\""
-        SCREENCODE_UPPER = "\"screencode_upper\""
-    ]
-
 }
 
 kickAssemblerFile ::= root*
@@ -53,13 +41,13 @@ forLoop ::= (
     compound
 )
 
-encodingDirective ::= DOT DIRECTIVE_ENCODING  ( SCREENCODE_MIXED | SCREENCODE_UPPER )
+encodingDirective ::= DOT DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
 
 private labelsDef ::= LABEL_DEF | MULTILABEL_DEF
 
 dataDefinition ::= DOT DIRECTIVE_DATA exprs
 
-cpuDirective ::= DOT DIRECTIVE_CPU ( CPU_6502_NO_ILLEGAL | CPU_6502 | CPU_DTV | CPU_65C02)
+cpuDirective ::= DOT DIRECTIVE_CPU ( "_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
 
 pcAssignment ::= (ASTERISK | DOT DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
 

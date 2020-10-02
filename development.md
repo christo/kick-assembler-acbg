@@ -67,6 +67,8 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 
 * various semicolon statement terminators
 
+* variables with directive names
+
 ## TODO:
 * petscii conversions for escape strings
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`

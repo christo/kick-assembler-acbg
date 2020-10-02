@@ -256,7 +256,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT DIRECTIVE_CPU ( CPU_6502_NO_ILLEGAL | CPU_6502 | CPU_DTV | CPU_65C02)
+  // DOT DIRECTIVE_CPU ( "_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
   public static boolean cpuDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "cpuDirective")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -268,14 +268,14 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // CPU_6502_NO_ILLEGAL | CPU_6502 | CPU_DTV | CPU_65C02
+  // "_6502NoIllegals" | "_6502" | "dtv" | "_65c02"
   private static boolean cpuDirective_2(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "cpuDirective_2")) return false;
     boolean result_;
-    result_ = consumeToken(builder_, CPU_6502_NO_ILLEGAL);
-    if (!result_) result_ = consumeToken(builder_, CPU_6502);
-    if (!result_) result_ = consumeToken(builder_, CPU_DTV);
-    if (!result_) result_ = consumeToken(builder_, CPU_65C02);
+    result_ = consumeToken(builder_, "_6502NoIllegals");
+    if (!result_) result_ = consumeToken(builder_, "_6502");
+    if (!result_) result_ = consumeToken(builder_, "dtv");
+    if (!result_) result_ = consumeToken(builder_, "_65c02");
     return result_;
   }
 
@@ -565,7 +565,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT DIRECTIVE_ENCODING  ( SCREENCODE_MIXED | SCREENCODE_UPPER )
+  // DOT DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
   public static boolean encodingDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "encodingDirective")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -577,12 +577,12 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // SCREENCODE_MIXED | SCREENCODE_UPPER
+  // "\"screencode_mixed\"" | "\"screencode_upper\""
   private static boolean encodingDirective_2(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "encodingDirective_2")) return false;
     boolean result_;
-    result_ = consumeToken(builder_, SCREENCODE_MIXED);
-    if (!result_) result_ = consumeToken(builder_, SCREENCODE_UPPER);
+    result_ = consumeToken(builder_, "\"screencode_mixed\"");
+    if (!result_) result_ = consumeToken(builder_, "\"screencode_upper\"");
     return result_;
   }
 
