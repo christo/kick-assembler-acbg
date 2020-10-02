@@ -356,6 +356,8 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     {LINE_COMMENT}  { return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { return KickAssemblerTypes.COMMENT_BLOCK; }
 
+    ";"	 { yybegin(YYINITIAL); return KickAssemblerTypes.SEMICOLON; }
+
     [^] { yybegin(YYINITIAL); return KickAssemblerTypes.DUMMY; }
 }
 

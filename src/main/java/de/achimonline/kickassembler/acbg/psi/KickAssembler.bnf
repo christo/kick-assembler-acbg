@@ -87,10 +87,9 @@ instruction ::= (
 
 // cannot include macro definitions
 statement ::= (
-    // making label definition into a statement because braceless .if binds solely to it
     directive |
     instruction |
-    labelsDef |
+    labelsDef |         // is statement as braceless .if binds solely to it
     import |
     dataDefinition |
     invocation |
@@ -101,7 +100,8 @@ statement ::= (
     forLoop |
     ifElse |
     while |
-    evalExpression
+    evalExpression |
+    SEMICOLON
 )
 
 private directive ::= (
@@ -198,7 +198,7 @@ assert ::= DOT DIRECTIVE_ASSERT STRING COMMA (block | expr) COMMA (block | expr)
 
 defExprList ::=  defExpr ( COMMA defExpr )*
 
-private compound ::= (statement | block) SEMICOLON?
+private compound ::= (statement | block)
 
 ifElse ::= (
     DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound
