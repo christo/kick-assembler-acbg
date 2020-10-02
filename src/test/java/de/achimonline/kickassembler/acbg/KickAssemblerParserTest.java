@@ -161,6 +161,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testTernaryOperator() {
+        doTest(true);
+    }
+
     @Override
     protected String getTestDataPath() {
         return "src/test/resources/parser";

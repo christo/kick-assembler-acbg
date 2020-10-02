@@ -203,7 +203,9 @@ private exprLeft ::= (
     ) postfixOperator?
 )
 
-expr ::= ( exprLeft ( infixOperator expr )* )
+ternaryRhs ::= QUESTION_MARK expr COLON expr
+
+expr ::= ( exprLeft ( infixOperator expr | ternaryRhs )* )
 
 private exprs ::= expr ( COMMA expr )*
 

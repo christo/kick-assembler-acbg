@@ -61,9 +61,10 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 * ambiguity between scoped labels and mnemonic suffixes
 * scoped macro and label refs
 
+* ternary operator ( ? : )
+
 ## TODO:
 
-* ternary operator ( ? : )
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces

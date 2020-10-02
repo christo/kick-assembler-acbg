@@ -50,6 +50,7 @@ public interface KickAssemblerTypes {
   IElementType SCOPED_LABEL = new KickAssemblerElementType("SCOPED_LABEL");
   IElementType SEGMENT_DIRECTIVE = new KickAssemblerElementType("SEGMENT_DIRECTIVE");
   IElementType STATEMENT = new KickAssemblerElementType("STATEMENT");
+  IElementType TERNARY_RHS = new KickAssemblerElementType("TERNARY_RHS");
   IElementType WATCH_DIRECTIVE = new KickAssemblerElementType("WATCH_DIRECTIVE");
   IElementType WHILE = new KickAssemblerElementType("WHILE");
 
@@ -273,6 +274,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == STATEMENT) {
         return new KickAssemblerStatementImpl(node);
+      }
+      else if (type == TERNARY_RHS) {
+        return new KickAssemblerTernaryRhsImpl(node);
       }
       else if (type == WATCH_DIRECTIVE) {
         return new KickAssemblerWatchDirectiveImpl(node);

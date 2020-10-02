@@ -678,7 +678,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // exprLeft ( infixOperator expr )*
+  // exprLeft ( infixOperator expr | ternaryRhs )*
   public static boolean expr(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "expr")) return false;
     boolean result_;
@@ -689,7 +689,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // ( infixOperator expr )*
+  // ( infixOperator expr | ternaryRhs )*
   private static boolean expr_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "expr_1")) return false;
     while (true) {
@@ -700,9 +700,20 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // infixOperator expr
+  // infixOperator expr | ternaryRhs
   private static boolean expr_1_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "expr_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = expr_1_0_0(builder_, level_ + 1);
+    if (!result_) result_ = ternaryRhs(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // infixOperator expr
+  private static boolean expr_1_0_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "expr_1_0_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = infixOperator(builder_, level_ + 1);
@@ -1703,6 +1714,21 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = while_$(builder_, level_ + 1);
     if (!result_) result_ = evalExpression(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // QUESTION_MARK expr COLON expr
+  public static boolean ternaryRhs(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "ternaryRhs")) return false;
+    if (!nextTokenIs(builder_, QUESTION_MARK)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, QUESTION_MARK);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, COLON);
+    result_ = result_ && expr(builder_, level_ + 1);
+    exit_section_(builder_, marker_, TERNARY_RHS, result_);
     return result_;
   }
 

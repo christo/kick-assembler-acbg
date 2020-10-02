@@ -175,6 +175,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTernaryRhs(@NotNull KickAssemblerTernaryRhs o) {
+    visitPsiElement(o);
+  }
+
   public void visitWatchDirective(@NotNull KickAssemblerWatchDirective o) {
     visitPsiElement(o);
   }

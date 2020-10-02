@@ -31,4 +31,7 @@ public interface KickAssemblerExpr extends PsiElement {
   @Nullable
   KickAssemblerScopedLabel getScopedLabel();
 
+  @NotNull
+  List<KickAssemblerTernaryRhs> getTernaryRhsList();
+
 }

@@ -74,4 +74,10 @@ public class KickAssemblerExprImpl extends ASTWrapperPsiElement implements KickA
     return findChildByClass(KickAssemblerScopedLabel.class);
   }
 
+  @Override
+  @NotNull
+  public List<KickAssemblerTernaryRhs> getTernaryRhsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerTernaryRhs.class);
+  }
+
 }
