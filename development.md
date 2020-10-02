@@ -68,20 +68,14 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces
-    * ? scopes equal to mnemonic names
+    * scopes equal to mnemonic names
     * complete coverage of operator precedence     
-    * scope definitions
     * get more sample code for kickassembler using 
     [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
     * prefix logical negation operator has precedence over infix/postfix arithmetic operators
     * semicolons can terminate labels, statements or blocks (seemingly anything)
 * kick parity: the following feel like maybe problems in kick    
     * invalid macro invocation syntax: space between macro name and open paren
-    * kick produces a weird error for this logical expression: `! x++ > 3`
-    * `"" + 1 + " string"` is ok but `1 + " string"` fails to type cast string to float (this is common in dynamic
-     languages)
-* decide whether to treat library functions like BasicUpstart2 specially - maybe they're just 
-macro invocations? Note that the asmInfo output dumps all loaded built-in library functions and macros
 * make parser for asmInfo output!
 * investigate invocation of kick main class directly in jvm
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text
