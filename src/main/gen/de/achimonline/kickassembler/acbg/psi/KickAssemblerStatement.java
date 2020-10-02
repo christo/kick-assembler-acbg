@@ -74,7 +74,13 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerPcAssignment getPcAssignment();
 
   @Nullable
+  KickAssemblerReturnStatement getReturnStatement();
+
+  @Nullable
   KickAssemblerSegmentDirective getSegmentDirective();
+
+  @Nullable
+  KickAssemblerStructDirective getStructDirective();
 
   @Nullable
   KickAssemblerWatchDirective getWatchDirective();

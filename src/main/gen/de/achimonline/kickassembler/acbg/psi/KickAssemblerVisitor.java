@@ -159,6 +159,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitReturnStatement(@NotNull KickAssemblerReturnStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitRoot(@NotNull KickAssemblerRoot o) {
     visitPsiElement(o);
   }
@@ -172,6 +176,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitStatement(@NotNull KickAssemblerStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStructDirective(@NotNull KickAssemblerStructDirective o) {
     visitPsiElement(o);
   }
 

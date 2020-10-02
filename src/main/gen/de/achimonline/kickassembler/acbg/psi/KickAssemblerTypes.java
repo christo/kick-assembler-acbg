@@ -46,10 +46,12 @@ public interface KickAssemblerTypes {
   IElementType PC_ASSIGNMENT = new KickAssemblerElementType("PC_ASSIGNMENT");
   IElementType POSTFIX_OPERATOR = new KickAssemblerElementType("POSTFIX_OPERATOR");
   IElementType PREFIX_OPERATOR = new KickAssemblerElementType("PREFIX_OPERATOR");
+  IElementType RETURN_STATEMENT = new KickAssemblerElementType("RETURN_STATEMENT");
   IElementType ROOT = new KickAssemblerElementType("ROOT");
   IElementType SCOPED_LABEL = new KickAssemblerElementType("SCOPED_LABEL");
   IElementType SEGMENT_DIRECTIVE = new KickAssemblerElementType("SEGMENT_DIRECTIVE");
   IElementType STATEMENT = new KickAssemblerElementType("STATEMENT");
+  IElementType STRUCT_DIRECTIVE = new KickAssemblerElementType("STRUCT_DIRECTIVE");
   IElementType TERNARY_RHS = new KickAssemblerElementType("TERNARY_RHS");
   IElementType WATCH_DIRECTIVE = new KickAssemblerElementType("WATCH_DIRECTIVE");
   IElementType WHILE = new KickAssemblerElementType("WHILE");
@@ -95,6 +97,7 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
   IElementType DIRECTIVE_SEGMENT = new KickAssemblerTokenType("DIRECTIVE_SEGMENT");
   IElementType DIRECTIVE_SEGMENT_DEF = new KickAssemblerTokenType("DIRECTIVE_SEGMENT_DEF");
+  IElementType DIRECTIVE_STRUCT = new KickAssemblerTokenType("DIRECTIVE_STRUCT");
   IElementType DIRECTIVE_TERNARY = new KickAssemblerTokenType("DIRECTIVE_TERNARY");
   IElementType DIRECTIVE_UNARY = new KickAssemblerTokenType("DIRECTIVE_UNARY");
   IElementType DIRECTIVE_WATCH = new KickAssemblerTokenType("DIRECTIVE_WATCH");
@@ -263,6 +266,9 @@ public interface KickAssemblerTypes {
       else if (type == PREFIX_OPERATOR) {
         return new KickAssemblerPrefixOperatorImpl(node);
       }
+      else if (type == RETURN_STATEMENT) {
+        return new KickAssemblerReturnStatementImpl(node);
+      }
       else if (type == ROOT) {
         return new KickAssemblerRootImpl(node);
       }
@@ -274,6 +280,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == STATEMENT) {
         return new KickAssemblerStatementImpl(node);
+      }
+      else if (type == STRUCT_DIRECTIVE) {
+        return new KickAssemblerStructDirectiveImpl(node);
       }
       else if (type == TERNARY_RHS) {
         return new KickAssemblerTernaryRhsImpl(node);

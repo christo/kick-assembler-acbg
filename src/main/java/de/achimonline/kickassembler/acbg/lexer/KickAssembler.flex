@@ -266,7 +266,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "segment"       { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT; }
     "segmentdef"    { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF; }
     "segmentout"    { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM; }
-    "struct"        { pm(); return KickAssemblerTypes.DIRECTIVE; }
+    "struct"        { pm(); return KickAssemblerTypes.DIRECTIVE_STRUCT; }
     "te" | "text"   { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
     "watch"         { pm(); return KickAssemblerTypes.DIRECTIVE_WATCH; }
     "while"         { pm(); return KickAssemblerTypes.DIRECTIVE_WHILE; }
@@ -345,7 +345,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "segment"       { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT; }
     "segmentdef"    { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF; }
     "segmentout"    { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PARAM; }
-    "struct"        { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE; }
+    "struct"        { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_STRUCT; }
     "te"            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
     "text"          { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
     "watch"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WATCH; }

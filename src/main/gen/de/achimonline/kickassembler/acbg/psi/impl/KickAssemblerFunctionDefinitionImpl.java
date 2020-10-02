@@ -27,12 +27,6 @@ public class KickAssemblerFunctionDefinitionImpl extends ASTWrapperPsiElement im
   }
 
   @Override
-  @NotNull
-  public List<KickAssemblerExpr> getExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
-  }
-
-  @Override
   @Nullable
   public KickAssemblerIdentifierList getIdentifierList() {
     return findChildByClass(KickAssemblerIdentifierList.class);

@@ -160,8 +160,20 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerReturnStatement getReturnStatement() {
+    return findChildByClass(KickAssemblerReturnStatement.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerSegmentDirective getSegmentDirective() {
     return findChildByClass(KickAssemblerSegmentDirective.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerStructDirective getStructDirective() {
+    return findChildByClass(KickAssemblerStructDirective.class);
   }
 
   @Override

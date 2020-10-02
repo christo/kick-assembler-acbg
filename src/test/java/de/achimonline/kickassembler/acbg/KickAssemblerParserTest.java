@@ -150,9 +150,13 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
-//    public void testFunctionReturn() {
-//        doTest(true);
-//    }
+    public void testFunctionReturn() {
+        doTest(true);
+    }
+
+    public void testUserDefinedDataStructures() {
+        doTest(true);
+    }
 
     public void testMemblock() {
         doTest(true);

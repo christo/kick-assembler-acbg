@@ -88,8 +88,11 @@ statement ::= (
     ifElse |
     while |
     evalExpression |
+    returnStatement |
     SEMICOLON
 )
+
+returnStatement ::= DOT DIRECTIVE_RETURN [expr]
 
 private directive ::= (
     cpuDirective |
@@ -104,8 +107,11 @@ private directive ::= (
     filemodifyDirective |
     modifyDirective |
     namespaceDirective |
-    segmentDirective
+    segmentDirective |
+    structDirective
 )
+
+structDirective ::= DOT DIRECTIVE_STRUCT LABEL LEFT_BRACE identifierList? RIGHT_BRACE
 
 macroDefinition ::= DOT DIRECTIVE_DEF_MACRO invocableDefinition
 
@@ -113,7 +119,7 @@ functionDefinition ::= DOT DIRECTIVE_FUNCTION invocableDefinition
 
 private invocableDefinition ::= (
     LABEL LEFT_PAREN identifierList? RIGHT_PAREN LEFT_BRACE
-    ( statement [DOT DIRECTIVE_RETURN [expr]] )*
+    ( statement )*
     RIGHT_BRACE
 )
 
@@ -127,7 +133,7 @@ identifierList ::= LABEL ( COMMA LABEL )*
 
 // TODO precendence
 infixOperator ::= (
-    PLUS | MINUS | ASTERISK | DIVIDE |
+    DOT | PLUS | MINUS | ASTERISK | DIVIDE |
     EQUAL | LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
     BIT_AND | BIT_OR | BIT_XOR |
     AND | OR |
