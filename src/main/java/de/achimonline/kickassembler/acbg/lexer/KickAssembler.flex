@@ -141,15 +141,15 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
     "BasicUpstart2" { pm(); return KickAssemblerTypes.BASIC_UPSTART; }
 
-    "#define"     { pm(); return KickAssemblerTypes.PREPROCESSOR; }
-    "#elif"       { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#define"     { pm(); return KickAssemblerTypes.PREPROCESSOR_DEF; }
+    "#elif"       { pm(); return KickAssemblerTypes.PREPROCESSOR_IF; }
     "#else"       { pm(); return KickAssemblerTypes.PREPROCESSOR; }
     "#endif"      { pm(); return KickAssemblerTypes.PREPROCESSOR; }
-    "#if"         { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#if"         { pm(); return KickAssemblerTypes.PREPROCESSOR_IF; }
     "#import"     { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORT; }
     "#importif"   { pm(); return KickAssemblerTypes.PREPROCESSOR; }
     "#importonce" { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE; }
-    "#undef"      { pm(); return KickAssemblerTypes.PREPROCESSOR; }
+    "#undef"      { pm(); return KickAssemblerTypes.PREPROCESSOR_DEF; }
 
     {MNEMONIC}      { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
 

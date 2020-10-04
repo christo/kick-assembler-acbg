@@ -20,6 +20,9 @@ public interface KickAssemblerRoot extends PsiElement {
   KickAssemblerNiladic getNiladic();
 
   @Nullable
+  KickAssemblerPreprocessorDirective getPreprocessorDirective();
+
+  @Nullable
   KickAssemblerStatement getStatement();
 
 }

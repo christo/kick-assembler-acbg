@@ -40,12 +40,14 @@ public interface KickAssemblerTypes {
   IElementType MODIFY_DIRECTIVE = new KickAssemblerElementType("MODIFY_DIRECTIVE");
   IElementType NAMESPACE_DIRECTIVE = new KickAssemblerElementType("NAMESPACE_DIRECTIVE");
   IElementType NILADIC = new KickAssemblerElementType("NILADIC");
+  IElementType ONE_ARGUMENT_INDIRECT = new KickAssemblerElementType("ONE_ARGUMENT_INDIRECT");
   IElementType PARAMETER = new KickAssemblerElementType("PARAMETER");
   IElementType PARAMETER_MAP = new KickAssemblerElementType("PARAMETER_MAP");
   IElementType PARAM_DIRECTIVE = new KickAssemblerElementType("PARAM_DIRECTIVE");
   IElementType PC_ASSIGNMENT = new KickAssemblerElementType("PC_ASSIGNMENT");
   IElementType POSTFIX_OPERATOR = new KickAssemblerElementType("POSTFIX_OPERATOR");
   IElementType PREFIX_OPERATOR = new KickAssemblerElementType("PREFIX_OPERATOR");
+  IElementType PREPROCESSOR_DIRECTIVE = new KickAssemblerElementType("PREPROCESSOR_DIRECTIVE");
   IElementType RETURN_STATEMENT = new KickAssemblerElementType("RETURN_STATEMENT");
   IElementType ROOT = new KickAssemblerElementType("ROOT");
   IElementType SCOPED_LABEL = new KickAssemblerElementType("SCOPED_LABEL");
@@ -53,6 +55,7 @@ public interface KickAssemblerTypes {
   IElementType STATEMENT = new KickAssemblerElementType("STATEMENT");
   IElementType STRUCT_DIRECTIVE = new KickAssemblerElementType("STRUCT_DIRECTIVE");
   IElementType TERNARY_RHS = new KickAssemblerElementType("TERNARY_RHS");
+  IElementType TWO_ARGUMENTS_INDIRECT = new KickAssemblerElementType("TWO_ARGUMENTS_INDIRECT");
   IElementType WATCH_DIRECTIVE = new KickAssemblerElementType("WATCH_DIRECTIVE");
   IElementType WHILE = new KickAssemblerElementType("WHILE");
 
@@ -135,6 +138,8 @@ public interface KickAssemblerTypes {
   IElementType PLUS_EQUAL = new KickAssemblerTokenType("PLUS_EQUAL");
   IElementType PLUS_PLUS = new KickAssemblerTokenType("PLUS_PLUS");
   IElementType PREPROCESSOR = new KickAssemblerTokenType("PREPROCESSOR");
+  IElementType PREPROCESSOR_DEF = new KickAssemblerTokenType("PREPROCESSOR_DEF");
+  IElementType PREPROCESSOR_IF = new KickAssemblerTokenType("PREPROCESSOR_IF");
   IElementType PREPROCESSOR_IMPORT = new KickAssemblerTokenType("PREPROCESSOR_IMPORT");
   IElementType PREPROCESSOR_IMPORTONCE = new KickAssemblerTokenType("PREPROCESSOR_IMPORTONCE");
   IElementType QUESTION_MARK = new KickAssemblerTokenType("QUESTION_MARK");
@@ -248,6 +253,9 @@ public interface KickAssemblerTypes {
       else if (type == NILADIC) {
         return new KickAssemblerNiladicImpl(node);
       }
+      else if (type == ONE_ARGUMENT_INDIRECT) {
+        return new KickAssemblerOneArgumentIndirectImpl(node);
+      }
       else if (type == PARAMETER) {
         return new KickAssemblerParameterImpl(node);
       }
@@ -265,6 +273,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == PREFIX_OPERATOR) {
         return new KickAssemblerPrefixOperatorImpl(node);
+      }
+      else if (type == PREPROCESSOR_DIRECTIVE) {
+        return new KickAssemblerPreprocessorDirectiveImpl(node);
       }
       else if (type == RETURN_STATEMENT) {
         return new KickAssemblerReturnStatementImpl(node);
@@ -286,6 +297,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == TERNARY_RHS) {
         return new KickAssemblerTernaryRhsImpl(node);
+      }
+      else if (type == TWO_ARGUMENTS_INDIRECT) {
+        return new KickAssemblerTwoArgumentsIndirectImpl(node);
       }
       else if (type == WATCH_DIRECTIVE) {
         return new KickAssemblerWatchDirectiveImpl(node);

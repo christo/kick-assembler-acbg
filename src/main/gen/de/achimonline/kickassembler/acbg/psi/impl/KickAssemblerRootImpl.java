@@ -52,6 +52,12 @@ public class KickAssemblerRootImpl extends ASTWrapperPsiElement implements KickA
 
   @Override
   @Nullable
+  public KickAssemblerPreprocessorDirective getPreprocessorDirective() {
+    return findChildByClass(KickAssemblerPreprocessorDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerStatement getStatement() {
     return findChildByClass(KickAssemblerStatement.class);
   }

@@ -73,7 +73,10 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 * chained method invocations
 * user-defined data structures http://www.theweb.dk/KickAssembler/webhelp/content/cpt_DataStructures.html
 
+* explicit parsing of indirect addressing mode
+
 ## TODO:
+* preprocessor expression subset
 * char literals
 * namespace escaping with `@` prefix
 * petscii conversions for escape strings

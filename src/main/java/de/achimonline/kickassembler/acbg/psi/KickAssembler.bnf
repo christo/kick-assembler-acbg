@@ -23,7 +23,7 @@ root ::= (
 
            niladic |
 
-           PREPROCESSOR |
+           preprocessorDirective |
            DOT DIRECTIVE |
 
            LABEL_DEF |
@@ -33,6 +33,18 @@ root ::= (
            COMMENT_BLOCK |
 
            DUMMY )
+
+/*
+ppExprLeft ::= [NOT] basicValue | [NOT] LEFT_PAREN ppExpr RIGHT_PAREN
+
+ppExpr ::= ppExprLeft (ppInfixOperator ppExpr)*
+*/
+
+// TODO create private preprocessor expression subset
+preprocessorDirective ::= (
+    PREPROCESSOR |
+    (PREPROCESSOR_IF | PREPROCESSOR_DEF ) expr //ppExpr
+)
 
 defExpr ::= ( ["var" | "const"] LABEL ASSIGN expr ) | expr
 
@@ -66,11 +78,15 @@ block ::= LEFT_BRACE statement* RIGHT_BRACE
 
 private qualifiedMnemonic ::= MNEMONIC [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
 
-instruction ::= (
-    ( qualifiedMnemonic argument COMMA argument ) |
-    ( qualifiedMnemonic argument ) |
-    qualifiedMnemonic
-)
+private twoArguments ::= (argument COMMA argument) | twoArgumentsIndirect
+
+twoArgumentsIndirect ::= LEFT_PAREN argument COMMA argument RIGHT_PAREN
+
+private oneArgument ::= argument | oneArgumentIndirect
+
+oneArgumentIndirect ::= LEFT_PAREN argument RIGHT_PAREN
+
+instruction ::= qualifiedMnemonic [twoArguments | oneArgument]
 
 // cannot include macro definitions
 statement ::= (
@@ -130,6 +146,8 @@ bracketed ::= (
 
 // e.g. macro args
 identifierList ::= LABEL ( COMMA LABEL )*
+
+//private ppInfixOperator ::= AND | OR | EQUAL | NOT_EQUAL
 
 // TODO precendence
 infixOperator ::= (

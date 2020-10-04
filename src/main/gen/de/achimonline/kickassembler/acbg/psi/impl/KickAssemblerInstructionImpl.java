@@ -32,4 +32,16 @@ public class KickAssemblerInstructionImpl extends ASTWrapperPsiElement implement
     return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerArgument.class);
   }
 
+  @Override
+  @Nullable
+  public KickAssemblerOneArgumentIndirect getOneArgumentIndirect() {
+    return findChildByClass(KickAssemblerOneArgumentIndirect.class);
+  }
+
+  @Override
+  @Nullable
+  public KickAssemblerTwoArgumentsIndirect getTwoArgumentsIndirect() {
+    return findChildByClass(KickAssemblerTwoArgumentsIndirect.class);
+  }
+
 }

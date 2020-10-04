@@ -10,4 +10,10 @@ public interface KickAssemblerInstruction extends PsiElement {
   @NotNull
   List<KickAssemblerArgument> getArgumentList();
 
+  @Nullable
+  KickAssemblerOneArgumentIndirect getOneArgumentIndirect();
+
+  @Nullable
+  KickAssemblerTwoArgumentsIndirect getTwoArgumentsIndirect();
+
 }
