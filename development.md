@@ -65,7 +65,8 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * variables with directive names (strangely kick is fine with variables called `var` etc.)
 
 * return statements
-* chained method invocations _a lá_ [OGNL](https://commons.apache.org/proper/commons-ognl/)
+* chained method invocations like this: `picture.getHeight().sqrt().toString().length()`
+
 * user-defined data structures http://www.theweb.dk/KickAssembler/webhelp/content/cpt_DataStructures.html
 
 * explicit parsing of indirect addressing mode and precedence of this above grouping parentheses
