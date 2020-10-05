@@ -55,7 +55,7 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * preprocessor logical expression subset
 * char literals including escape chars
 * namespace escaping with `@` prefix
-* hex value interpolations for escape strings
+* hex value interpolations for escape strings like this: `@"this is escaped:\$ff`
 
 
 ## TODO:
