@@ -27,7 +27,7 @@ Kick Assembler file
         PsiElement(KickAssemblerTokenType.COMMA)(',')
         KickAssemblerExprImpl(EXPR)
           KickAssemblerBasicValueImpl(BASIC_VALUE)
-            PsiElement(KickAssemblerTokenType.CHAR)(''\n'')
+            PsiElement(KickAssemblerTokenType.ESCAPE_CHAR)(''\n'')
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerDataDefinitionImpl(DATA_DEFINITION)

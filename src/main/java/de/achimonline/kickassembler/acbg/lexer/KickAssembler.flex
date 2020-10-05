@@ -121,7 +121,8 @@ DEC_LITERAL = [0-9]+(_+[0-9]+)*
 FLT_LITERAL = {DEC_LITERAL}("."{DEC_LITERAL})?
 HEX_LITERAL = "$"[0-9a-fA-F]+(_+[0-9a-fA-F]+)*
 BIN_LITERAL = "%"[0-1]+(_+[0-1]+)*
-CHAR_LITERAL = '([^']|\"|{STRING_CHAR}|{ESCAPE_CHAR})'
+CHAR_LITERAL = '([^']|\"|{STRING_CHAR})'
+ESCAPE_CHAR_LITERAL = '{ESCAPE_CHAR}'
 
 LABEL = ([a-zA-Z_][a-zA-Z0-9_]*)
 MULTILABEL = "!"{LABEL}?(\+|-)+
@@ -220,6 +221,7 @@ ESCAPE_CHAR = (\\n|\\r|\\t|\\b|\\f|\\\"|\\\\)
     {DEC_LITERAL}|{FLT_LITERAL}|{HEX_LITERAL}|{BIN_LITERAL} { pm(); return KickAssemblerTypes.NUMBER; }
 
     {CHAR_LITERAL} { pm(); return KickAssemblerTypes.CHAR; }
+    {ESCAPE_CHAR_LITERAL} { pm(); return KickAssemblerTypes.ESCAPE_CHAR; }
 
     {LINE_COMMENT}  { pm(); return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { pm(); return KickAssemblerTypes.COMMENT_BLOCK; }
