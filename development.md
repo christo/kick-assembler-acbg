@@ -75,8 +75,9 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 
 * explicit parsing of indirect addressing mode
 
+* preprocessor logical expression subset
+
 ## TODO:
-* preprocessor expression subset
 * char literals
 * namespace escaping with `@` prefix
 * petscii conversions for escape strings

@@ -139,7 +139,6 @@ public interface KickAssemblerTypes {
   IElementType PLUS = new KickAssemblerTokenType("PLUS");
   IElementType PLUS_EQUAL = new KickAssemblerTokenType("PLUS_EQUAL");
   IElementType PLUS_PLUS = new KickAssemblerTokenType("PLUS_PLUS");
-  IElementType PPINFIXOPERATOR = new KickAssemblerTokenType("ppInfixOperator");
   IElementType PREPROCESSOR = new KickAssemblerTokenType("PREPROCESSOR");
   IElementType PREPROCESSOR_DEF = new KickAssemblerTokenType("PREPROCESSOR_DEF");
   IElementType PREPROCESSOR_IF = new KickAssemblerTokenType("PREPROCESSOR_IF");

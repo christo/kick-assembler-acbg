@@ -146,14 +146,14 @@ bracketed ::= (
 // e.g. macro args
 identifierList ::= LABEL ( COMMA LABEL )*
 
-//private ppInfixOperator ::= AND | OR | EQUAL | NOT_EQUAL
+private ppInfixOperator ::= EQUAL | NOT_EQUAL | AND | OR
 
 // TODO precendence
 infixOperator ::= (
     DOT | PLUS | MINUS | ASTERISK | DIVIDE |
-    EQUAL | LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
+    ppInfixOperator |
+    LESS | GREATER | LESS_EQUALS | GREATER_EQUALS |
     BIT_AND | BIT_OR | BIT_XOR |
-    AND | OR |
     SHIFT_LEFT | SHIFT_RIGHT |
     PLUS_EQUAL | MINUS_EQUAL | ASTERISK ASSIGN | DIVIDE_EQUAL |
     ASSIGN

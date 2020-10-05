@@ -937,9 +937,9 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // DOT | PLUS | MINUS | ASTERISK | DIVIDE |
-  //     EQUAL | LESS | GREATER | LESS_EQUALS | GREATER_EQUALS | NOT_EQUAL |
+  //     ppInfixOperator |
+  //     LESS | GREATER | LESS_EQUALS | GREATER_EQUALS |
   //     BIT_AND | BIT_OR | BIT_XOR |
-  //     AND | OR |
   //     SHIFT_LEFT | SHIFT_RIGHT |
   //     PLUS_EQUAL | MINUS_EQUAL | ASTERISK ASSIGN | DIVIDE_EQUAL |
   //     ASSIGN
@@ -952,17 +952,14 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = consumeToken(builder_, MINUS);
     if (!result_) result_ = consumeToken(builder_, ASTERISK);
     if (!result_) result_ = consumeToken(builder_, DIVIDE);
-    if (!result_) result_ = consumeToken(builder_, EQUAL);
+    if (!result_) result_ = ppInfixOperator(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, LESS);
     if (!result_) result_ = consumeToken(builder_, GREATER);
     if (!result_) result_ = consumeToken(builder_, LESS_EQUALS);
     if (!result_) result_ = consumeToken(builder_, GREATER_EQUALS);
-    if (!result_) result_ = consumeToken(builder_, NOT_EQUAL);
     if (!result_) result_ = consumeToken(builder_, BIT_AND);
     if (!result_) result_ = consumeToken(builder_, BIT_OR);
     if (!result_) result_ = consumeToken(builder_, BIT_XOR);
-    if (!result_) result_ = consumeToken(builder_, AND);
-    if (!result_) result_ = consumeToken(builder_, OR);
     if (!result_) result_ = consumeToken(builder_, SHIFT_LEFT);
     if (!result_) result_ = consumeToken(builder_, SHIFT_RIGHT);
     if (!result_) result_ = consumeToken(builder_, PLUS_EQUAL);
@@ -1497,7 +1494,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(builder_, level_, "ppExpr_1_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, PPINFIXOPERATOR);
+    result_ = ppInfixOperator(builder_, level_ + 1);
     result_ = result_ && ppExpr(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
@@ -1551,6 +1548,18 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && ppExpr(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, RIGHT_PAREN);
     exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // EQUAL | NOT_EQUAL | AND | OR
+  static boolean ppInfixOperator(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "ppInfixOperator")) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, EQUAL);
+    if (!result_) result_ = consumeToken(builder_, NOT_EQUAL);
+    if (!result_) result_ = consumeToken(builder_, AND);
+    if (!result_) result_ = consumeToken(builder_, OR);
     return result_;
   }
 
