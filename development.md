@@ -78,7 +78,7 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 
 ## TODO:
 
-### Parser
+### Parser Features
 * petscii conversions for escape strings
 * grammar: addressing modes - we can detect legal addressing modes
 * grammar: pseudo commands 
