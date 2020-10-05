@@ -64,20 +64,14 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 
 ### Parser Features
 * grammar: pseudo commands 
-* grammar: addressing modes - we can detect legal addressing modes
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
-* PSI test suite - assertions about the parse tree
-    * complete coverage of operator precedence     
-    * semicolons can terminate labels, statements or blocks (seemingly anything)
-* kick parity: the following feel like problems in kick    
+* kick parity: the following feel like problems in kick that should be reproduced
     * invalid macro invocation syntax: space between macro name and open paren
     * no whitespace allowed between prefix logical not and operand 
-* clean up `KickAssembler.flex` to remove duplication (how?)
-* grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
-identifiers)
 
 ### Testing and Development Features
 
+* clean up `KickAssembler.flex` to remove duplication (how?)
 * generally, all features of sublime plugin (anectodally identified as "best")
 * Set up a jig to automatically verify which versions of KickAss.jar a given project 
 can build with (as a way of locating suitable test source) see also parsing asmInfo
@@ -89,6 +83,9 @@ can build with (as a way of locating suitable test source) see also parsing asmI
 ### Other Plugin Features
 
 * make parser for asmInfo output!
+* grammar: addressing modes - we can detect legal addressing modes
+* grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
+identifiers)
 * Memory usage graph
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text
 attributes for "Default" and "Darcula" bundled schemes with additionalTextAttributes 

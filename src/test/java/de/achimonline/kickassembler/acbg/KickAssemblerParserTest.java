@@ -81,6 +81,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testFunctionDefinitionWithoutBraces() {
+        doTest(true);
+    }
+
     /**
      * Note this source fail to assemble on kick but only after parsing correctly.
      */
