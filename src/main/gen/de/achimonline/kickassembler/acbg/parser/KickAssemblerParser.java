@@ -1258,12 +1258,12 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // argument | oneArgumentIndirect
+  // oneArgumentIndirect | argument
   static boolean oneArgument(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "oneArgument")) return false;
     boolean result_;
-    result_ = argument(builder_, level_ + 1);
-    if (!result_) result_ = oneArgumentIndirect(builder_, level_ + 1);
+    result_ = oneArgumentIndirect(builder_, level_ + 1);
+    if (!result_) result_ = argument(builder_, level_ + 1);
     return result_;
   }
 

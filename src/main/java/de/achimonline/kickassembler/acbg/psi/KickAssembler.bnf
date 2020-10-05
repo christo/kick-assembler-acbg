@@ -81,7 +81,7 @@ private twoArguments ::= (argument COMMA argument) | twoArgumentsIndirect
 
 twoArgumentsIndirect ::= LEFT_PAREN argument COMMA argument RIGHT_PAREN
 
-private oneArgument ::= argument | oneArgumentIndirect
+private oneArgument ::= oneArgumentIndirect | argument
 
 oneArgumentIndirect ::= LEFT_PAREN argument RIGHT_PAREN
 
