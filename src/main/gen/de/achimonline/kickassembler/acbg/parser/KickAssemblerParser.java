@@ -1012,9 +1012,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LABEL LEFT_PAREN identifierList? RIGHT_PAREN LEFT_BRACE
-  //     ( statement )*
-  //     RIGHT_BRACE
+  // LABEL LEFT_PAREN identifierList? RIGHT_PAREN
+  //     macroBody
   static boolean invocableDefinition(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "invocableDefinition")) return false;
     if (!nextTokenIs(builder_, LABEL)) return false;
@@ -1022,9 +1021,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_);
     result_ = consumeTokens(builder_, 0, LABEL, LEFT_PAREN);
     result_ = result_ && invocableDefinition_2(builder_, level_ + 1);
-    result_ = result_ && consumeTokens(builder_, 0, RIGHT_PAREN, LEFT_BRACE);
-    result_ = result_ && invocableDefinition_5(builder_, level_ + 1);
-    result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    result_ = result_ && consumeToken(builder_, RIGHT_PAREN);
+    result_ = result_ && macroBody(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
@@ -1034,27 +1032,6 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(builder_, level_, "invocableDefinition_2")) return false;
     identifierList(builder_, level_ + 1);
     return true;
-  }
-
-  // ( statement )*
-  private static boolean invocableDefinition_5(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "invocableDefinition_5")) return false;
-    while (true) {
-      int pos_ = current_position_(builder_);
-      if (!invocableDefinition_5_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "invocableDefinition_5", pos_)) break;
-    }
-    return true;
-  }
-
-  // ( statement )
-  private static boolean invocableDefinition_5_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "invocableDefinition_5_0")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = statement(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
   }
 
   /* ********************************************************** */
@@ -1163,6 +1140,55 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     boolean result_;
     result_ = consumeToken(builder_, LABEL_DEF);
     if (!result_) result_ = consumeToken(builder_, MULTILABEL_DEF);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // (LEFT_BRACE ( statement )+ RIGHT_BRACE) | statement
+  static boolean macroBody(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "macroBody")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = macroBody_0(builder_, level_ + 1);
+    if (!result_) result_ = statement(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // LEFT_BRACE ( statement )+ RIGHT_BRACE
+  private static boolean macroBody_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "macroBody_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, LEFT_BRACE);
+    result_ = result_ && macroBody_0_1(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // ( statement )+
+  private static boolean macroBody_0_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "macroBody_0_1")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = macroBody_0_1_0(builder_, level_ + 1);
+    while (result_) {
+      int pos_ = current_position_(builder_);
+      if (!macroBody_0_1_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "macroBody_0_1", pos_)) break;
+    }
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // ( statement )
+  private static boolean macroBody_0_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "macroBody_0_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = statement(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 

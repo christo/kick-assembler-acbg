@@ -133,10 +133,11 @@ macroDefinition ::= DOT DIRECTIVE_DEF_MACRO invocableDefinition
 functionDefinition ::= DOT DIRECTIVE_FUNCTION invocableDefinition
 
 private invocableDefinition ::= (
-    LABEL LEFT_PAREN identifierList? RIGHT_PAREN LEFT_BRACE
-    ( statement )*
-    RIGHT_BRACE
+    LABEL LEFT_PAREN identifierList? RIGHT_PAREN
+    macroBody
 )
+
+private macroBody ::= (LEFT_BRACE ( statement )+ RIGHT_BRACE) | statement
 
 bracketed ::= ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
 

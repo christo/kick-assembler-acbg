@@ -56,16 +56,16 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * char literals including escape chars
 * namespace escaping with `@` prefix
 * hex value interpolations for escape strings like this: `.text @"this is escaped:\$ff"`
+* macro definition with no braces
 
 
 ## TODO:
 
 ### Parser Features
-* grammar: addressing modes - we can detect legal addressing modes
 * grammar: pseudo commands 
+* grammar: addressing modes - we can detect legal addressing modes
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
-    * macro definition with no braces
     * complete coverage of operator precedence     
     * get more sample code for kickassembler using 
     [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
