@@ -168,6 +168,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testNegativeNumberOperatorPrecedence() {
+        doTest(true);
+    }
+
     public void testNegativeNumbers() {
         doTest(true);
     }

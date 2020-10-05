@@ -57,6 +57,7 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * namespace escaping with `@` prefix
 * hex value interpolations for escape strings like this: `.text @"this is escaped:\$ff"`
 * macro definition with no braces
+* test coverage of prefix logical negation operator precedence over infix/postfix arithmetic operators
 
 
 ## TODO:
@@ -67,7 +68,6 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * complete coverage of operator precedence     
-    * prefix logical negation operator has precedence over infix/postfix arithmetic operators
     * semicolons can terminate labels, statements or blocks (seemingly anything)
 * kick parity: the following feel like problems in kick    
     * invalid macro invocation syntax: space between macro name and open paren
