@@ -46,6 +46,8 @@ public interface KickAssemblerTypes {
   IElementType PARAM_DIRECTIVE = new KickAssemblerElementType("PARAM_DIRECTIVE");
   IElementType PC_ASSIGNMENT = new KickAssemblerElementType("PC_ASSIGNMENT");
   IElementType POSTFIX_OPERATOR = new KickAssemblerElementType("POSTFIX_OPERATOR");
+  IElementType PP_EXPR = new KickAssemblerElementType("PP_EXPR");
+  IElementType PP_EXPR_LEFT = new KickAssemblerElementType("PP_EXPR_LEFT");
   IElementType PREFIX_OPERATOR = new KickAssemblerElementType("PREFIX_OPERATOR");
   IElementType PREPROCESSOR_DIRECTIVE = new KickAssemblerElementType("PREPROCESSOR_DIRECTIVE");
   IElementType RETURN_STATEMENT = new KickAssemblerElementType("RETURN_STATEMENT");
@@ -137,6 +139,7 @@ public interface KickAssemblerTypes {
   IElementType PLUS = new KickAssemblerTokenType("PLUS");
   IElementType PLUS_EQUAL = new KickAssemblerTokenType("PLUS_EQUAL");
   IElementType PLUS_PLUS = new KickAssemblerTokenType("PLUS_PLUS");
+  IElementType PPINFIXOPERATOR = new KickAssemblerTokenType("ppInfixOperator");
   IElementType PREPROCESSOR = new KickAssemblerTokenType("PREPROCESSOR");
   IElementType PREPROCESSOR_DEF = new KickAssemblerTokenType("PREPROCESSOR_DEF");
   IElementType PREPROCESSOR_IF = new KickAssemblerTokenType("PREPROCESSOR_IF");
@@ -270,6 +273,12 @@ public interface KickAssemblerTypes {
       }
       else if (type == POSTFIX_OPERATOR) {
         return new KickAssemblerPostfixOperatorImpl(node);
+      }
+      else if (type == PP_EXPR) {
+        return new KickAssemblerPpExprImpl(node);
+      }
+      else if (type == PP_EXPR_LEFT) {
+        return new KickAssemblerPpExprLeftImpl(node);
       }
       else if (type == PREFIX_OPERATOR) {
         return new KickAssemblerPrefixOperatorImpl(node);

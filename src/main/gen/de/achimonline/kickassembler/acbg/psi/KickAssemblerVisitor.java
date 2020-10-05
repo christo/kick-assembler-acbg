@@ -159,6 +159,14 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPpExpr(@NotNull KickAssemblerPpExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPpExprLeft(@NotNull KickAssemblerPpExprLeft o) {
+    visitPsiElement(o);
+  }
+
   public void visitPrefixOperator(@NotNull KickAssemblerPrefixOperator o) {
     visitPsiElement(o);
   }

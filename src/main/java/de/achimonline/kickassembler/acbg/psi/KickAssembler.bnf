@@ -34,16 +34,15 @@ root ::= (
 
            DUMMY )
 
-/*
-ppExprLeft ::= [NOT] basicValue | [NOT] LEFT_PAREN ppExpr RIGHT_PAREN
+ppExprLeft ::= [NOT] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
 
 ppExpr ::= ppExprLeft (ppInfixOperator ppExpr)*
-*/
+
 
 // TODO create private preprocessor expression subset
 preprocessorDirective ::= (
     PREPROCESSOR |
-    (PREPROCESSOR_IF | PREPROCESSOR_DEF ) expr //ppExpr
+    (PREPROCESSOR_IF | PREPROCESSOR_DEF ) ppExpr
 )
 
 defExpr ::= ( ["var" | "const"] LABEL ASSIGN expr ) | expr
