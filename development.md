@@ -67,13 +67,11 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * complete coverage of operator precedence     
-    * get more sample code for kickassembler using 
-    [this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
     * prefix logical negation operator has precedence over infix/postfix arithmetic operators
     * semicolons can terminate labels, statements or blocks (seemingly anything)
-* kick parity: the following feel like maybe problems in kick    
+* kick parity: the following feel like problems in kick    
     * invalid macro invocation syntax: space between macro name and open paren
-    * grammar: ":"-prefixed labels - the prefix is optional and not part of the label name (probably for all
+    * no whitespace allowed between prefix logical not and operand 
 * clean up `KickAssembler.flex` to remove duplication (how?)
 * grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
 identifiers)
@@ -85,6 +83,8 @@ identifiers)
 can build with (as a way of locating suitable test source) see also parsing asmInfo
 * investigate invocation of kick main class directly in jvm
 * Hot reload of the plugin
+* get more sample code for kickassembler using 
+[this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
 
 ### Other Plugin Features
 
