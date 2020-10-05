@@ -8,6 +8,7 @@
 }
 
 .function myFunction() { .return "root"}
+
 .namespace mySpace {
     .function myFunction() { .return "mySpace" }
     .print @myFunction()
