@@ -79,8 +79,12 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 * char literals including escape chars
 
 ## TODO:
+
+### Parser
 * namespace escaping with `@` prefix
 * petscii conversions for escape strings
+* grammar: addressing modes - we can detect legal addressing modes
+* grammar: pseudo commands 
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * PSI test suite - assertions about the parse tree
     * macro definition with no braces
@@ -92,23 +96,45 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 * kick parity: the following feel like maybe problems in kick    
     * invalid macro invocation syntax: space between macro name and open paren
     * grammar: "@"-prefixed labels - the prefix is optional and not part of the label name (probably for all
-* make parser for asmInfo output!
+* grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
+identifiers)
+
+### Testing and Development Features
+
+* generally, all features of sublime plugin (anectodally identified as "best")
+* Set up a jig to automatically verify which versions of KickAss.jar a given project 
+can build with (as a way of locating suitable test source) see also parsing asmInfo
 * investigate invocation of kick main class directly in jvm
+* Hot reload of the plugin
+
+### Other Plugin Features
+
+* make parser for asmInfo output!
+* Memory usage graph
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text
 attributes for "Default" and "Darcula" bundled schemes with additionalTextAttributes 
 extension as per 
 [color scheme management](https://jetbrains.org/intellij/sdk/docs/reference_guide/color_scheme_management.html)
-* grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
-identifiers)
-* grammar: addressing modes - we can detect legal addressing modes
-* grammar: pseudo commands 
 * insights: undefined symbols
 * insights: missing include files
 * insights: byte and cycle count info (UI must be good and not annoying like vscode)
-* generally, all features of sublime plugin (anectodally identified as "best")
-* Set up a jig to automatically verify which versions of KickAss.jar a given project 
-can build with (as a way of locating suitable test source) see also parsing asmInfo
+* Migrate assembler invocation to Build and VICE/C64 Debugger as Run targets
+* Debugger integration with source maps etc.
 
+### 6502 optimisations and fixes
+
+* `ora <arg>` instead of `clc; adc <arg>` under certain circumstances
+* https://wiki.nesdev.com/w/index.php/6502_assembly_optimisations
+* https://codebase64.org/doku.php?id=base:advanced_optimizing
+
+### Long term ideas
+
+* Sprite, Char, Tile & Map Editor
+* Other Assemblers
+* Plush support for system targets other than C64 (PET, VIC20 etc.) - these might just be doable in Kick libraries
+* Other CPUs (6809, Z80) 
+* Macro synthesis
+* Code duplication detection
 
 ## lessons learned
 
@@ -119,7 +145,9 @@ definitions can be established. This means macros cannot expand to #import files
 * macro bodies must contain a sequence of valid assembly instructions or invocations, 
 so they cannot provide an expansion to an instruction argument like a memory address.  
 
-# other environments for reference
+# Related Tools 
+
+## Editors and IDEs 
 
 * [Sublime](https://www.sublimetext.com/) supports KA though adding a _package_ called 
 [Kick Assembler (C64)](https://sublime.wbond.net/packages/Kick%20Assembler%20%28C64%29) 
@@ -137,7 +165,7 @@ from [gryf](https://bitbucket.org/gryf/)
 * [Relaunch64](http://www.popelganda.de/relaunch64.html) is a dedicated retrocoding IDE that 
 supports several assemblers including KA
 
-## other assemblers
+## Other Assemblers
 
 The following seem to be popular alternatives to Kick Assembler:
 
@@ -148,9 +176,3 @@ The following seem to be popular alternatives to Kick Assembler:
 * dasm https://dasm-assembler.github.io/
 
 Also worth noting is https://lvllvl.com/ which is a full online development and runtime environment.
-
-# 6502 optimisations and fixes
-
-* `ora <arg>` instead of `clc; adc <arg>` under certain circumstances
-* https://wiki.nesdev.com/w/index.php/6502_assembly_optimisations
-* https://codebase64.org/doku.php?id=base:advanced_optimizing
