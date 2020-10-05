@@ -122,6 +122,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testEscapeHex() {
+        doTest(true);
+    }
+
     public void testPreprocessorPhase() {
         doTest(true);
     }

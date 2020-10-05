@@ -1,0 +1,1 @@
+.text @"This text will loop now\$ff" // placing hex values ($ff) in the text

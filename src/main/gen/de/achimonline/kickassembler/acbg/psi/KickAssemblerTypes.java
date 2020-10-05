@@ -115,6 +115,7 @@ public interface KickAssemblerTypes {
   IElementType DUMMY = new KickAssemblerTokenType("DUMMY");
   IElementType EQUAL = new KickAssemblerTokenType("EQUAL");
   IElementType ESCAPE_CHAR = new KickAssemblerTokenType("ESCAPE_CHAR");
+  IElementType ESCAPE_HEX = new KickAssemblerTokenType("ESCAPE_HEX");
   IElementType GREATER = new KickAssemblerTokenType("GREATER");
   IElementType GREATER_EQUALS = new KickAssemblerTokenType("GREATER_EQUALS");
   IElementType HASH = new KickAssemblerTokenType("HASH");

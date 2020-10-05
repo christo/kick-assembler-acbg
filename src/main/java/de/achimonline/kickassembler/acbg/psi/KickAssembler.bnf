@@ -160,7 +160,7 @@ prefixOperator ::= MINUS | NOT | BIT_NOT
 
 postfixOperator ::= PLUS_PLUS | MINUS_MINUS
 
-escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR)* STRING_END
+escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX)* STRING_END
 
 basicValue ::= STRING | NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| escapedString
 

@@ -626,7 +626,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR)* STRING_END
+  // STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX)* STRING_END
   public static boolean escapedString(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "escapedString")) return false;
     if (!nextTokenIs(builder_, STRING_ESCAPE_BEGIN)) return false;
@@ -639,7 +639,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // ( STRING_VALUE | ESCAPE_CHAR)*
+  // ( STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX)*
   private static boolean escapedString_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "escapedString_1")) return false;
     while (true) {
@@ -650,12 +650,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // STRING_VALUE | ESCAPE_CHAR
+  // STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX
   private static boolean escapedString_1_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "escapedString_1_0")) return false;
     boolean result_;
     result_ = consumeToken(builder_, STRING_VALUE);
     if (!result_) result_ = consumeToken(builder_, ESCAPE_CHAR);
+    if (!result_) result_ = consumeToken(builder_, ESCAPE_HEX);
     return result_;
   }
 

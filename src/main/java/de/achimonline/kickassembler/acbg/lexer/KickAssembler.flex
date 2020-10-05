@@ -119,7 +119,8 @@ ANY_BLANKS = ({WHITE_SPACE}|{LINE_BREAK})+
 
 DEC_LITERAL = [0-9]+(_+[0-9]+)*
 FLT_LITERAL = {DEC_LITERAL}("."{DEC_LITERAL})?
-HEX_LITERAL = "$"[0-9a-fA-F]+(_+[0-9a-fA-F]+)*
+HEX_DIGIT = [0-9a-fA-F]
+HEX_LITERAL = "$"{HEX_DIGIT}+(_{HEX_DIGIT}+)*
 BIN_LITERAL = "%"[0-1]+(_+[0-1]+)*
 CHAR_LITERAL = '([^']|\"|{STRING_CHAR})'
 ESCAPE_CHAR_LITERAL = '{ESCAPE_CHAR}'
@@ -134,6 +135,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
 STRING_CHAR = \"([^\"\r\n])*\"
 ESCAPE_CHAR = (\\n|\\r|\\t|\\b|\\f|\\\"|\\\\)
+ESCAPE_HEX = \\\${HEX_DIGIT}+
 
 %xstate STRING_ESCAPE POST_MNEMONIC MNEMONIC_SUFFIX POST_DOT SYMBOL_DEF
 
@@ -381,5 +383,5 @@ ESCAPE_CHAR = (\\n|\\r|\\t|\\b|\\f|\\\"|\\\\)
 
     [^\n\r\"\\]+    { return KickAssemblerTypes.STRING_VALUE; }
     {ESCAPE_CHAR}   { return KickAssemblerTypes.ESCAPE_CHAR; }
-
+    {ESCAPE_HEX}    { return KickAssemblerTypes.ESCAPE_HEX; }
 }

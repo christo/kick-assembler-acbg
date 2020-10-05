@@ -76,10 +76,12 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 
 * namespace escaping with `@` prefix
 
+* hex value interpolations for escape strings
+
+
 ## TODO:
 
 ### Parser Features
-* petscii conversions for escape strings
 * grammar: addressing modes - we can detect legal addressing modes
 * grammar: pseudo commands 
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
