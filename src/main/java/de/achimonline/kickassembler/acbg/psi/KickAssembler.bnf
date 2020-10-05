@@ -38,8 +38,6 @@ ppExprLeft ::= [NOT] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PARE
 
 ppExpr ::= ppExprLeft (ppInfixOperator ppExpr)*
 
-
-// TODO create private preprocessor expression subset
 preprocessorDirective ::= (
     PREPROCESSOR |
     (PREPROCESSOR_IF | PREPROCESSOR_DEF ) ppExpr
@@ -165,7 +163,7 @@ postfixOperator ::= PLUS_PLUS | MINUS_MINUS
 
 escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR)* STRING_END
 
-basicValue ::= STRING | NUMBER | BOOLEAN | NULL | escapedString
+basicValue ::= STRING | NUMBER | BOOLEAN | NULL | CHAR | escapedString
 
 private labelExpr ::= LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 

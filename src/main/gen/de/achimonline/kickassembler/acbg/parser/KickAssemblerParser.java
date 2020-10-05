@@ -109,7 +109,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // STRING | NUMBER | BOOLEAN | NULL | escapedString
+  // STRING | NUMBER | BOOLEAN | NULL | CHAR | escapedString
   public static boolean basicValue(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "basicValue")) return false;
     boolean result_;
@@ -118,6 +118,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = consumeToken(builder_, NUMBER);
     if (!result_) result_ = consumeToken(builder_, BOOLEAN);
     if (!result_) result_ = consumeToken(builder_, NULL);
+    if (!result_) result_ = consumeToken(builder_, CHAR);
     if (!result_) result_ = escapedString(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;

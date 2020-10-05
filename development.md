@@ -76,9 +76,9 @@ These imprpovements are comprised of a number of changes focused on the .flex an
 * explicit parsing of indirect addressing mode
 
 * preprocessor logical expression subset
+* char literals including escape chars
 
 ## TODO:
-* char literals
 * namespace escaping with `@` prefix
 * petscii conversions for escape strings
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
@@ -91,6 +91,7 @@ These imprpovements are comprised of a number of changes focused on the .flex an
     * semicolons can terminate labels, statements or blocks (seemingly anything)
 * kick parity: the following feel like maybe problems in kick    
     * invalid macro invocation syntax: space between macro name and open paren
+    * grammar: "@"-prefixed labels - the prefix is optional and not part of the label name (probably for all
 * make parser for asmInfo output!
 * investigate invocation of kick main class directly in jvm
 * update KickAssemblerSyntaxHighlighter to define more styles for language and then add text
@@ -98,7 +99,6 @@ attributes for "Default" and "Darcula" bundled schemes with additionalTextAttrib
 extension as per 
 [color scheme management](https://jetbrains.org/intellij/sdk/docs/reference_guide/color_scheme_management.html)
 * grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
-* grammar: "@"-prefixed labels - the prefix is optional and not part of the label name (probably for all
 identifiers)
 * grammar: addressing modes - we can detect legal addressing modes
 * grammar: pseudo commands 
@@ -109,13 +109,6 @@ identifiers)
 * Set up a jig to automatically verify which versions of KickAss.jar a given project 
 can build with (as a way of locating suitable test source) see also parsing asmInfo
 
-
-## open questions
-
-* how to parse pseudocommand calls?
-* can a function call a macro which calls a function?
-* do hash-prefixed preprocessor directives and their dot-prefixed alternates (like importonce)
-bind to the conditionally executed braceless instruction after `.if(foo)`?
 
 ## lessons learned
 
@@ -143,6 +136,18 @@ syntax highlighting for KA with [this syntax file](https://bitbucket.org/gryf/ki
 from [gryf](https://bitbucket.org/gryf/) 
 * [Relaunch64](http://www.popelganda.de/relaunch64.html) is a dedicated retrocoding IDE that 
 supports several assemblers including KA
+
+## other assemblers
+
+The following seem to be popular alternatives to Kick Assembler:
+
+* ACME https://sourceforge.net/projects/acme-crossass/
+* 64tass https://sourceforge.net/projects/tass64/  
+* CBM Prg Studio https://www.ajordison.co.uk/
+* xa65 http://www.floodgap.com/retrotech/xa/
+* dasm https://dasm-assembler.github.io/
+
+Also worth noting is https://lvllvl.com/ which is a full online development and runtime environment.
 
 # 6502 optimisations and fixes
 

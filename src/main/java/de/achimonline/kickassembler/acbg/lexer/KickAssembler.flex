@@ -121,6 +121,7 @@ DEC_LITERAL = [0-9]+(_+[0-9]+)*
 FLT_LITERAL = {DEC_LITERAL}("."{DEC_LITERAL})?
 HEX_LITERAL = "$"[0-9a-fA-F]+(_+[0-9a-fA-F]+)*
 BIN_LITERAL = "%"[0-1]+(_+[0-1]+)*
+CHAR_LITERAL = '([^']|\"|{STRING_CHAR}|{ESCAPE_CHAR})'
 
 LABEL = ([a-zA-Z_][a-zA-Z0-9_]*)
 MULTILABEL = "!"{LABEL}?(\+|-)+
@@ -130,6 +131,9 @@ MULTILABEL_DEF = "!"{LABEL}?":"
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 
+STRING_CHAR = \"([^\"\r\n])*\"
+ESCAPE_CHAR = (\\n|\\r|\\t|\\b|\\f|\\\"|\\\\)
+
 %xstate STRING_ESCAPE POST_MNEMONIC MNEMONIC_SUFFIX POST_DOT SYMBOL_DEF
 
 %%
@@ -137,7 +141,7 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
 <YYINITIAL, POST_MNEMONIC> {
     {ANY_BLANKS}   { pm(); return TokenType.WHITE_SPACE; }
 
-    \"([^\"\r\n])*\" { pm(); return KickAssemblerTypes.STRING; }
+    {STRING_CHAR} { pm(); return KickAssemblerTypes.STRING; }
 
     "BasicUpstart2" { pm(); return KickAssemblerTypes.BASIC_UPSTART; }
 
@@ -214,6 +218,8 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     "@\"" { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN; }
 
     {DEC_LITERAL}|{FLT_LITERAL}|{HEX_LITERAL}|{BIN_LITERAL} { pm(); return KickAssemblerTypes.NUMBER; }
+
+    {CHAR_LITERAL} { pm(); return KickAssemblerTypes.CHAR; }
 
     {LINE_COMMENT}  { pm(); return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { pm(); return KickAssemblerTypes.COMMENT_BLOCK; }
@@ -371,12 +377,6 @@ BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
     \"              { yybegin(YYINITIAL); return KickAssemblerTypes.STRING_END; }
 
     [^\n\r\"\\]+    { return KickAssemblerTypes.STRING_VALUE; }
-    \\n             { return KickAssemblerTypes.ESCAPE_CHAR; }
-    \\r             { return KickAssemblerTypes.ESCAPE_CHAR; }
-    \\t             { return KickAssemblerTypes.ESCAPE_CHAR; }
-    \\b             { return KickAssemblerTypes.ESCAPE_CHAR; }
-    \\f             { return KickAssemblerTypes.ESCAPE_CHAR; }
-    \\\"            { return KickAssemblerTypes.ESCAPE_CHAR; }
-    \\\\            { return KickAssemblerTypes.ESCAPE_CHAR; }
+    {ESCAPE_CHAR}   { return KickAssemblerTypes.ESCAPE_CHAR; }
 
 }

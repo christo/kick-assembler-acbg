@@ -118,9 +118,14 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testCharLiteral() {
+        doTest(true);
+    }
+
     public void testPreprocessorPhase() {
         doTest(true);
     }
+
 
     public void testKoalaImport() {
         doTest(true);

@@ -70,6 +70,7 @@ public interface KickAssemblerTypes {
   IElementType BIT_OR = new KickAssemblerTokenType("BIT_OR");
   IElementType BIT_XOR = new KickAssemblerTokenType("BIT_XOR");
   IElementType BOOLEAN = new KickAssemblerTokenType("BOOLEAN");
+  IElementType CHAR = new KickAssemblerTokenType("CHAR");
   IElementType COLON = new KickAssemblerTokenType("COLON");
   IElementType COMMA = new KickAssemblerTokenType("COMMA");
   IElementType COMMENT_BLOCK = new KickAssemblerTokenType("COMMENT_BLOCK");
