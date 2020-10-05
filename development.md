@@ -74,6 +74,7 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * kick parity: the following feel like maybe problems in kick    
     * invalid macro invocation syntax: space between macro name and open paren
     * grammar: ":"-prefixed labels - the prefix is optional and not part of the label name (probably for all
+* clean up `KickAssembler.flex` to remove duplication (how?)
 * grammar: uppercase mnemonics - kick doesn't support. maybe we should parse them and offer fix?
 identifiers)
 
