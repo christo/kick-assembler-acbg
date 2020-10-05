@@ -126,7 +126,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LEFT_BRACE statement* RIGHT_BRACE
+  // LEFT_BRACE (statement | macroDefinition | functionDefinition)* RIGHT_BRACE
   public static boolean block(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "block")) return false;
     if (!nextTokenIs(builder_, LEFT_BRACE)) return false;
@@ -139,20 +139,29 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // statement*
+  // (statement | macroDefinition | functionDefinition)*
   private static boolean block_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "block_1")) return false;
     while (true) {
       int pos_ = current_position_(builder_);
-      if (!statement(builder_, level_ + 1)) break;
+      if (!block_1_0(builder_, level_ + 1)) break;
       if (!empty_element_parsed_guard_(builder_, "block_1", pos_)) break;
     }
     return true;
   }
 
+  // statement | macroDefinition | functionDefinition
+  private static boolean block_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "block_1_0")) return false;
+    boolean result_;
+    result_ = statement(builder_, level_ + 1);
+    if (!result_) result_ = macroDefinition(builder_, level_ + 1);
+    if (!result_) result_ = functionDefinition(builder_, level_ + 1);
+    return result_;
+  }
+
   /* ********************************************************** */
-  // ( LEFT_PAREN expr RIGHT_PAREN )
-  //     | ( LEFT_BRACKET expr RIGHT_BRACKET )
+  // ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
   public static boolean bracketed(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "bracketed")) return false;
     if (!nextTokenIs(builder_, "<bracketed>", LEFT_BRACKET, LEFT_PAREN)) return false;
@@ -890,8 +899,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound
-  //     [ "else" compound ]
+  // DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound [ "else" compound ]
   public static boolean ifElse(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "ifElse")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -1049,9 +1057,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // callable LEFT_PAREN exprs? RIGHT_PAREN |
-  //         nArityDirectives |
-  //         assert
+  // callable LEFT_PAREN exprs? RIGHT_PAREN | nArityDirectives | assert
   public static boolean invocation(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "invocation")) return false;
     boolean result_;
@@ -1109,28 +1115,36 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
+  // AT? LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
   static boolean labelExpr(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "labelExpr")) return false;
-    if (!nextTokenIs(builder_, LABEL)) return false;
+    if (!nextTokenIs(builder_, "", AT, LABEL)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, LABEL);
-    result_ = result_ && labelExpr_1(builder_, level_ + 1);
+    result_ = labelExpr_0(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, LABEL);
+    result_ = result_ && labelExpr_2(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
+  // AT?
+  private static boolean labelExpr_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "labelExpr_0")) return false;
+    consumeToken(builder_, AT);
+    return true;
+  }
+
   // [ LEFT_BRACKET expr RIGHT_BRACKET ]
-  private static boolean labelExpr_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "labelExpr_1")) return false;
-    labelExpr_1_0(builder_, level_ + 1);
+  private static boolean labelExpr_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "labelExpr_2")) return false;
+    labelExpr_2_0(builder_, level_ + 1);
     return true;
   }
 
   // LEFT_BRACKET expr RIGHT_BRACKET
-  private static boolean labelExpr_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "labelExpr_1_0")) return false;
+  private static boolean labelExpr_2_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "labelExpr_2_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeToken(builder_, LEFT_BRACKET);
@@ -1180,8 +1194,8 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // DOT DIRECTIVE_UNARY expr |
-  //         DOT DIRECTIVE_BINARY expr COMMA expr |
-  //         DOT DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+  //     DOT DIRECTIVE_BINARY expr COMMA expr |
+  //     DOT DIRECTIVE_TERNARY expr COMMA expr COMMA expr
   static boolean nArityDirectives(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "nArityDirectives")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -1706,12 +1720,12 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   // labelExpr ( DOT labelExpr )*
   public static boolean scopedLabel(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "scopedLabel")) return false;
-    if (!nextTokenIs(builder_, LABEL)) return false;
+    if (!nextTokenIs(builder_, "<scoped label>", AT, LABEL)) return false;
     boolean result_;
-    Marker marker_ = enter_section_(builder_);
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, SCOPED_LABEL, "<scoped label>");
     result_ = labelExpr(builder_, level_ + 1);
     result_ = result_ && scopedLabel_1(builder_, level_ + 1);
-    exit_section_(builder_, marker_, SCOPED_LABEL, result_);
+    exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
 

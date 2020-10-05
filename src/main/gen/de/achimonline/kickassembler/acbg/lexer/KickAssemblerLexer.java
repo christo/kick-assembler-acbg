@@ -80,37 +80,37 @@ class KickAssemblerLexer implements FlexLexer {
     "\5\0\1\1\40\2\1\3\1\4\1\5\4\1\1\6"+
     "\1\7\1\10\1\11\1\12\1\13\1\2\1\14\1\15"+
     "\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
-    "\1\26\1\27\1\30\1\31\1\32\1\33\1\34\1\1"+
-    "\1\35\1\36\1\0\1\37\1\40\3\37\1\41\4\37"+
-    "\1\41\6\37\1\42\1\37\1\40\16\2\1\0\2\2"+
-    "\1\43\6\2\1\44\67\2\2\0\2\3\4\0\1\45"+
-    "\1\0\1\46\1\47\1\50\1\51\1\52\1\53\1\54"+
-    "\1\55\1\56\1\57\1\2\4\0\1\60\1\61\1\62"+
-    "\1\63\1\64\1\65\1\66\1\67\1\70\1\41\5\0"+
-    "\1\71\11\0\1\71\4\0\1\41\1\72\1\0\1\71"+
-    "\3\0\1\73\4\0\1\74\1\75\5\0\1\71\1\40"+
-    "\4\2\1\76\11\2\1\76\4\2\1\77\1\76\3\2"+
-    "\1\100\11\2\1\76\2\101\4\2\1\102\1\3\2\0"+
-    "\1\103\1\0\1\103\2\0\1\2\4\0\1\104\6\0"+
-    "\1\105\26\0\1\106\2\0\1\107\4\0\5\2\1\110"+
-    "\25\2\1\106\1\2\1\111\5\2\1\112\1\2\1\113"+
-    "\1\0\1\114\1\56\11\0\1\115\10\0\1\71\2\0"+
-    "\1\116\1\117\7\0\1\75\1\71\1\120\3\0\3\2"+
-    "\1\121\10\2\1\76\2\2\1\122\1\123\7\2\1\76"+
-    "\1\124\4\2\1\0\1\125\3\0\1\126\2\0\1\127"+
-    "\5\0\1\130\1\131\2\0\1\132\3\0\1\131\5\0"+
-    "\1\133\1\134\1\135\2\2\1\136\5\2\1\137\1\140"+
-    "\2\2\1\141\3\2\1\140\5\2\1\142\1\143\1\2"+
-    "\2\0\1\144\1\145\1\146\1\0\1\147\2\0\1\150"+
-    "\2\0\1\151\1\0\1\152\1\131\5\0\1\153\1\154"+
-    "\1\2\1\155\2\2\1\156\2\2\1\157\1\2\1\160"+
-    "\1\140\6\2\1\161\3\0\1\162\1\163\11\0\3\2"+
-    "\1\164\1\165\12\2\5\0\1\166\2\0\1\167\2\0"+
-    "\1\170\4\2\1\171\2\2\1\172\2\2\1\173\1\2"+
-    "\2\0\1\174\6\0\1\2\1\175\7\2\2\0\1\176"+
-    "\1\120\1\177\2\0\1\200\1\2\1\201\1\124\1\202"+
-    "\2\2\1\203\1\2\1\204\2\0\3\2\2\0\2\2"+
-    "\1\205";
+    "\1\26\1\27\1\30\1\31\1\32\1\33\1\34\1\35"+
+    "\1\36\1\37\1\0\1\40\1\41\3\40\1\42\4\40"+
+    "\1\42\6\40\1\43\1\40\1\41\16\2\1\0\2\2"+
+    "\1\44\6\2\1\45\67\2\2\0\2\3\4\0\1\46"+
+    "\1\0\1\47\1\50\1\51\1\52\1\53\1\54\1\55"+
+    "\1\56\1\57\1\60\1\2\4\0\1\61\1\62\1\63"+
+    "\1\64\1\65\1\66\1\67\1\70\1\71\1\42\5\0"+
+    "\1\72\11\0\1\72\4\0\1\42\1\73\1\0\1\72"+
+    "\3\0\1\74\4\0\1\75\1\76\5\0\1\72\1\41"+
+    "\4\2\1\77\11\2\1\77\4\2\1\100\1\77\3\2"+
+    "\1\101\11\2\1\77\2\102\4\2\1\103\1\3\2\0"+
+    "\1\104\1\0\1\104\2\0\1\2\4\0\1\105\6\0"+
+    "\1\106\26\0\1\107\2\0\1\110\4\0\5\2\1\111"+
+    "\25\2\1\107\1\2\1\112\5\2\1\113\1\2\1\114"+
+    "\1\0\1\115\1\57\11\0\1\116\10\0\1\72\2\0"+
+    "\1\117\1\120\7\0\1\76\1\72\1\121\3\0\3\2"+
+    "\1\122\10\2\1\77\2\2\1\123\1\124\7\2\1\77"+
+    "\1\125\4\2\1\0\1\126\3\0\1\127\2\0\1\130"+
+    "\5\0\1\131\1\132\2\0\1\133\3\0\1\132\5\0"+
+    "\1\134\1\135\1\136\2\2\1\137\5\2\1\140\1\141"+
+    "\2\2\1\142\3\2\1\141\5\2\1\143\1\144\1\2"+
+    "\2\0\1\145\1\146\1\147\1\0\1\150\2\0\1\151"+
+    "\2\0\1\152\1\0\1\153\1\132\5\0\1\154\1\155"+
+    "\1\2\1\156\2\2\1\157\2\2\1\160\1\2\1\161"+
+    "\1\141\6\2\1\162\3\0\1\163\1\164\11\0\3\2"+
+    "\1\165\1\166\12\2\5\0\1\167\2\0\1\170\2\0"+
+    "\1\171\4\2\1\172\2\2\1\173\2\2\1\174\1\2"+
+    "\2\0\1\175\6\0\1\2\1\176\7\2\2\0\1\177"+
+    "\1\121\1\200\2\0\1\201\1\2\1\202\1\125\1\203"+
+    "\2\2\1\204\1\2\1\205\2\0\3\2\2\0\2\2"+
+    "\1\206";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[644];
@@ -1473,22 +1473,22 @@ private void pm() {
             { pm(); return KickAssemblerTypes.DUMMY;
             } 
             // fall through
-          case 134: break;
+          case 135: break;
           case 2: 
             { pm(); return KickAssemblerTypes.LABEL;
             } 
             // fall through
-          case 135: break;
+          case 136: break;
           case 3: 
             { pm(); return KickAssemblerTypes.NUMBER;
             } 
             // fall through
-          case 136: break;
+          case 137: break;
           case 4: 
             { pm(); return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 137: break;
+          case 138: break;
           case 5: 
             { if(zzLexicalState == POST_MNEMONIC) {
             yybegin(MNEMONIC_SUFFIX);
@@ -1498,647 +1498,652 @@ private void pm() {
         return KickAssemblerTypes.DOT;
             } 
             // fall through
-          case 138: break;
+          case 139: break;
           case 6: 
             { pm(); return KickAssemblerTypes.NOT;
             } 
             // fall through
-          case 139: break;
+          case 140: break;
           case 7: 
             { pm(); return KickAssemblerTypes.PLUS;
             } 
             // fall through
-          case 140: break;
+          case 141: break;
           case 8: 
             { pm(); return KickAssemblerTypes.MINUS;
             } 
             // fall through
-          case 141: break;
+          case 142: break;
           case 9: 
             { pm(); return KickAssemblerTypes.COLON;
             } 
             // fall through
-          case 142: break;
+          case 143: break;
           case 10: 
             { pm(); return KickAssemblerTypes.DIVIDE;
             } 
             // fall through
-          case 143: break;
+          case 144: break;
           case 11: 
             { pm(); return KickAssemblerTypes.ASTERISK;
             } 
             // fall through
-          case 144: break;
+          case 145: break;
           case 12: 
             { pm(); return KickAssemblerTypes.HASH;
             } 
             // fall through
-          case 145: break;
+          case 146: break;
           case 13: 
             { pm(); return KickAssemblerTypes.LEFT_PAREN;
             } 
             // fall through
-          case 146: break;
+          case 147: break;
           case 14: 
             { pm(); return KickAssemblerTypes.RIGHT_PAREN;
             } 
             // fall through
-          case 147: break;
+          case 148: break;
           case 15: 
             { pm(); return KickAssemblerTypes.LEFT_BRACE;
             } 
             // fall through
-          case 148: break;
+          case 149: break;
           case 16: 
             { pm(); return KickAssemblerTypes.RIGHT_BRACE;
             } 
             // fall through
-          case 149: break;
+          case 150: break;
           case 17: 
             { pm(); return KickAssemblerTypes.LEFT_BRACKET;
             } 
             // fall through
-          case 150: break;
+          case 151: break;
           case 18: 
             { pm(); return KickAssemblerTypes.RIGHT_BRACKET;
             } 
             // fall through
-          case 151: break;
+          case 152: break;
           case 19: 
             { pm(); return KickAssemblerTypes.ASSIGN;
             } 
             // fall through
-          case 152: break;
+          case 153: break;
           case 20: 
             { pm(); return KickAssemblerTypes.COMMA;
             } 
             // fall through
-          case 153: break;
+          case 154: break;
           case 21: 
             { pm(); return KickAssemblerTypes.SEMICOLON;
             } 
             // fall through
-          case 154: break;
+          case 155: break;
           case 22: 
             { pm(); return KickAssemblerTypes.LESS;
             } 
             // fall through
-          case 155: break;
+          case 156: break;
           case 23: 
             { pm(); return KickAssemblerTypes.GREATER;
             } 
             // fall through
-          case 156: break;
+          case 157: break;
           case 24: 
             { pm(); return KickAssemblerTypes.BIT_AND;
             } 
             // fall through
-          case 157: break;
+          case 158: break;
           case 25: 
             { pm(); return KickAssemblerTypes.BIT_OR;
             } 
             // fall through
-          case 158: break;
+          case 159: break;
           case 26: 
             { pm(); return KickAssemblerTypes.BIT_XOR;
             } 
             // fall through
-          case 159: break;
+          case 160: break;
           case 27: 
             { pm(); return KickAssemblerTypes.BIT_NOT;
             } 
             // fall through
-          case 160: break;
+          case 161: break;
           case 28: 
             { pm(); return KickAssemblerTypes.QUESTION_MARK;
             } 
             // fall through
-          case 161: break;
-          case 29: 
-            { return KickAssemblerTypes.STRING_VALUE;
-            } 
-            // fall through
           case 162: break;
-          case 30: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.STRING_END;
+          case 29: 
+            { pm(); return KickAssemblerTypes.AT;
             } 
             // fall through
           case 163: break;
-          case 31: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DUMMY;
+          case 30: 
+            { return KickAssemblerTypes.STRING_VALUE;
             } 
             // fall through
           case 164: break;
-          case 32: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION;
+          case 31: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.STRING_END;
             } 
             // fall through
           case 165: break;
-          case 33: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED;
+          case 32: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DUMMY;
             } 
             // fall through
           case 166: break;
-          case 34: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.SEMICOLON;
+          case 33: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION;
             } 
             // fall through
           case 167: break;
-          case 35: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL;
+          case 34: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED;
             } 
             // fall through
           case 168: break;
-          case 36: 
-            { pm(); return KickAssemblerTypes.LABEL_DEF;
+          case 35: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.SEMICOLON;
             } 
             // fall through
           case 169: break;
-          case 37: 
-            { pm(); return KickAssemblerTypes.STRING;
+          case 36: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL;
             } 
             // fall through
           case 170: break;
-          case 38: 
-            { pm(); return KickAssemblerTypes.MULTILABEL;
+          case 37: 
+            { pm(); return KickAssemblerTypes.LABEL_DEF;
             } 
             // fall through
           case 171: break;
-          case 39: 
-            { pm(); return KickAssemblerTypes.MULTILABEL_DEF;
+          case 38: 
+            { pm(); return KickAssemblerTypes.STRING;
             } 
             // fall through
           case 172: break;
-          case 40: 
-            { pm(); return KickAssemblerTypes.NOT_EQUAL;
+          case 39: 
+            { pm(); return KickAssemblerTypes.MULTILABEL;
             } 
             // fall through
           case 173: break;
-          case 41: 
-            { pm(); return KickAssemblerTypes.PLUS_PLUS;
+          case 40: 
+            { pm(); return KickAssemblerTypes.MULTILABEL_DEF;
             } 
             // fall through
           case 174: break;
-          case 42: 
-            { pm(); return KickAssemblerTypes.PLUS_EQUAL;
+          case 41: 
+            { pm(); return KickAssemblerTypes.NOT_EQUAL;
             } 
             // fall through
           case 175: break;
-          case 43: 
-            { pm(); return KickAssemblerTypes.MINUS_MINUS;
+          case 42: 
+            { pm(); return KickAssemblerTypes.PLUS_PLUS;
             } 
             // fall through
           case 176: break;
-          case 44: 
-            { pm(); return KickAssemblerTypes.MINUS_EQUAL;
+          case 43: 
+            { pm(); return KickAssemblerTypes.PLUS_EQUAL;
             } 
             // fall through
           case 177: break;
-          case 45: 
-            { pm(); return KickAssemblerTypes.COMMENT_LINE;
+          case 44: 
+            { pm(); return KickAssemblerTypes.MINUS_MINUS;
             } 
             // fall through
           case 178: break;
-          case 46: 
-            { pm(); return KickAssemblerTypes.COMMENT_BLOCK;
+          case 45: 
+            { pm(); return KickAssemblerTypes.MINUS_EQUAL;
             } 
             // fall through
           case 179: break;
-          case 47: 
-            { pm(); return KickAssemblerTypes.DIVIDE_EQUAL;
+          case 46: 
+            { pm(); return KickAssemblerTypes.COMMENT_LINE;
             } 
             // fall through
           case 180: break;
-          case 48: 
-            { pm(); return KickAssemblerTypes.EQUAL;
+          case 47: 
+            { pm(); return KickAssemblerTypes.COMMENT_BLOCK;
             } 
             // fall through
           case 181: break;
-          case 49: 
-            { pm(); return KickAssemblerTypes.LESS_EQUALS;
+          case 48: 
+            { pm(); return KickAssemblerTypes.DIVIDE_EQUAL;
             } 
             // fall through
           case 182: break;
-          case 50: 
-            { pm(); return KickAssemblerTypes.SHIFT_LEFT;
+          case 49: 
+            { pm(); return KickAssemblerTypes.EQUAL;
             } 
             // fall through
           case 183: break;
-          case 51: 
-            { pm(); return KickAssemblerTypes.GREATER_EQUALS;
+          case 50: 
+            { pm(); return KickAssemblerTypes.LESS_EQUALS;
             } 
             // fall through
           case 184: break;
-          case 52: 
-            { pm(); return KickAssemblerTypes.SHIFT_RIGHT;
+          case 51: 
+            { pm(); return KickAssemblerTypes.SHIFT_LEFT;
             } 
             // fall through
           case 185: break;
-          case 53: 
-            { pm(); return KickAssemblerTypes.AND;
+          case 52: 
+            { pm(); return KickAssemblerTypes.GREATER_EQUALS;
             } 
             // fall through
           case 186: break;
-          case 54: 
-            { pm(); return KickAssemblerTypes.OR;
+          case 53: 
+            { pm(); return KickAssemblerTypes.SHIFT_RIGHT;
             } 
             // fall through
           case 187: break;
-          case 55: 
-            { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN;
+          case 54: 
+            { pm(); return KickAssemblerTypes.AND;
             } 
             // fall through
           case 188: break;
-          case 56: 
-            { return KickAssemblerTypes.ESCAPE_CHAR;
+          case 55: 
+            { pm(); return KickAssemblerTypes.OR;
             } 
             // fall through
           case 189: break;
-          case 57: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA;
+          case 56: 
+            { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN;
             } 
             // fall through
           case 190: break;
-          case 58: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IF;
+          case 57: 
+            { return KickAssemblerTypes.ESCAPE_CHAR;
             } 
             // fall through
           case 191: break;
-          case 59: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PC;
+          case 58: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA;
             } 
             // fall through
           case 192: break;
-          case 60: 
-            { return KickAssemblerTypes.COMMENT_LINE;
+          case 59: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IF;
             } 
             // fall through
           case 193: break;
-          case 61: 
-            { return KickAssemblerTypes.COMMENT_BLOCK;
+          case 60: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PC;
             } 
             // fall through
           case 194: break;
-          case 62: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_DATA;
+          case 61: 
+            { return KickAssemblerTypes.COMMENT_LINE;
             } 
             // fall through
           case 195: break;
-          case 63: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_IF;
+          case 62: 
+            { return KickAssemblerTypes.COMMENT_BLOCK;
             } 
             // fall through
           case 196: break;
-          case 64: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_PC;
+          case 63: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_DATA;
             } 
             // fall through
           case 197: break;
-          case 65: 
-            { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC;
+          case 64: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_IF;
             } 
             // fall through
           case 198: break;
-          case 66: 
-            { return KickAssemblerTypes.DIRECTIVE_DEF;
+          case 65: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_PC;
             } 
             // fall through
           case 199: break;
-          case 67: 
-            { pm(); return KickAssemblerTypes.CHAR;
+          case 66: 
+            { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC;
             } 
             // fall through
           case 200: break;
-          case 68: 
-            { pm(); return KickAssemblerTypes.PREPROCESSOR_IF;
+          case 67: 
+            { return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
           case 201: break;
-          case 69: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_CPU;
+          case 68: 
+            { pm(); return KickAssemblerTypes.CHAR;
             } 
             // fall through
           case 202: break;
-          case 70: 
-            { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF;
+          case 69: 
+            { pm(); return KickAssemblerTypes.PREPROCESSOR_IF;
             } 
             // fall through
           case 203: break;
-          case 71: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FOR;
+          case 70: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_CPU;
             } 
             // fall through
           case 204: break;
-          case 72: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_CPU;
+          case 71: 
+            { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
           case 205: break;
-          case 73: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_FOR;
+          case 72: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FOR;
             } 
             // fall through
           case 206: break;
-          case 74: 
-            { pm(); return KickAssemblerTypes.NULL;
+          case 73: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_CPU;
             } 
             // fall through
           case 207: break;
-          case 75: 
-            { pm(); return KickAssemblerTypes.BOOLEAN;
+          case 74: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_FOR;
             } 
             // fall through
           case 208: break;
-          case 76: 
-            { pm(); return KickAssemblerTypes.ESCAPE_CHAR;
+          case 75: 
+            { pm(); return KickAssemblerTypes.NULL;
             } 
             // fall through
           case 209: break;
-          case 77: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DISK;
+          case 76: 
+            { pm(); return KickAssemblerTypes.BOOLEAN;
             } 
             // fall through
           case 210: break;
-          case 78: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ENUM;
+          case 77: 
+            { pm(); return KickAssemblerTypes.ESCAPE_CHAR;
             } 
             // fall through
           case 211: break;
-          case 79: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_EVAL;
+          case 78: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DISK;
             } 
             // fall through
           case 212: break;
-          case 80: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PARAM;
+          case 79: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ENUM;
             } 
             // fall through
           case 213: break;
-          case 81: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_DISK;
+          case 80: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_EVAL;
             } 
             // fall through
           case 214: break;
-          case 82: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_ENUM;
+          case 81: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PARAM;
             } 
             // fall through
           case 215: break;
-          case 83: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_EVAL;
+          case 82: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_DISK;
             } 
             // fall through
           case 216: break;
-          case 84: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM;
+          case 83: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_ENUM;
             } 
             // fall through
           case 217: break;
-          case 85: 
-            { pm(); return KickAssemblerTypes.PREPROCESSOR;
+          case 84: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_EVAL;
             } 
             // fall through
           case 218: break;
-          case 86: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ALIGN;
+          case 85: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM;
             } 
             // fall through
           case 219: break;
-          case 87: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF;
+          case 86: 
+            { pm(); return KickAssemblerTypes.PREPROCESSOR;
             } 
             // fall through
           case 220: break;
-          case 88: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BREAK;
+          case 87: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ALIGN;
             } 
             // fall through
           case 221: break;
-          case 89: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_UNARY;
+          case 88: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
           case 222: break;
-          case 90: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO;
+          case 89: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BREAK;
             } 
             // fall through
           case 223: break;
-          case 91: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WATCH;
+          case 90: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_UNARY;
             } 
             // fall through
           case 224: break;
-          case 92: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WHILE;
+          case 91: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO;
             } 
             // fall through
           case 225: break;
-          case 93: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN;
+          case 92: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WATCH;
             } 
             // fall through
           case 226: break;
-          case 94: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_DEF;
+          case 93: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WHILE;
             } 
             // fall through
           case 227: break;
-          case 95: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_BREAK;
+          case 94: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN;
             } 
             // fall through
           case 228: break;
-          case 96: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY;
+          case 95: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
           case 229: break;
-          case 97: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO;
+          case 96: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_BREAK;
             } 
             // fall through
           case 230: break;
-          case 98: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_WATCH;
+          case 97: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY;
             } 
             // fall through
           case 231: break;
-          case 99: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_WHILE;
+          case 98: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO;
             } 
             // fall through
           case 232: break;
-          case 100: 
-            { pm(); return KickAssemblerTypes.PREPROCESSOR_DEF;
+          case 99: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_WATCH;
             } 
             // fall through
           case 233: break;
-          case 101: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ASSERT;
+          case 100: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_WHILE;
             } 
             // fall through
           case 234: break;
-          case 102: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEFINE;
+          case 101: 
+            { pm(); return KickAssemblerTypes.PREPROCESSOR_DEF;
             } 
             // fall through
           case 235: break;
-          case 103: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_RETURN;
+          case 102: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ASSERT;
             } 
             // fall through
           case 236: break;
-          case 104: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_STRUCT;
+          case 103: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEFINE;
             } 
             // fall through
           case 237: break;
-          case 105: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IMPORT;
+          case 104: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_RETURN;
             } 
             // fall through
           case 238: break;
-          case 106: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_MODIFY;
+          case 105: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_STRUCT;
             } 
             // fall through
           case 239: break;
-          case 107: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_ASSERT;
+          case 106: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IMPORT;
             } 
             // fall through
           case 240: break;
-          case 108: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_DEFINE;
+          case 107: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_MODIFY;
             } 
             // fall through
           case 241: break;
-          case 109: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_RETURN;
+          case 108: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_ASSERT;
             } 
             // fall through
           case 242: break;
-          case 110: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_STRUCT;
+          case 109: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_DEFINE;
             } 
             // fall through
           case 243: break;
-          case 111: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORT;
+          case 110: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_RETURN;
             } 
             // fall through
           case 244: break;
-          case 112: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_MODIFY;
+          case 111: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_STRUCT;
             } 
             // fall through
           case 245: break;
-          case 113: 
-            { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORT;
+          case 112: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORT;
             } 
             // fall through
           case 246: break;
-          case 114: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT;
+          case 113: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_MODIFY;
             } 
             // fall through
           case 247: break;
-          case 115: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BINARY;
+          case 114: 
+            { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORT;
             } 
             // fall through
           case 248: break;
-          case 116: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT;
+          case 115: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT;
             } 
             // fall through
           case 249: break;
-          case 117: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_BINARY;
+          case 116: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BINARY;
             } 
             // fall through
           case 250: break;
-          case 118: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ENCODING;
+          case 117: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT;
             } 
             // fall through
           case 251: break;
-          case 119: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE;
+          case 118: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_BINARY;
             } 
             // fall through
           case 252: break;
-          case 120: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FUNCTION;
+          case 119: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ENCODING;
             } 
             // fall through
           case 253: break;
-          case 121: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_ENCODING;
+          case 120: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE;
             } 
             // fall through
           case 254: break;
-          case 122: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE;
+          case 121: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FUNCTION;
             } 
             // fall through
           case 255: break;
-          case 123: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_FUNCTION;
+          case 122: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_ENCODING;
             } 
             // fall through
           case 256: break;
-          case 124: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_NAMESPACE;
+          case 123: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE;
             } 
             // fall through
           case 257: break;
-          case 125: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_NAMESPACE;
+          case 124: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_FUNCTION;
             } 
             // fall through
           case 258: break;
-          case 126: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF;
+          case 125: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_NAMESPACE;
             } 
             // fall through
           case 259: break;
-          case 127: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE;
+          case 126: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_NAMESPACE;
             } 
             // fall through
           case 260: break;
-          case 128: 
-            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY;
+          case 127: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF;
             } 
             // fall through
           case 261: break;
-          case 129: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF;
+          case 128: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE;
             } 
             // fall through
           case 262: break;
-          case 130: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE;
+          case 129: 
+            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY;
             } 
             // fall through
           case 263: break;
-          case 131: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY;
+          case 130: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF;
             } 
             // fall through
           case 264: break;
-          case 132: 
-            { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE;
+          case 131: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE;
             } 
             // fall through
           case 265: break;
-          case 133: 
-            { pm(); return KickAssemblerTypes.BASIC_UPSTART;
+          case 132: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY;
             } 
             // fall through
           case 266: break;
+          case 133: 
+            { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE;
+            } 
+            // fall through
+          case 267: break;
+          case 134: 
+            { pm(); return KickAssemblerTypes.BASIC_UPSTART;
+            } 
+            // fall through
+          case 268: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

@@ -8,6 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface KickAssemblerBlock extends PsiElement {
 
   @NotNull
+  List<KickAssemblerFunctionDefinition> getFunctionDefinitionList();
+
+  @NotNull
+  List<KickAssemblerMacroDefinition> getMacroDefinitionList();
+
+  @NotNull
   List<KickAssemblerStatement> getStatementList();
 
 }

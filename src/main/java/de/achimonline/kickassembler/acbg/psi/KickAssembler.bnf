@@ -71,7 +71,9 @@ private dotImport ::= DOT DIRECTIVE_IMPORT (
 
 argument ::= LABEL_DEF? HASH? expr
 
-block ::= LEFT_BRACE statement* RIGHT_BRACE
+// TODO double check that macros can be defined in namespace definitions
+// TODO maybe create a separate namespace definition block
+block ::= LEFT_BRACE (statement | macroDefinition | functionDefinition)* RIGHT_BRACE
 
 private qualifiedMnemonic ::= MNEMONIC [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
 
@@ -136,10 +138,7 @@ private invocableDefinition ::= (
     RIGHT_BRACE
 )
 
-bracketed ::= (
-    ( LEFT_PAREN expr RIGHT_PAREN )
-    | ( LEFT_BRACKET expr RIGHT_BRACKET )
-)
+bracketed ::= ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
 
 // e.g. macro args
 identifierList ::= LABEL ( COMMA LABEL )*
@@ -165,7 +164,7 @@ escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR)* STRING_END
 
 basicValue ::= STRING | NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| escapedString
 
-private labelExpr ::= LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
+private labelExpr ::= AT? LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 
 scopedLabel ::= labelExpr ( DOT labelExpr )*
 
@@ -183,23 +182,16 @@ expr ::= ( exprLeft ( infixOperator expr | ternaryRhs )* )
 
 private exprs ::= expr ( COMMA expr )*
 
-private callable ::= (
-    // docs as at v5.16: colon before macro invocation is optional from version 4
-    // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
-    ( [COLON] ( scopedLabel | BASIC_UPSTART ) ) | DIRECTIVE_BUILTIN
-)
+// docs as at v5.16: colon before macro invocation is optional from version 4
+// http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
+private callable ::= ( [COLON] ( scopedLabel | BASIC_UPSTART ) ) | DIRECTIVE_BUILTIN
 
-invocation ::= (
-    (
-        callable LEFT_PAREN exprs? RIGHT_PAREN |
-        nArityDirectives |
-        assert
-    )
-)
+invocation ::= callable LEFT_PAREN exprs? RIGHT_PAREN | nArityDirectives | assert
 
-private nArityDirectives ::= DOT DIRECTIVE_UNARY expr |
-        DOT DIRECTIVE_BINARY expr COMMA expr |
-        DOT DIRECTIVE_TERNARY expr COMMA expr COMMA expr
+private nArityDirectives ::=
+    DOT DIRECTIVE_UNARY expr |
+    DOT DIRECTIVE_BINARY expr COMMA expr |
+    DOT DIRECTIVE_TERNARY expr COMMA expr COMMA expr
 
 assert ::= DOT DIRECTIVE_ASSERT STRING COMMA (block | expr) COMMA (block | expr)
 
@@ -207,14 +199,9 @@ defExprList ::=  defExpr ( COMMA defExpr )*
 
 private compound ::= (statement | block)
 
-ifElse ::= (
-    DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound
-    [ "else" compound ]
-)
+ifElse ::= DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound [ "else" compound ]
 
-while ::= (
-    DOT DIRECTIVE_WHILE LEFT_PAREN expr RIGHT_PAREN compound
-)
+while ::= DOT DIRECTIVE_WHILE LEFT_PAREN expr RIGHT_PAREN compound
 
 breakDirective ::= DOT DIRECTIVE_BREAK STRING?
 
@@ -225,6 +212,7 @@ alignDirective ::= DOT DIRECTIVE_ALIGN expr
 evalExpression ::= DOT DIRECTIVE_EVAL expr
 
 niladic ::= DOT DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE
+
 segmentDirective ::= DOT (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
 
 paramDirective ::= DOT DIRECTIVE_PARAM parameterMap

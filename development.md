@@ -74,10 +74,11 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * preprocessor logical expression subset
 * char literals including escape chars
 
+* namespace escaping with `@` prefix
+
 ## TODO:
 
 ### Parser
-* namespace escaping with `@` prefix
 * petscii conversions for escape strings
 * grammar: addressing modes - we can detect legal addressing modes
 * grammar: pseudo commands 

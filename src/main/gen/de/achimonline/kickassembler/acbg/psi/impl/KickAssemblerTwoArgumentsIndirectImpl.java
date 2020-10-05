@@ -11,14 +11,14 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerBlockImpl extends ASTWrapperPsiElement implements KickAssemblerBlock {
+public class KickAssemblerTwoArgumentsIndirectImpl extends ASTWrapperPsiElement implements KickAssemblerTwoArgumentsIndirect {
 
-  public KickAssemblerBlockImpl(@NotNull ASTNode node) {
+  public KickAssemblerTwoArgumentsIndirectImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitBlock(this);
+    visitor.visitTwoArgumentsIndirect(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -28,20 +28,8 @@ public class KickAssemblerBlockImpl extends ASTWrapperPsiElement implements Kick
 
   @Override
   @NotNull
-  public List<KickAssemblerFunctionDefinition> getFunctionDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerFunctionDefinition.class);
-  }
-
-  @Override
-  @NotNull
-  public List<KickAssemblerMacroDefinition> getMacroDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerMacroDefinition.class);
-  }
-
-  @Override
-  @NotNull
-  public List<KickAssemblerStatement> getStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerStatement.class);
+  public List<KickAssemblerArgument> getArgumentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerArgument.class);
   }
 
 }

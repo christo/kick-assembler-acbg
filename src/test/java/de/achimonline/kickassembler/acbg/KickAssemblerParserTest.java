@@ -126,6 +126,9 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testEscapedNamespace() {
+        doTest(true);
+    }
 
     public void testKoalaImport() {
         doTest(true);

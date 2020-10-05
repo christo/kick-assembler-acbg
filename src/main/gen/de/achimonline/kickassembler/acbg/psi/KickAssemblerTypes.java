@@ -64,6 +64,7 @@ public interface KickAssemblerTypes {
   IElementType AND = new KickAssemblerTokenType("AND");
   IElementType ASSIGN = new KickAssemblerTokenType("ASSIGN");
   IElementType ASTERISK = new KickAssemblerTokenType("ASTERISK");
+  IElementType AT = new KickAssemblerTokenType("AT");
   IElementType BASIC_UPSTART = new KickAssemblerTokenType("BASIC_UPSTART");
   IElementType BIT_AND = new KickAssemblerTokenType("BIT_AND");
   IElementType BIT_NOT = new KickAssemblerTokenType("BIT_NOT");

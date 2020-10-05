@@ -205,6 +205,7 @@ ESCAPE_CHAR = (\\n|\\r|\\t|\\b|\\f|\\\"|\\\\)
     "/=" { pm(); return KickAssemblerTypes.DIVIDE_EQUAL; }
     ":"	 { pm(); return KickAssemblerTypes.COLON; }
     "?"	 { pm(); return KickAssemblerTypes.QUESTION_MARK; }
+    "@"	 { pm(); return KickAssemblerTypes.AT; }
 
     "." {
         if(zzLexicalState == POST_MNEMONIC) {
