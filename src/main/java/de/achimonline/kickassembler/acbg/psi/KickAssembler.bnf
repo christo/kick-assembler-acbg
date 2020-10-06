@@ -226,7 +226,7 @@ evalExpression ::= DOT DIRECTIVE_EVAL expr
 
 importOnce ::= DOT DIRECTIVE_IMPORTONCE | PREPROCESSOR_IMPORTONCE
 
-segmentDirective ::= DOT (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
+segmentDirective ::= DOT (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap] [STRING]
 
 paramDirective ::= DOT DIRECTIVE_PARAM parameterMap
 

@@ -1901,7 +1901,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap]
+  // DOT (DIRECTIVE_SEGMENT | DIRECTIVE_SEGMENT_DEF) LABEL [parameterMap] [STRING]
   public static boolean segmentDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "segmentDirective")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -1911,6 +1911,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && segmentDirective_1(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, LABEL);
     result_ = result_ && segmentDirective_3(builder_, level_ + 1);
+    result_ = result_ && segmentDirective_4(builder_, level_ + 1);
     exit_section_(builder_, marker_, SEGMENT_DIRECTIVE, result_);
     return result_;
   }
@@ -1928,6 +1929,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   private static boolean segmentDirective_3(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "segmentDirective_3")) return false;
     parameterMap(builder_, level_ + 1);
+    return true;
+  }
+
+  // [STRING]
+  private static boolean segmentDirective_4(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "segmentDirective_4")) return false;
+    consumeToken(builder_, STRING);
     return true;
   }
 

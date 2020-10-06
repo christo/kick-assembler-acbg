@@ -5,7 +5,8 @@
     .segmentdef MySegment2 [start=$1000]
 
     // Add code to segment1
-    .segment MySegment1 *=$4000
+    .segment MySegment1
+    *=$4000
     ldx #30
 l1:
     inc $d021
@@ -21,3 +22,13 @@ l1:
     .segment MySegment1
     inc $d020
     jmp *-3
+
+
+    // This
+    .segment Code "My Code"
+    // Is the same as this
+    .segment Code2
+    .memblock "My Code2"
+
+    // also allowed (discovered by experimentation with v5.16)
+    .segment MoarCode [start=$1000] "Moar Code"
