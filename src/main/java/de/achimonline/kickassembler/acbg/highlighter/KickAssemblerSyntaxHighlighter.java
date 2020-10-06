@@ -152,6 +152,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PARAM, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PC, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PSEUDOCOMMAND, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PSEUDOPC, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_SEGMENT, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_STRUCT, KICK_ASSEMBLER_DIRECTIVE);

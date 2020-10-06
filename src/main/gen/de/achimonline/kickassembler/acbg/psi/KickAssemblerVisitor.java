@@ -183,6 +183,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPseudoPcAssignment(@NotNull KickAssemblerPseudoPcAssignment o) {
+    visitPsiElement(o);
+  }
+
   public void visitReturnStatement(@NotNull KickAssemblerReturnStatement o) {
     visitPsiElement(o);
   }

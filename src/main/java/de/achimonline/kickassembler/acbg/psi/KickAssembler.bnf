@@ -59,6 +59,8 @@ cpuDirective ::= DOT DIRECTIVE_CPU ( "_6502NoIllegals" | "_6502" | "dtv" | "_65c
 
 pcAssignment ::= (ASTERISK | DOT DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
 
+pseudoPcAssignment ::= DOT DIRECTIVE_PSEUDOPC expr block
+
 labelAssignment ::= DOT DIRECTIVE_DEF LABEL ASSIGN expr
 
 import ::= ( PREPROCESSOR_IMPORT STRING | dotImport)
@@ -104,6 +106,7 @@ statement ::= (
     assert |
     block |
     pcAssignment |
+    pseudoPcAssignment |
     labelAssignment |
     forLoop |
     ifElse |

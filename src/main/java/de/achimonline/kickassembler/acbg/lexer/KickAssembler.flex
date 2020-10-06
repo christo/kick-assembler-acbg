@@ -272,7 +272,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "print"         { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
     "printnow"      { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
     "pseudocommand" { pm(); return KickAssemblerTypes.DIRECTIVE_PSEUDOCOMMAND; }
-    "pseudopc"      { pm(); return KickAssemblerTypes.DIRECTIVE; }
+    "pseudopc"      { pm(); return KickAssemblerTypes.DIRECTIVE_PSEUDOPC; }
     "return"        { pm(); return KickAssemblerTypes.DIRECTIVE_RETURN; }
     "segment"       { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT; }
     "segmentdef"    { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF; }

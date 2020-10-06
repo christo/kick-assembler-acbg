@@ -60,7 +60,7 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * test coverage of prefix logical negation operator precedence over infix/postfix arithmetic operators
 * grammar: pseudo commands 
 * preprocessor directives in macros
-
+* `.pseudopc` directive correctly handled
 
 ## TODO:
 

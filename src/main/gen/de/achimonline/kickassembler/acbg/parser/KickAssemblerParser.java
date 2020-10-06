@@ -1775,6 +1775,20 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DOT DIRECTIVE_PSEUDOPC expr block
+  public static boolean pseudoPcAssignment(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "pseudoPcAssignment")) return false;
+    if (!nextTokenIs(builder_, DOT)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, DOT, DIRECTIVE_PSEUDOPC);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && block(builder_, level_ + 1);
+    exit_section_(builder_, marker_, PSEUDO_PC_ASSIGNMENT, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // MNEMONIC [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
   static boolean qualifiedMnemonic(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "qualifiedMnemonic")) return false;
@@ -1950,6 +1964,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   //     assert |
   //     block |
   //     pcAssignment |
+  //     pseudoPcAssignment |
   //     labelAssignment |
   //     forLoop |
   //     ifElse |
@@ -1971,6 +1986,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = assert_$(builder_, level_ + 1);
     if (!result_) result_ = block(builder_, level_ + 1);
     if (!result_) result_ = pcAssignment(builder_, level_ + 1);
+    if (!result_) result_ = pseudoPcAssignment(builder_, level_ + 1);
     if (!result_) result_ = labelAssignment(builder_, level_ + 1);
     if (!result_) result_ = forLoop(builder_, level_ + 1);
     if (!result_) result_ = ifElse(builder_, level_ + 1);

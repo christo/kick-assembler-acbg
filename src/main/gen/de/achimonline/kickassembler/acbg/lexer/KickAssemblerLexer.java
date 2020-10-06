@@ -2092,7 +2092,7 @@ private void pm() {
             // fall through
           case 259: break;
           case 124: 
-            { pm(); return KickAssemblerTypes.DIRECTIVE;
+            { pm(); return KickAssemblerTypes.DIRECTIVE_PSEUDOPC;
             } 
             // fall through
           case 260: break;

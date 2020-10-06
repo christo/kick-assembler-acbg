@@ -52,6 +52,7 @@ public interface KickAssemblerTypes {
   IElementType PREPROCESSOR_DIRECTIVE = new KickAssemblerElementType("PREPROCESSOR_DIRECTIVE");
   IElementType PSEUDO_COMMAND = new KickAssemblerElementType("PSEUDO_COMMAND");
   IElementType PSEUDO_COMMAND_DEF = new KickAssemblerElementType("PSEUDO_COMMAND_DEF");
+  IElementType PSEUDO_PC_ASSIGNMENT = new KickAssemblerElementType("PSEUDO_PC_ASSIGNMENT");
   IElementType RETURN_STATEMENT = new KickAssemblerElementType("RETURN_STATEMENT");
   IElementType ROOT = new KickAssemblerElementType("ROOT");
   IElementType SCOPED_LABEL = new KickAssemblerElementType("SCOPED_LABEL");
@@ -104,6 +105,7 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_PARAM = new KickAssemblerTokenType("DIRECTIVE_PARAM");
   IElementType DIRECTIVE_PC = new KickAssemblerTokenType("DIRECTIVE_PC");
   IElementType DIRECTIVE_PSEUDOCOMMAND = new KickAssemblerTokenType("DIRECTIVE_PSEUDOCOMMAND");
+  IElementType DIRECTIVE_PSEUDOPC = new KickAssemblerTokenType("DIRECTIVE_PSEUDOPC");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
   IElementType DIRECTIVE_SEGMENT = new KickAssemblerTokenType("DIRECTIVE_SEGMENT");
   IElementType DIRECTIVE_SEGMENT_DEF = new KickAssemblerTokenType("DIRECTIVE_SEGMENT_DEF");
@@ -296,6 +298,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == PSEUDO_COMMAND_DEF) {
         return new KickAssemblerPseudoCommandDefImpl(node);
+      }
+      else if (type == PSEUDO_PC_ASSIGNMENT) {
+        return new KickAssemblerPseudoPcAssignmentImpl(node);
       }
       else if (type == RETURN_STATEMENT) {
         return new KickAssemblerReturnStatementImpl(node);
