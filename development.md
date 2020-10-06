@@ -61,11 +61,11 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * grammar: pseudo commands 
 * preprocessor directives in macros
 * `.pseudopc` directive correctly handled
+* empty blocks are totally legit
 
 ## TODO:
 
 ### Parser Features
-* are empty blocks legal?
 * exactly what can go in macros and functions?
 * functions defined in macros
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
@@ -84,7 +84,7 @@ can build with (as a way of locating suitable test source) see also parsing asmI
 * get more sample code for kickassembler using the following searches:
 	* https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code
 	* https://github.com/search?p=2&q=pseudocommand&type=Code
-
+    * https://codebase64.org/doku.php?id=base:kick_assembler_macros
 ### Other Plugin Features
 
 * make parser for asmInfo output!
