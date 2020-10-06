@@ -14,6 +14,9 @@ public interface KickAssemblerWhile extends PsiElement {
   KickAssemblerExpr getExpr();
 
   @Nullable
+  KickAssemblerPreprocessorDirective getPreprocessorDirective();
+
+  @Nullable
   KickAssemblerStatement getStatement();
 
 }

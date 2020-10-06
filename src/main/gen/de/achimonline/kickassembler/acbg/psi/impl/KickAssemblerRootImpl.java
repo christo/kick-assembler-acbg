@@ -40,20 +40,26 @@ public class KickAssemblerRootImpl extends ASTWrapperPsiElement implements KickA
 
   @Override
   @Nullable
+  public KickAssemblerImportOnce getImportOnce() {
+    return findChildByClass(KickAssemblerImportOnce.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerMacroDefinition getMacroDefinition() {
     return findChildByClass(KickAssemblerMacroDefinition.class);
   }
 
   @Override
   @Nullable
-  public KickAssemblerNiladic getNiladic() {
-    return findChildByClass(KickAssemblerNiladic.class);
+  public KickAssemblerPreprocessorDirective getPreprocessorDirective() {
+    return findChildByClass(KickAssemblerPreprocessorDirective.class);
   }
 
   @Override
   @Nullable
-  public KickAssemblerPreprocessorDirective getPreprocessorDirective() {
-    return findChildByClass(KickAssemblerPreprocessorDirective.class);
+  public KickAssemblerPseudoCommandDef getPseudoCommandDef() {
+    return findChildByClass(KickAssemblerPseudoCommandDef.class);
   }
 
   @Override

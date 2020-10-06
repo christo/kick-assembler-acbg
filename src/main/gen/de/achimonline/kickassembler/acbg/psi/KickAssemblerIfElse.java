@@ -14,6 +14,9 @@ public interface KickAssemblerIfElse extends PsiElement {
   KickAssemblerExpr getExpr();
 
   @NotNull
+  List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList();
+
+  @NotNull
   List<KickAssemblerStatement> getStatementList();
 
 }

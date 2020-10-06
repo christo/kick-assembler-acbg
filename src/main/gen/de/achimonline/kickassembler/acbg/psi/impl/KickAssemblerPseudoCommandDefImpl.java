@@ -11,19 +11,31 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerNiladicImpl extends ASTWrapperPsiElement implements KickAssemblerNiladic {
+public class KickAssemblerPseudoCommandDefImpl extends ASTWrapperPsiElement implements KickAssemblerPseudoCommandDef {
 
-  public KickAssemblerNiladicImpl(@NotNull ASTNode node) {
+  public KickAssemblerPseudoCommandDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitNiladic(this);
+    visitor.visitPseudoCommandDef(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof KickAssemblerVisitor) accept((KickAssemblerVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPreprocessorDirective.class);
+  }
+
+  @Override
+  @NotNull
+  public List<KickAssemblerStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerStatement.class);
   }
 
 }

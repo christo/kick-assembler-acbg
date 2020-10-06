@@ -14,13 +14,16 @@ public interface KickAssemblerRoot extends PsiElement {
   KickAssemblerFunctionDefinition getFunctionDefinition();
 
   @Nullable
+  KickAssemblerImportOnce getImportOnce();
+
+  @Nullable
   KickAssemblerMacroDefinition getMacroDefinition();
 
   @Nullable
-  KickAssemblerNiladic getNiladic();
+  KickAssemblerPreprocessorDirective getPreprocessorDirective();
 
   @Nullable
-  KickAssemblerPreprocessorDirective getPreprocessorDirective();
+  KickAssemblerPseudoCommandDef getPseudoCommandDef();
 
   @Nullable
   KickAssemblerStatement getStatement();

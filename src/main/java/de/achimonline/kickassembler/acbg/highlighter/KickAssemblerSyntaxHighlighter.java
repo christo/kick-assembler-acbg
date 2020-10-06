@@ -41,6 +41,7 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TokenSet OPERATOR_TOKENS = TokenSet.create(
             KickAssemblerTypes.HASH,
             KickAssemblerTypes.ASSIGN,
+            KickAssemblerTypes.AT,
             KickAssemblerTypes.COMMA,
             KickAssemblerTypes.SEMICOLON,
             KickAssemblerTypes.LESS_EQUALS,
@@ -75,6 +76,11 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TokenSet METADATA_TOKENS = TokenSet.create(
             KickAssemblerTypes.PREPROCESSOR,
+            KickAssemblerTypes.PREPROCESSOR_DEF,
+            KickAssemblerTypes.PREPROCESSOR_DIRECTIVE,
+            KickAssemblerTypes.PREPROCESSOR_IF,
+            KickAssemblerTypes.PREPROCESSOR_IMPORT,
+            KickAssemblerTypes.PREPROCESSOR_IMPORTONCE,
             KickAssemblerTypes.BASIC_UPSTART
     );
 
@@ -122,27 +128,44 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(typeKeyMap, BRACES_TOKENS, KICK_ASSEMBLER_BRACES);
         fillMap(typeKeyMap, BRACKETS_TOKENS, KICK_ASSEMBLER_BRACKETS);
 
-        typeKeyMap.put(KickAssemblerTypes.COMMENT_LINE, KICK_ASSEMBLER_LINE_COMMENT);
-        typeKeyMap.put(KickAssemblerTypes.COMMENT_BLOCK, KICK_ASSEMBLER_BLOCK_COMMENT);
-        typeKeyMap.put(KickAssemblerTypes.NUMBER, KICK_ASSEMBLER_NUMBER);
         typeKeyMap.put(KickAssemblerTypes.BOOLEAN, KICK_ASSEMBLER_BOOLEAN);
-        typeKeyMap.put(KickAssemblerTypes.NULL, KICK_ASSEMBLER_NULL);
-        typeKeyMap.put(KickAssemblerTypes.MNEMONIC, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.COMMENT_BLOCK, KICK_ASSEMBLER_BLOCK_COMMENT);
+        typeKeyMap.put(KickAssemblerTypes.COMMENT_LINE, KICK_ASSEMBLER_LINE_COMMENT);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BINARY, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BREAK, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BUILTIN, KICK_ASSEMBLER_BUILTIN);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_CPU, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DATA, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_DEF_MACRO, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_ENCODING, KICK_ASSEMBLER_DIRECTIVE);
-        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BREAK, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_EVAL, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_FILEMODIFY, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_FOR, KICK_ASSEMBLER_BUILTIN);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_FUNCTION, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_IF, KICK_ASSEMBLER_BUILTIN);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_IMPORT, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_IMPORTONCE, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_MODIFY, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_NAMESPACE, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PARAM, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PC, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_PSEUDOCOMMAND, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_SEGMENT, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_STRUCT, KICK_ASSEMBLER_DIRECTIVE);
+        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_UNARY, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_WATCH, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_WHILE, KICK_ASSEMBLER_BUILTIN);
-        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_BUILTIN, KICK_ASSEMBLER_BUILTIN);
-        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_FOR, KICK_ASSEMBLER_BUILTIN);
-        typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_IF, KICK_ASSEMBLER_BUILTIN);
-        typeKeyMap.put(KickAssemblerTypes.STRING, KICK_ASSEMBLER_STRING);
-        typeKeyMap.put(KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED, KICK_ASSEMBLER_DEPRECATED);
         typeKeyMap.put(KickAssemblerTypes.DUMMY, KICK_ASSEMBLER_DUMMY);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED, KICK_ASSEMBLER_DEPRECATED);
+        typeKeyMap.put(KickAssemblerTypes.NULL, KICK_ASSEMBLER_NULL);
+        typeKeyMap.put(KickAssemblerTypes.NUMBER, KICK_ASSEMBLER_NUMBER);
+        typeKeyMap.put(KickAssemblerTypes.STRING, KICK_ASSEMBLER_STRING);
+        typeKeyMap.put(KickAssemblerTypes.ESCAPE_CHAR, VALID_STRING_ESCAPE);
+
 
         return Collections.unmodifiableMap(typeKeyMap);
     }

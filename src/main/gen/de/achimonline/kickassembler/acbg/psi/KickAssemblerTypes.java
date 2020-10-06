@@ -32,6 +32,7 @@ public interface KickAssemblerTypes {
   IElementType IDENTIFIER_LIST = new KickAssemblerElementType("IDENTIFIER_LIST");
   IElementType IF_ELSE = new KickAssemblerElementType("IF_ELSE");
   IElementType IMPORT = new KickAssemblerElementType("IMPORT");
+  IElementType IMPORT_ONCE = new KickAssemblerElementType("IMPORT_ONCE");
   IElementType INFIX_OPERATOR = new KickAssemblerElementType("INFIX_OPERATOR");
   IElementType INSTRUCTION = new KickAssemblerElementType("INSTRUCTION");
   IElementType INVOCATION = new KickAssemblerElementType("INVOCATION");
@@ -39,7 +40,6 @@ public interface KickAssemblerTypes {
   IElementType MACRO_DEFINITION = new KickAssemblerElementType("MACRO_DEFINITION");
   IElementType MODIFY_DIRECTIVE = new KickAssemblerElementType("MODIFY_DIRECTIVE");
   IElementType NAMESPACE_DIRECTIVE = new KickAssemblerElementType("NAMESPACE_DIRECTIVE");
-  IElementType NILADIC = new KickAssemblerElementType("NILADIC");
   IElementType ONE_ARGUMENT_INDIRECT = new KickAssemblerElementType("ONE_ARGUMENT_INDIRECT");
   IElementType PARAMETER = new KickAssemblerElementType("PARAMETER");
   IElementType PARAMETER_MAP = new KickAssemblerElementType("PARAMETER_MAP");
@@ -50,6 +50,8 @@ public interface KickAssemblerTypes {
   IElementType PP_EXPR_LEFT = new KickAssemblerElementType("PP_EXPR_LEFT");
   IElementType PREFIX_OPERATOR = new KickAssemblerElementType("PREFIX_OPERATOR");
   IElementType PREPROCESSOR_DIRECTIVE = new KickAssemblerElementType("PREPROCESSOR_DIRECTIVE");
+  IElementType PSEUDO_COMMAND = new KickAssemblerElementType("PSEUDO_COMMAND");
+  IElementType PSEUDO_COMMAND_DEF = new KickAssemblerElementType("PSEUDO_COMMAND_DEF");
   IElementType RETURN_STATEMENT = new KickAssemblerElementType("RETURN_STATEMENT");
   IElementType ROOT = new KickAssemblerElementType("ROOT");
   IElementType SCOPED_LABEL = new KickAssemblerElementType("SCOPED_LABEL");
@@ -101,6 +103,7 @@ public interface KickAssemblerTypes {
   IElementType DIRECTIVE_NAMESPACE = new KickAssemblerTokenType("DIRECTIVE_NAMESPACE");
   IElementType DIRECTIVE_PARAM = new KickAssemblerTokenType("DIRECTIVE_PARAM");
   IElementType DIRECTIVE_PC = new KickAssemblerTokenType("DIRECTIVE_PC");
+  IElementType DIRECTIVE_PSEUDOCOMMAND = new KickAssemblerTokenType("DIRECTIVE_PSEUDOCOMMAND");
   IElementType DIRECTIVE_RETURN = new KickAssemblerTokenType("DIRECTIVE_RETURN");
   IElementType DIRECTIVE_SEGMENT = new KickAssemblerTokenType("DIRECTIVE_SEGMENT");
   IElementType DIRECTIVE_SEGMENT_DEF = new KickAssemblerTokenType("DIRECTIVE_SEGMENT_DEF");
@@ -234,6 +237,9 @@ public interface KickAssemblerTypes {
       else if (type == IMPORT) {
         return new KickAssemblerImportImpl(node);
       }
+      else if (type == IMPORT_ONCE) {
+        return new KickAssemblerImportOnceImpl(node);
+      }
       else if (type == INFIX_OPERATOR) {
         return new KickAssemblerInfixOperatorImpl(node);
       }
@@ -254,9 +260,6 @@ public interface KickAssemblerTypes {
       }
       else if (type == NAMESPACE_DIRECTIVE) {
         return new KickAssemblerNamespaceDirectiveImpl(node);
-      }
-      else if (type == NILADIC) {
-        return new KickAssemblerNiladicImpl(node);
       }
       else if (type == ONE_ARGUMENT_INDIRECT) {
         return new KickAssemblerOneArgumentIndirectImpl(node);
@@ -287,6 +290,12 @@ public interface KickAssemblerTypes {
       }
       else if (type == PREPROCESSOR_DIRECTIVE) {
         return new KickAssemblerPreprocessorDirectiveImpl(node);
+      }
+      else if (type == PSEUDO_COMMAND) {
+        return new KickAssemblerPseudoCommandImpl(node);
+      }
+      else if (type == PSEUDO_COMMAND_DEF) {
+        return new KickAssemblerPseudoCommandDefImpl(node);
       }
       else if (type == RETURN_STATEMENT) {
         return new KickAssemblerReturnStatementImpl(node);

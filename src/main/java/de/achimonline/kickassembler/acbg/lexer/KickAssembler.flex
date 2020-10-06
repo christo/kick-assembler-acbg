@@ -179,6 +179,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
 
     "#"	 { pm(); return KickAssemblerTypes.HASH; }
     "="	 { pm(); return KickAssemblerTypes.ASSIGN; }
+    "@"	 { pm(); return KickAssemblerTypes.AT; }
     ","	 { pm(); return KickAssemblerTypes.COMMA; }
     ";"	 { pm(); return KickAssemblerTypes.SEMICOLON; }
     "<=" { pm(); return KickAssemblerTypes.LESS_EQUALS; }
@@ -207,7 +208,6 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "/=" { pm(); return KickAssemblerTypes.DIVIDE_EQUAL; }
     ":"	 { pm(); return KickAssemblerTypes.COLON; }
     "?"	 { pm(); return KickAssemblerTypes.QUESTION_MARK; }
-    "@"	 { pm(); return KickAssemblerTypes.AT; }
 
     "." {
         if(zzLexicalState == POST_MNEMONIC) {
@@ -271,7 +271,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "plugin"        { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
     "print"         { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
     "printnow"      { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY; }
-    "pseudocommand" { pm(); return KickAssemblerTypes.DIRECTIVE; }
+    "pseudocommand" { pm(); return KickAssemblerTypes.DIRECTIVE_PSEUDOCOMMAND; }
     "pseudopc"      { pm(); return KickAssemblerTypes.DIRECTIVE; }
     "return"        { pm(); return KickAssemblerTypes.DIRECTIVE_RETURN; }
     "segment"       { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT; }

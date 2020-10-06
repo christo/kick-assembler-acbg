@@ -63,13 +63,13 @@ class KickAssemblerLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 256 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\55\1\54\1\0\1\55\1\54\22\0\1\55\1\70\1\66\1\101\1\62\1\63\1\116\1"+
-    "\65\1\103\1\104\1\75\1\71\1\112\1\72\1\60\1\74\2\64\1\53\7\56\1\73\1\113\1"+
-    "\114\1\111\1\115\1\122\1\123\1\4\1\24\1\6\1\5\1\27\1\61\1\67\1\11\1\33\1\52"+
+    "\11\0\1\55\1\54\1\0\1\55\1\54\22\0\1\55\1\70\1\66\1\101\1\62\1\63\1\117\1"+
+    "\65\1\103\1\104\1\75\1\71\1\113\1\72\1\60\1\74\2\64\1\53\7\56\1\73\1\114\1"+
+    "\115\1\111\1\116\1\123\1\112\1\4\1\24\1\6\1\5\1\27\1\61\1\67\1\11\1\33\1\52"+
     "\1\42\1\15\1\36\1\20\1\50\1\40\1\30\1\16\1\22\1\34\1\100\1\44\1\67\1\12\1"+
-    "\46\1\67\1\107\1\76\1\110\1\120\1\57\1\0\1\1\1\23\1\3\1\2\1\25\1\77\1\124"+
+    "\46\1\67\1\107\1\76\1\110\1\121\1\57\1\0\1\1\1\23\1\3\1\2\1\25\1\77\1\124"+
     "\1\7\1\31\1\51\1\41\1\13\1\35\1\17\1\47\1\37\1\26\1\14\1\21\1\32\1\102\1\43"+
-    "\1\125\1\10\1\45\1\126\1\105\1\117\1\106\1\121\201\0");
+    "\1\125\1\10\1\45\1\126\1\105\1\120\1\106\1\122\201\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -110,10 +110,10 @@ class KickAssemblerLexer implements FlexLexer {
     "\2\2\1\175\1\2\2\0\1\176\6\0\1\2\1\177"+
     "\7\2\2\0\1\200\1\122\1\201\2\0\1\202\1\2"+
     "\1\203\1\126\1\204\2\2\1\205\1\2\1\206\2\0"+
-    "\3\2\2\0\2\2\1\207";
+    "\3\2\2\0\2\2\1\207\1\210";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[646];
+    int [] result = new int[647];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -145,8 +145,8 @@ class KickAssemblerLexer implements FlexLexer {
     "\0\u0ae0\0\u0b37\0\u0b8e\0\u0be5\0\u0c3c\0\u0c93\0\u0cea\0\u0d41"+
     "\0\u01b3\0\u0d98\0\u0def\0\u0e46\0\u0e9d\0\u0ef4\0\u0f4b\0\u0fa2"+
     "\0\u01b3\0\u0ff9\0\u01b3\0\u1050\0\u10a7\0\u01b3\0\u01b3\0\u01b3"+
-    "\0\u01b3\0\u01b3\0\u01b3\0\u10fe\0\u01b3\0\u01b3\0\u1155\0\u11ac"+
-    "\0\u1203\0\u125a\0\u01b3\0\u01b3\0\u01b3\0\u12b1\0\u1308\0\u01b3"+
+    "\0\u01b3\0\u01b3\0\u01b3\0\u10fe\0\u1155\0\u01b3\0\u01b3\0\u11ac"+
+    "\0\u1203\0\u125a\0\u12b1\0\u01b3\0\u01b3\0\u01b3\0\u1308\0\u01b3"+
     "\0\u135f\0\u01b3\0\u13b6\0\u140d\0\u1464\0\u14bb\0\u1512\0\u1569"+
     "\0\u15c0\0\u1617\0\u166e\0\u16c5\0\u171c\0\u1773\0\u17ca\0\u1821"+
     "\0\u1878\0\u18cf\0\u01b3\0\u1926\0\u197d\0\u19d4\0\u1a2b\0\u1a82"+
@@ -218,10 +218,10 @@ class KickAssemblerLexer implements FlexLexer {
     "\0\uaca4\0\uacfb\0\uad52\0\uada9\0\uae00\0\u01b3\0\u01b3\0\u01b3"+
     "\0\uae57\0\uaeae\0\u01b3\0\uaf05\0\u0414\0\u0414\0\u0414\0\uaf5c"+
     "\0\uafb3\0\u0414\0\ub00a\0\u01b3\0\ub061\0\ub0b8\0\ub10f\0\ub166"+
-    "\0\ub1bd\0\ub214\0\ub26b\0\ub2c2\0\ub319\0\u0414";
+    "\0\ub1bd\0\ub214\0\ub26b\0\ub2c2\0\ub319\0\u0414\0\u0414";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[646];
+    int [] result = new int[647];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -258,7 +258,7 @@ class KickAssemblerLexer implements FlexLexer {
     "\1\113\1\114\1\115\7\112\1\116\1\117\2\112\1\120"+
     "\1\112\1\121\1\112\1\122\1\112\1\123\3\112\1\124"+
     "\1\125\2\112\1\126\1\112\1\127\3\112\1\130\30\112"+
-    "\1\131\2\112\1\132\13\112\1\133\11\112\1\134\1\135"+
+    "\1\131\2\112\1\132\14\112\1\133\10\112\1\134\1\135"+
     "\1\0\1\136\1\137\1\140\7\15\1\141\1\142\2\15"+
     "\1\143\1\15\1\144\1\15\1\145\1\15\1\146\3\15"+
     "\1\147\1\150\2\15\1\151\1\15\1\152\3\15\1\153"+
@@ -373,9 +373,9 @@ class KickAssemblerLexer implements FlexLexer {
     "\1\302\52\15\2\0\2\15\1\0\1\15\2\0\1\15"+
     "\2\0\1\15\3\0\1\166\3\0\2\15\1\0\1\15"+
     "\21\0\3\15\2\0\1\303\22\0\1\304\3\0\1\305"+
-    "\50\0\1\306\135\0\1\307\126\0\1\310\2\0\1\311"+
-    "\123\0\1\312\3\0\1\313\127\0\1\314\127\0\1\315"+
-    "\75\0\1\316\40\0\54\107\1\0\11\107\1\0\7\107"+
+    "\50\0\1\306\135\0\1\307\103\0\1\310\151\0\1\311"+
+    "\3\0\1\312\122\0\1\313\4\0\1\314\127\0\1\315"+
+    "\127\0\1\316\6\0\54\107\1\0\11\107\1\0\7\107"+
     "\1\0\30\107\14\0\1\317\2\0\1\317\3\0\1\317"+
     "\6\0\1\317\27\0\1\320\3\0\1\317\7\0\2\317"+
     "\37\0\1\321\2\0\1\322\5\0\1\323\1\0\1\324"+
@@ -1082,7 +1082,7 @@ class KickAssemblerLexer implements FlexLexer {
     "\1\0\1\15\21\0\3\15\1\0\52\15\1\u0286\2\0"+
     "\2\15\1\0\1\15\2\0\1\15\2\0\1\15\3\0"+
     "\1\166\3\0\2\15\1\0\1\15\21\0\3\15\2\0"+
-    "\1\u024a\151\0\1\u020b\102\0\1\15\1\u0255\51\15\2\0"+
+    "\1\u024a\151\0\1\u020b\102\0\1\15\1\u0287\51\15\2\0"+
     "\2\15\1\0\1\15\2\0\1\15\2\0\1\15\3\0"+
     "\1\166\3\0\2\15\1\0\1\15\21\0\3\15\1\0"+
     "\24\15\1\u021d\26\15\2\0\2\15\1\0\1\15\2\0"+
@@ -1129,7 +1129,7 @@ class KickAssemblerLexer implements FlexLexer {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\5\0\1\11\42\1\1\11\7\1\1\11\1\1\1\11"+
-    "\2\1\6\11\1\1\2\11\4\1\3\11\2\1\1\11"+
+    "\2\1\6\11\2\1\2\11\4\1\3\11\1\1\1\11"+
     "\1\0\1\11\20\1\1\11\20\1\1\0\11\1\1\11"+
     "\67\1\2\0\2\1\4\0\1\11\1\0\1\1\6\11"+
     "\2\1\1\11\1\1\4\0\11\11\1\0\1\11\5\0"+
@@ -1145,10 +1145,10 @@ class KickAssemblerLexer implements FlexLexer {
     "\2\11\5\0\24\1\3\0\1\1\1\11\11\0\17\1"+
     "\5\0\1\11\2\0\1\11\2\0\1\11\14\1\2\0"+
     "\1\11\6\0\11\1\2\0\3\11\2\0\1\11\10\1"+
-    "\1\11\2\0\3\1\2\0\3\1";
+    "\1\11\2\0\3\1\2\0\4\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[646];
+    int [] result = new int[647];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -1475,22 +1475,22 @@ private void pm() {
             { pm(); return KickAssemblerTypes.DUMMY;
             } 
             // fall through
-          case 136: break;
+          case 137: break;
           case 2: 
             { pm(); return KickAssemblerTypes.LABEL;
             } 
             // fall through
-          case 137: break;
+          case 138: break;
           case 3: 
             { pm(); return KickAssemblerTypes.NUMBER;
             } 
             // fall through
-          case 138: break;
+          case 139: break;
           case 4: 
             { pm(); return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 139: break;
+          case 140: break;
           case 5: 
             { if(zzLexicalState == POST_MNEMONIC) {
             yybegin(MNEMONIC_SUFFIX);
@@ -1500,657 +1500,662 @@ private void pm() {
         return KickAssemblerTypes.DOT;
             } 
             // fall through
-          case 140: break;
+          case 141: break;
           case 6: 
             { pm(); return KickAssemblerTypes.NOT;
             } 
             // fall through
-          case 141: break;
+          case 142: break;
           case 7: 
             { pm(); return KickAssemblerTypes.PLUS;
             } 
             // fall through
-          case 142: break;
+          case 143: break;
           case 8: 
             { pm(); return KickAssemblerTypes.MINUS;
             } 
             // fall through
-          case 143: break;
+          case 144: break;
           case 9: 
             { pm(); return KickAssemblerTypes.COLON;
             } 
             // fall through
-          case 144: break;
+          case 145: break;
           case 10: 
             { pm(); return KickAssemblerTypes.DIVIDE;
             } 
             // fall through
-          case 145: break;
+          case 146: break;
           case 11: 
             { pm(); return KickAssemblerTypes.ASTERISK;
             } 
             // fall through
-          case 146: break;
+          case 147: break;
           case 12: 
             { pm(); return KickAssemblerTypes.HASH;
             } 
             // fall through
-          case 147: break;
+          case 148: break;
           case 13: 
             { pm(); return KickAssemblerTypes.LEFT_PAREN;
             } 
             // fall through
-          case 148: break;
+          case 149: break;
           case 14: 
             { pm(); return KickAssemblerTypes.RIGHT_PAREN;
             } 
             // fall through
-          case 149: break;
+          case 150: break;
           case 15: 
             { pm(); return KickAssemblerTypes.LEFT_BRACE;
             } 
             // fall through
-          case 150: break;
+          case 151: break;
           case 16: 
             { pm(); return KickAssemblerTypes.RIGHT_BRACE;
             } 
             // fall through
-          case 151: break;
+          case 152: break;
           case 17: 
             { pm(); return KickAssemblerTypes.LEFT_BRACKET;
             } 
             // fall through
-          case 152: break;
+          case 153: break;
           case 18: 
             { pm(); return KickAssemblerTypes.RIGHT_BRACKET;
             } 
             // fall through
-          case 153: break;
+          case 154: break;
           case 19: 
             { pm(); return KickAssemblerTypes.ASSIGN;
             } 
             // fall through
-          case 154: break;
-          case 20: 
-            { pm(); return KickAssemblerTypes.COMMA;
-            } 
-            // fall through
           case 155: break;
-          case 21: 
-            { pm(); return KickAssemblerTypes.SEMICOLON;
-            } 
-            // fall through
-          case 156: break;
-          case 22: 
-            { pm(); return KickAssemblerTypes.LESS;
-            } 
-            // fall through
-          case 157: break;
-          case 23: 
-            { pm(); return KickAssemblerTypes.GREATER;
-            } 
-            // fall through
-          case 158: break;
-          case 24: 
-            { pm(); return KickAssemblerTypes.BIT_AND;
-            } 
-            // fall through
-          case 159: break;
-          case 25: 
-            { pm(); return KickAssemblerTypes.BIT_OR;
-            } 
-            // fall through
-          case 160: break;
-          case 26: 
-            { pm(); return KickAssemblerTypes.BIT_XOR;
-            } 
-            // fall through
-          case 161: break;
-          case 27: 
-            { pm(); return KickAssemblerTypes.BIT_NOT;
-            } 
-            // fall through
-          case 162: break;
-          case 28: 
-            { pm(); return KickAssemblerTypes.QUESTION_MARK;
-            } 
-            // fall through
-          case 163: break;
-          case 29: 
+          case 20: 
             { pm(); return KickAssemblerTypes.AT;
             } 
             // fall through
+          case 156: break;
+          case 21: 
+            { pm(); return KickAssemblerTypes.COMMA;
+            } 
+            // fall through
+          case 157: break;
+          case 22: 
+            { pm(); return KickAssemblerTypes.SEMICOLON;
+            } 
+            // fall through
+          case 158: break;
+          case 23: 
+            { pm(); return KickAssemblerTypes.LESS;
+            } 
+            // fall through
+          case 159: break;
+          case 24: 
+            { pm(); return KickAssemblerTypes.GREATER;
+            } 
+            // fall through
+          case 160: break;
+          case 25: 
+            { pm(); return KickAssemblerTypes.BIT_AND;
+            } 
+            // fall through
+          case 161: break;
+          case 26: 
+            { pm(); return KickAssemblerTypes.BIT_OR;
+            } 
+            // fall through
+          case 162: break;
+          case 27: 
+            { pm(); return KickAssemblerTypes.BIT_XOR;
+            } 
+            // fall through
+          case 163: break;
+          case 28: 
+            { pm(); return KickAssemblerTypes.BIT_NOT;
+            } 
+            // fall through
           case 164: break;
+          case 29: 
+            { pm(); return KickAssemblerTypes.QUESTION_MARK;
+            } 
+            // fall through
+          case 165: break;
           case 30: 
             { return KickAssemblerTypes.STRING_VALUE;
             } 
             // fall through
-          case 165: break;
+          case 166: break;
           case 31: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.STRING_END;
             } 
             // fall through
-          case 166: break;
+          case 167: break;
           case 32: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DUMMY;
             } 
             // fall through
-          case 167: break;
+          case 168: break;
           case 33: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION;
             } 
             // fall through
-          case 168: break;
+          case 169: break;
           case 34: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED;
             } 
             // fall through
-          case 169: break;
+          case 170: break;
           case 35: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.SEMICOLON;
             } 
             // fall through
-          case 170: break;
+          case 171: break;
           case 36: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL;
             } 
             // fall through
-          case 171: break;
+          case 172: break;
           case 37: 
             { pm(); return KickAssemblerTypes.LABEL_DEF;
             } 
             // fall through
-          case 172: break;
+          case 173: break;
           case 38: 
             { pm(); return KickAssemblerTypes.STRING;
             } 
             // fall through
-          case 173: break;
+          case 174: break;
           case 39: 
             { pm(); return KickAssemblerTypes.MULTILABEL;
             } 
             // fall through
-          case 174: break;
+          case 175: break;
           case 40: 
             { pm(); return KickAssemblerTypes.MULTILABEL_DEF;
             } 
             // fall through
-          case 175: break;
+          case 176: break;
           case 41: 
             { pm(); return KickAssemblerTypes.NOT_EQUAL;
             } 
             // fall through
-          case 176: break;
+          case 177: break;
           case 42: 
             { pm(); return KickAssemblerTypes.PLUS_PLUS;
             } 
             // fall through
-          case 177: break;
+          case 178: break;
           case 43: 
             { pm(); return KickAssemblerTypes.PLUS_EQUAL;
             } 
             // fall through
-          case 178: break;
+          case 179: break;
           case 44: 
             { pm(); return KickAssemblerTypes.MINUS_MINUS;
             } 
             // fall through
-          case 179: break;
+          case 180: break;
           case 45: 
             { pm(); return KickAssemblerTypes.MINUS_EQUAL;
             } 
             // fall through
-          case 180: break;
+          case 181: break;
           case 46: 
             { pm(); return KickAssemblerTypes.COMMENT_LINE;
             } 
             // fall through
-          case 181: break;
+          case 182: break;
           case 47: 
             { pm(); return KickAssemblerTypes.COMMENT_BLOCK;
             } 
             // fall through
-          case 182: break;
+          case 183: break;
           case 48: 
             { pm(); return KickAssemblerTypes.DIVIDE_EQUAL;
             } 
             // fall through
-          case 183: break;
+          case 184: break;
           case 49: 
             { pm(); return KickAssemblerTypes.EQUAL;
             } 
             // fall through
-          case 184: break;
-          case 50: 
-            { pm(); return KickAssemblerTypes.LESS_EQUALS;
-            } 
-            // fall through
           case 185: break;
-          case 51: 
-            { pm(); return KickAssemblerTypes.SHIFT_LEFT;
-            } 
-            // fall through
-          case 186: break;
-          case 52: 
-            { pm(); return KickAssemblerTypes.GREATER_EQUALS;
-            } 
-            // fall through
-          case 187: break;
-          case 53: 
-            { pm(); return KickAssemblerTypes.SHIFT_RIGHT;
-            } 
-            // fall through
-          case 188: break;
-          case 54: 
-            { pm(); return KickAssemblerTypes.AND;
-            } 
-            // fall through
-          case 189: break;
-          case 55: 
-            { pm(); return KickAssemblerTypes.OR;
-            } 
-            // fall through
-          case 190: break;
-          case 56: 
+          case 50: 
             { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN;
             } 
             // fall through
+          case 186: break;
+          case 51: 
+            { pm(); return KickAssemblerTypes.LESS_EQUALS;
+            } 
+            // fall through
+          case 187: break;
+          case 52: 
+            { pm(); return KickAssemblerTypes.SHIFT_LEFT;
+            } 
+            // fall through
+          case 188: break;
+          case 53: 
+            { pm(); return KickAssemblerTypes.GREATER_EQUALS;
+            } 
+            // fall through
+          case 189: break;
+          case 54: 
+            { pm(); return KickAssemblerTypes.SHIFT_RIGHT;
+            } 
+            // fall through
+          case 190: break;
+          case 55: 
+            { pm(); return KickAssemblerTypes.AND;
+            } 
+            // fall through
           case 191: break;
+          case 56: 
+            { pm(); return KickAssemblerTypes.OR;
+            } 
+            // fall through
+          case 192: break;
           case 57: 
             { return KickAssemblerTypes.ESCAPE_CHAR;
             } 
             // fall through
-          case 192: break;
+          case 193: break;
           case 58: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA;
             } 
             // fall through
-          case 193: break;
+          case 194: break;
           case 59: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IF;
             } 
             // fall through
-          case 194: break;
+          case 195: break;
           case 60: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PC;
             } 
             // fall through
-          case 195: break;
+          case 196: break;
           case 61: 
             { return KickAssemblerTypes.COMMENT_LINE;
             } 
             // fall through
-          case 196: break;
+          case 197: break;
           case 62: 
             { return KickAssemblerTypes.COMMENT_BLOCK;
             } 
             // fall through
-          case 197: break;
+          case 198: break;
           case 63: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_DATA;
             } 
             // fall through
-          case 198: break;
+          case 199: break;
           case 64: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_IF;
             } 
             // fall through
-          case 199: break;
+          case 200: break;
           case 65: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_PC;
             } 
             // fall through
-          case 200: break;
+          case 201: break;
           case 66: 
             { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC;
             } 
             // fall through
-          case 201: break;
+          case 202: break;
           case 67: 
             { return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
-          case 202: break;
+          case 203: break;
           case 68: 
             { pm(); return KickAssemblerTypes.CHAR;
             } 
             // fall through
-          case 203: break;
+          case 204: break;
           case 69: 
             { pm(); return KickAssemblerTypes.PREPROCESSOR_IF;
             } 
             // fall through
-          case 204: break;
+          case 205: break;
           case 70: 
             { return KickAssemblerTypes.ESCAPE_HEX;
             } 
             // fall through
-          case 205: break;
+          case 206: break;
           case 71: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_CPU;
             } 
             // fall through
-          case 206: break;
+          case 207: break;
           case 72: 
             { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
-          case 207: break;
+          case 208: break;
           case 73: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FOR;
             } 
             // fall through
-          case 208: break;
+          case 209: break;
           case 74: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_CPU;
             } 
             // fall through
-          case 209: break;
+          case 210: break;
           case 75: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_FOR;
             } 
             // fall through
-          case 210: break;
+          case 211: break;
           case 76: 
             { pm(); return KickAssemblerTypes.NULL;
             } 
             // fall through
-          case 211: break;
+          case 212: break;
           case 77: 
             { pm(); return KickAssemblerTypes.BOOLEAN;
             } 
             // fall through
-          case 212: break;
+          case 213: break;
           case 78: 
             { pm(); return KickAssemblerTypes.ESCAPE_CHAR;
             } 
             // fall through
-          case 213: break;
+          case 214: break;
           case 79: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DISK;
             } 
             // fall through
-          case 214: break;
+          case 215: break;
           case 80: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ENUM;
             } 
             // fall through
-          case 215: break;
+          case 216: break;
           case 81: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_EVAL;
             } 
             // fall through
-          case 216: break;
+          case 217: break;
           case 82: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_PARAM;
             } 
             // fall through
-          case 217: break;
+          case 218: break;
           case 83: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_DISK;
             } 
             // fall through
-          case 218: break;
+          case 219: break;
           case 84: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_ENUM;
             } 
             // fall through
-          case 219: break;
+          case 220: break;
           case 85: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_EVAL;
             } 
             // fall through
-          case 220: break;
+          case 221: break;
           case 86: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_PARAM;
             } 
             // fall through
-          case 221: break;
+          case 222: break;
           case 87: 
             { pm(); return KickAssemblerTypes.PREPROCESSOR;
             } 
             // fall through
-          case 222: break;
+          case 223: break;
           case 88: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ALIGN;
             } 
             // fall through
-          case 223: break;
+          case 224: break;
           case 89: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
-          case 224: break;
+          case 225: break;
           case 90: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BREAK;
             } 
             // fall through
-          case 225: break;
+          case 226: break;
           case 91: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_UNARY;
             } 
             // fall through
-          case 226: break;
+          case 227: break;
           case 92: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO;
             } 
             // fall through
-          case 227: break;
+          case 228: break;
           case 93: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WATCH;
             } 
             // fall through
-          case 228: break;
+          case 229: break;
           case 94: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_WHILE;
             } 
             // fall through
-          case 229: break;
+          case 230: break;
           case 95: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN;
             } 
             // fall through
-          case 230: break;
+          case 231: break;
           case 96: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_DEF;
             } 
             // fall through
-          case 231: break;
+          case 232: break;
           case 97: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_BREAK;
             } 
             // fall through
-          case 232: break;
+          case 233: break;
           case 98: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_UNARY;
             } 
             // fall through
-          case 233: break;
+          case 234: break;
           case 99: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_DEF_MACRO;
             } 
             // fall through
-          case 234: break;
+          case 235: break;
           case 100: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_WATCH;
             } 
             // fall through
-          case 235: break;
+          case 236: break;
           case 101: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_WHILE;
             } 
             // fall through
-          case 236: break;
+          case 237: break;
           case 102: 
             { pm(); return KickAssemblerTypes.PREPROCESSOR_DEF;
             } 
             // fall through
-          case 237: break;
+          case 238: break;
           case 103: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ASSERT;
             } 
             // fall through
-          case 238: break;
+          case 239: break;
           case 104: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DEFINE;
             } 
             // fall through
-          case 239: break;
+          case 240: break;
           case 105: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_RETURN;
             } 
             // fall through
-          case 240: break;
+          case 241: break;
           case 106: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_STRUCT;
             } 
             // fall through
-          case 241: break;
+          case 242: break;
           case 107: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IMPORT;
             } 
             // fall through
-          case 242: break;
+          case 243: break;
           case 108: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_MODIFY;
             } 
             // fall through
-          case 243: break;
+          case 244: break;
           case 109: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_ASSERT;
             } 
             // fall through
-          case 244: break;
+          case 245: break;
           case 110: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_DEFINE;
             } 
             // fall through
-          case 245: break;
+          case 246: break;
           case 111: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_RETURN;
             } 
             // fall through
-          case 246: break;
+          case 247: break;
           case 112: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_STRUCT;
             } 
             // fall through
-          case 247: break;
+          case 248: break;
           case 113: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORT;
             } 
             // fall through
-          case 248: break;
+          case 249: break;
           case 114: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_MODIFY;
             } 
             // fall through
-          case 249: break;
+          case 250: break;
           case 115: 
             { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORT;
             } 
             // fall through
-          case 250: break;
+          case 251: break;
           case 116: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT;
             } 
             // fall through
-          case 251: break;
+          case 252: break;
           case 117: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_BINARY;
             } 
             // fall through
-          case 252: break;
+          case 253: break;
           case 118: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT;
             } 
             // fall through
-          case 253: break;
+          case 254: break;
           case 119: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_BINARY;
             } 
             // fall through
-          case 254: break;
+          case 255: break;
           case 120: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ENCODING;
             } 
             // fall through
-          case 255: break;
+          case 256: break;
           case 121: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE;
             } 
             // fall through
-          case 256: break;
+          case 257: break;
           case 122: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FUNCTION;
             } 
             // fall through
-          case 257: break;
+          case 258: break;
           case 123: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_ENCODING;
             } 
             // fall through
-          case 258: break;
+          case 259: break;
           case 124: 
             { pm(); return KickAssemblerTypes.DIRECTIVE;
             } 
             // fall through
-          case 259: break;
+          case 260: break;
           case 125: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_FUNCTION;
             } 
             // fall through
-          case 260: break;
+          case 261: break;
           case 126: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_NAMESPACE;
             } 
             // fall through
-          case 261: break;
+          case 262: break;
           case 127: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_NAMESPACE;
             } 
             // fall through
-          case 262: break;
+          case 263: break;
           case 128: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF;
             } 
             // fall through
-          case 263: break;
+          case 264: break;
           case 129: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE;
             } 
             // fall through
-          case 264: break;
+          case 265: break;
           case 130: 
             { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY;
             } 
             // fall through
-          case 265: break;
+          case 266: break;
           case 131: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_SEGMENT_DEF;
             } 
             // fall through
-          case 266: break;
+          case 267: break;
           case 132: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_IMPORTONCE;
             } 
             // fall through
-          case 267: break;
+          case 268: break;
           case 133: 
             { pm(); return KickAssemblerTypes.DIRECTIVE_FILEMODIFY;
             } 
             // fall through
-          case 268: break;
+          case 269: break;
           case 134: 
             { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE;
             } 
             // fall through
-          case 269: break;
+          case 270: break;
           case 135: 
             { pm(); return KickAssemblerTypes.BASIC_UPSTART;
             } 
             // fall through
-          case 270: break;
+          case 271: break;
+          case 136: 
+            { pm(); return KickAssemblerTypes.DIRECTIVE_PSEUDOCOMMAND;
+            } 
+            // fall through
+          case 272: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

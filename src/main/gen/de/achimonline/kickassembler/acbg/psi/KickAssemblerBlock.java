@@ -14,6 +14,12 @@ public interface KickAssemblerBlock extends PsiElement {
   List<KickAssemblerMacroDefinition> getMacroDefinitionList();
 
   @NotNull
+  List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList();
+
+  @NotNull
+  List<KickAssemblerPseudoCommandDef> getPseudoCommandDefList();
+
+  @NotNull
   List<KickAssemblerStatement> getStatementList();
 
 }

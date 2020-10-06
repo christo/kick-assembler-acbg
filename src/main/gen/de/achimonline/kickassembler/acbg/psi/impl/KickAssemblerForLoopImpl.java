@@ -46,6 +46,12 @@ public class KickAssemblerForLoopImpl extends ASTWrapperPsiElement implements Ki
 
   @Override
   @Nullable
+  public KickAssemblerPreprocessorDirective getPreprocessorDirective() {
+    return findChildByClass(KickAssemblerPreprocessorDirective.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerStatement getStatement() {
     return findChildByClass(KickAssemblerStatement.class);
   }

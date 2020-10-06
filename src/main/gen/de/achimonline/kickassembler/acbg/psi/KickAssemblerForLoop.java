@@ -17,6 +17,9 @@ public interface KickAssemblerForLoop extends PsiElement {
   List<KickAssemblerExpr> getExprList();
 
   @Nullable
+  KickAssemblerPreprocessorDirective getPreprocessorDirective();
+
+  @Nullable
   KickAssemblerStatement getStatement();
 
 }

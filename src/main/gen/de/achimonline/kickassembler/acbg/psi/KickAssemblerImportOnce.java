@@ -5,6 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerNiladic extends PsiElement {
+public interface KickAssemblerImportOnce extends PsiElement {
 
 }

@@ -74,6 +74,9 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerPcAssignment getPcAssignment();
 
   @Nullable
+  KickAssemblerPseudoCommand getPseudoCommand();
+
+  @Nullable
   KickAssemblerReturnStatement getReturnStatement();
 
   @Nullable

@@ -103,6 +103,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitImportOnce(@NotNull KickAssemblerImportOnce o) {
+    visitPsiElement(o);
+  }
+
   public void visitInfixOperator(@NotNull KickAssemblerInfixOperator o) {
     visitPsiElement(o);
   }
@@ -128,10 +132,6 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitNamespaceDirective(@NotNull KickAssemblerNamespaceDirective o) {
-    visitPsiElement(o);
-  }
-
-  public void visitNiladic(@NotNull KickAssemblerNiladic o) {
     visitPsiElement(o);
   }
 
@@ -172,6 +172,14 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitPreprocessorDirective(@NotNull KickAssemblerPreprocessorDirective o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPseudoCommand(@NotNull KickAssemblerPseudoCommand o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPseudoCommandDef(@NotNull KickAssemblerPseudoCommandDef o) {
     visitPsiElement(o);
   }
 

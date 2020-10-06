@@ -160,6 +160,12 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerPseudoCommand getPseudoCommand() {
+    return findChildByClass(KickAssemblerPseudoCommand.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerReturnStatement getReturnStatement() {
     return findChildByClass(KickAssemblerReturnStatement.class);
   }

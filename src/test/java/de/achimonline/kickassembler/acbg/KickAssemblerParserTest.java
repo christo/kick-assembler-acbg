@@ -164,6 +164,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
         doTest(true);
     }
 
+    public void testMacroWithPpDirectives() {
+        doTest(true);
+    }
+
     public void testMemblock() {
         doTest(true);
     }
@@ -201,6 +205,10 @@ public class KickAssemblerParserTest extends ParsingTestCase {
     }
 
     public void testPrintAndError() {
+        doTest(true);
+    }
+
+    public void testPseudoCommands() {
         doTest(true);
     }
 

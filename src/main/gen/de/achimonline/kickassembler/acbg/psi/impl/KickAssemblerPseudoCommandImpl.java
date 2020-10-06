@@ -11,14 +11,14 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerMacroDefinitionImpl extends ASTWrapperPsiElement implements KickAssemblerMacroDefinition {
+public class KickAssemblerPseudoCommandImpl extends ASTWrapperPsiElement implements KickAssemblerPseudoCommand {
 
-  public KickAssemblerMacroDefinitionImpl(@NotNull ASTNode node) {
+  public KickAssemblerPseudoCommandImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitMacroDefinition(this);
+    visitor.visitPseudoCommand(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -27,21 +27,21 @@ public class KickAssemblerMacroDefinitionImpl extends ASTWrapperPsiElement imple
   }
 
   @Override
-  @Nullable
-  public KickAssemblerIdentifierList getIdentifierList() {
-    return findChildByClass(KickAssemblerIdentifierList.class);
+  @NotNull
+  public List<KickAssemblerArgument> getArgumentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerArgument.class);
   }
 
   @Override
   @NotNull
-  public List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPreprocessorDirective.class);
+  public List<KickAssemblerOneArgumentIndirect> getOneArgumentIndirectList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerOneArgumentIndirect.class);
   }
 
   @Override
   @NotNull
-  public List<KickAssemblerStatement> getStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerStatement.class);
+  public List<KickAssemblerTwoArgumentsIndirect> getTwoArgumentsIndirectList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerTwoArgumentsIndirect.class);
   }
 
 }

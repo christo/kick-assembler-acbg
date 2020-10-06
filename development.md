@@ -58,12 +58,16 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 * hex value interpolations for escape strings like this: `.text @"this is escaped:\$ff"`
 * macro definition with no braces
 * test coverage of prefix logical negation operator precedence over infix/postfix arithmetic operators
+* grammar: pseudo commands 
+* preprocessor directives in macros
 
 
 ## TODO:
 
 ### Parser Features
-* grammar: pseudo commands 
+* are empty blocks legal?
+* exactly what can go in macros and functions?
+* functions defined in macros
 * scopes for labels can have subscripts as per section 9.8 of manual @v5.16 e.g. `sta loop2[i].color+1`
 * kick parity: the following feel like problems in kick that should be reproduced
     * invalid macro invocation syntax: space between macro name and open paren
@@ -77,8 +81,9 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 can build with (as a way of locating suitable test source) see also parsing asmInfo
 * investigate invocation of kick main class directly in jvm
 * Hot reload of the plugin
-* get more sample code for kickassembler using 
-[this search](https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code)
+* get more sample code for kickassembler using the following searches:
+	* https://github.com/search?q=BasicUpstart2%28+extension%3A.asm&type=Code
+	* https://github.com/search?p=2&q=pseudocommand&type=Code
 
 ### Other Plugin Features
 

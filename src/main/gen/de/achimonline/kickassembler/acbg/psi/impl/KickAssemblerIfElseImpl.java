@@ -40,6 +40,12 @@ public class KickAssemblerIfElseImpl extends ASTWrapperPsiElement implements Kic
 
   @Override
   @NotNull
+  public List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPreprocessorDirective.class);
+  }
+
+  @Override
+  @NotNull
   public List<KickAssemblerStatement> getStatementList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerStatement.class);
   }
