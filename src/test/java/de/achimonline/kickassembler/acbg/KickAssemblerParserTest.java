@@ -30,59 +30,59 @@ public class KickAssemblerParserTest extends ParsingTestCase {
     }
 
     public void testAddressingModeDirectives() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testAlign() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testAllKindsOfLabelDef() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testAssert() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testAssertBlocks() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testBreakAndWatch() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testCharLiteral() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testEscapeHex() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testEscapedNamespace() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testEval() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testExprOperators() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testFill() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testForLoopKitchenSink() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testFunctionDefinitionWithoutBraces() {
-        doTest(true);
+        doTest(true, true);
     }
 
     /**
@@ -93,159 +93,159 @@ public class KickAssemblerParserTest extends ParsingTestCase {
     }
 
     public void testFunctionReturn() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testIfElse() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testImportDirective() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testIndirect() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testInfiniteLoop() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testJustComments() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testKeywordClash() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testKickPuzzlers() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testKoalaImport() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testLabelCases() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testLabelWithMnemonicSubstring() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testLabelsAreStatements() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testLoadBinaryFill() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testLocalLabelOfIfBlock() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testLocalLabelsOfForLoop() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testMacroArguments() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testMacroDefinitionWithoutBraces() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testMacroWithForLoop() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testMacroWithPpDirectives() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testMemblock() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testMultipleLabelDefs() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testNegativeNumberOperatorPrecedence() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testNegativeNumbers() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testParameterMaps() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testPcAssign() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testPostDotCombo() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testPreprocessor() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testPreprocessorPhase() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testPrintAndError() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testPseudoCommands() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testQuotedTextMacro() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testScopedLabelClash() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testSegments() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testSemicolons() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testSimpleForLoop() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testTernaryOperator() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testUnaryDirectives() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testUserDefinedDataStructures() {
-        doTest(true);
+        doTest(true, true);
     }
 
     public void testWhile() {
-        doTest(true);
+        doTest(true, true);
     }
 }
 

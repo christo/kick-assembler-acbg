@@ -28,3 +28,16 @@
 foo $20, x : ($21), y
 foo #$22 : $2400,y
 indirectlda #21
+
+.pseudocommand add16 a:b:tar {
+add16:
+	clc
+	lda a
+	adc b
+	sta tar
+	lda _16bitNext(a)
+	adc _16bitNext(b)
+	sta _16bitNext(tar)
+}
+
+add16 leveldata,y : lily1ramp : lily1ramp
