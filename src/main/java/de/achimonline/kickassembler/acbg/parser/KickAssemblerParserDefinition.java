@@ -67,6 +67,7 @@ public class KickAssemblerParserDefinition implements ParserDefinition {
 
     @Override
     public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
+        // TODO we have to be more specific here, not all spaces are allowed
         return SpaceRequirements.MAY;
     }
 
