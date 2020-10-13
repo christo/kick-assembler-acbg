@@ -102,7 +102,7 @@ public class AssemblyParseTest extends ParsingTestCase {
      * @param prefix   prefix all names with this.
      * @param override optionally provide a name instead of deriving from the dir.
      */
-    private static List<Object[]> collectSources(File dir, String prefix, Optional<String> override) {
+    private static Collection<Object[]> collectSources(File dir, String prefix, Optional<String> override) {
         // TODO possibly safeguard against post-normalisation duplicates?
         ArrayList<Object[]> sources = new ArrayList<>();
         for (File file : dir.listFiles(FILTER)) {
@@ -116,6 +116,10 @@ public class AssemblyParseTest extends ParsingTestCase {
             }
         }
         return sources;
+    }
+
+    private static Collection<Object[]> collectSources(String prefix, File dir) {
+        return collectSources(dir, prefix, Optional.empty());
     }
 
     private static String getExtension(File f) {
@@ -137,16 +141,13 @@ public class AssemblyParseTest extends ParsingTestCase {
         return override.orElse(toTitleCase(removeExt(baseName))).replaceAll("[\\W_]", "");
     }
 
-    private static String removeExt(String baseName) {
+    @NotNull
+    private static String removeExt(@NotNull String baseName) {
         String newName = baseName;
-        // note we do not consider multiple extensions
+        // note we do not consider files with multiple extensions
         for (String ext : EXTS) {
             newName = StringUtil.trimEnd(newName, ext);
         }
         return newName;
-    }
-
-    private static List<Object[]> collectSources(String prefix, File dir) {
-        return collectSources(dir, prefix, Optional.empty());
     }
 }
