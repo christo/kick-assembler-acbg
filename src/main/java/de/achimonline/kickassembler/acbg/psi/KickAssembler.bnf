@@ -25,13 +25,12 @@ root ::= (
 
            DOT DIRECTIVE |
 
-           LABEL_DEF |
-           multilabelDef |
-
            COMMENT_LINE |
            COMMENT_BLOCK |
 
            DUMMY )
+
+private labelDef ::= AT? LABEL_DEF
 
 ppExprLeft ::= [BANG] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
 
@@ -49,13 +48,14 @@ forLoop ::= (
     compound
 )
 
-encodingDirective ::= DOT DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
+encodingDirective ::= DOT DIRECTIVE_ENCODING
+( "\"screencode_mixed\"" | "\"screencode_upper\"" | "\"petscii_mixed\"" |  "\"petscii_upper\"" | "\"ascii\"")
 
 multilabel ::= BANG LABEL? (PLUS|MINUS)+
 
 multilabelDef ::= BANG (LABEL_DEF | COLON)
 
-private labelsDef ::= LABEL_DEF | multilabelDef
+private labelsDef ::= labelDef | multilabelDef
 
 dataDefinition ::= DOT DIRECTIVE_DATA exprs
 
@@ -74,10 +74,8 @@ private dotImport ::= DOT DIRECTIVE_IMPORT (
     ("binary"|"c64"|"text") STRING [ COMMA expr [ COMMA expr ]]
 )
 
-argument ::= LABEL_DEF? HASH? expr
+argument ::= expr | HASH? expr | labelDef? HASH? expr
 
-// TODO double check that macros can be defined in namespace definitions
-// TODO maybe create a separate namespace definition block
 block ::= (
     LEFT_BRACE
     (statement | macroDefinition | functionDefinition | preprocessorDirective | pseudoCommandDef)*
@@ -102,11 +100,11 @@ private instructionArguments ::= [twoArguments | oneArgument]
 statement ::= (
     directive |
     instruction |
-    labelsDef |         // is statement as braceless .if binds solely to it
     import |
     dataDefinition |
     invocation |
     pseudoCommand |
+    labelsDef |
     assert |
     block |
     pcAssignment |
@@ -155,7 +153,7 @@ pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND AT? LABEL [LABEL (COLON LABEL)*
 
 private pseudoCommandArgs ::= instructionArguments (COLON instructionArguments)*
 
-pseudoCommand ::= LABEL [ pseudoCommandArgs ]
+pseudoCommand ::= COLON? LABEL [ pseudoCommandArgs ]
 
 bracketed ::= ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
 

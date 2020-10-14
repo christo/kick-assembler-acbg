@@ -152,11 +152,12 @@ public abstract class AbstractParseTest extends ParsingTestCase {
             // TODO make sure we don't write out the files for the external test
             if (getCheckResult()) {
                 checkResult(testName, myFile);
-                if (getEnsureNoErrorElements()) {
-                    ensureNoErrorElements();
-                }
+
             } else {
                 toParseTreeText(myFile, skipSpaces(), includeRanges());
+            }
+            if (getEnsureNoErrorElements()) {
+                ensureNoErrorElements();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

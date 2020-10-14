@@ -126,9 +126,7 @@ CHAR_LITERAL = '([^']|\"|{STRING_CHAR})'
 ESCAPE_CHAR_LITERAL = '{ESCAPE_CHAR}'
 
 LABEL = ([a-zA-Z_][a-zA-Z0-9_]*)
-//MULTILABEL = "!"{LABEL}?(\+|-)+
 LABEL_DEF = {LABEL}":"
-//MULTILABEL_DEF = "!"{LABEL}?":"
 
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
@@ -166,9 +164,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "var" | "const"  { return KickAssemblerTypes.DIRECTIVE_DEF; }
 
     {LABEL_DEF}       { pm(); return KickAssemblerTypes.LABEL_DEF; }
-    //{MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
     {LABEL}           { pm(); return KickAssemblerTypes.LABEL; }
-    //{MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
 
     "("  { pm(); return KickAssemblerTypes.LEFT_PAREN; }
     ")"  { pm(); return KickAssemblerTypes.RIGHT_PAREN; }
@@ -282,9 +278,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "wo" | "word"   { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
 
     {LABEL_DEF}       { pm(); return KickAssemblerTypes.LABEL_DEF; }
-//    {MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
     {LABEL}           { pm(); return KickAssemblerTypes.LABEL; }
-//    {MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
 
 }
 

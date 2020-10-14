@@ -52,12 +52,6 @@ public class KickAssemblerRootImpl extends ASTWrapperPsiElement implements KickA
 
   @Override
   @Nullable
-  public KickAssemblerMultilabelDef getMultilabelDef() {
-    return findChildByClass(KickAssemblerMultilabelDef.class);
-  }
-
-  @Override
-  @Nullable
   public KickAssemblerPreprocessorDirective getPreprocessorDirective() {
     return findChildByClass(KickAssemblerPreprocessorDirective.class);
   }

@@ -27,6 +27,7 @@
 
 foo $20, x : ($21), y
 foo #$22 : $2400,y
+:foo #$22 : $2400,y
 indirectlda #21
 
 .pseudocommand add16 a:b:tar {
