@@ -141,14 +141,13 @@ macroDefinition ::= DOT DIRECTIVE_DEF_MACRO invocableDef
 
 functionDefinition ::= DOT DIRECTIVE_FUNCTION invocableDef
 
-private invocableDef ::= LABEL LEFT_PAREN identifierList? RIGHT_PAREN invocableBody
+private invocableDef ::= AT? LABEL LEFT_PAREN identifierList? RIGHT_PAREN invocableBody
 
 private invocableInternal ::= preprocessorDirective | statement
 
-// TODO can we have an empty block?
 private invocableBody ::= (LEFT_BRACE ( invocableInternal )+ RIGHT_BRACE) | invocableInternal
 
-pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND LABEL [LABEL (COLON LABEL)*] invocableBody
+pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND AT? LABEL [LABEL (COLON LABEL)*] invocableBody
 
 private pseudoCommandArgs ::= instructionArguments (COLON instructionArguments)*
 
@@ -178,7 +177,9 @@ postfixOperator ::= PLUS_PLUS | MINUS_MINUS
 
 escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX)* STRING_END
 
-basicValue ::= STRING | NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| escapedString
+private stringLiteral ::= STRING | escapedString
+
+basicValue ::= NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| stringLiteral
 
 private labelExpr ::= AT? LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 
@@ -209,7 +210,7 @@ private nArityDirectives ::=
     DOT DIRECTIVE_BINARY expr COMMA expr |
     DOT DIRECTIVE_TERNARY expr COMMA expr COMMA expr
 
-assert ::= DOT DIRECTIVE_ASSERT STRING COMMA (block | expr) COMMA (block | expr)
+assert ::= DOT DIRECTIVE_ASSERT stringLiteral COMMA (block | expr) COMMA (block | expr)
 
 defExprList ::=  defExpr ( COMMA defExpr )*
 
