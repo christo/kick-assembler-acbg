@@ -76,6 +76,7 @@ These imprpovements are comprised of a number of changes focused on the `.flex` 
 ### Testing and Development Features
 
 * dynamic test suite from a large pile of `.asm` projects
+    * git submodules and script to check out those projects at specific tagref
 * clean up `KickAssembler.flex` to remove duplication (how?)
 * generally, all features of sublime plugin (anectodally identified as "best")
 * Set up a jig to automatically verify which versions of KickAss.jar a given project 
