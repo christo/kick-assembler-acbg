@@ -10,6 +10,9 @@ public interface KickAssemblerAssert extends PsiElement {
   @NotNull
   List<KickAssemblerBlock> getBlockList();
 
+  @Nullable
+  KickAssemblerEscapedString getEscapedString();
+
   @NotNull
   List<KickAssemblerExpr> getExprList();
 

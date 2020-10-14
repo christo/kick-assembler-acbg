@@ -1,11 +1,10 @@
 package de.achimonline.kickassembler.acbg;
 
-import com.intellij.testFramework.ParsingTestCase;
-import de.achimonline.kickassembler.acbg.parser.KickAssemblerParserDefinition;
+import java.io.File;
 
-public class ExpectedFailureTest extends ParsingTestCase {
-    public ExpectedFailureTest() {
-        super("", "asm", new KickAssemblerParserDefinition());
+public class ExpectedFailureTest extends AbstractParseTest {
+    public ExpectedFailureTest(String testName, File assemblySource) {
+        super("asm", testName, assemblySource);
     }
 
     public void testForLoopStaticFail() {
@@ -18,7 +17,7 @@ public class ExpectedFailureTest extends ParsingTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return "src/test/resources/parser";
+        return "src/test/resources/fails";
     }
 
     @Override

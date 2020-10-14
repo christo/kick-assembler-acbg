@@ -33,6 +33,12 @@ public class KickAssemblerAssertImpl extends ASTWrapperPsiElement implements Kic
   }
 
   @Override
+  @Nullable
+  public KickAssemblerEscapedString getEscapedString() {
+    return findChildByClass(KickAssemblerEscapedString.class);
+  }
+
+  @Override
   @NotNull
   public List<KickAssemblerExpr> getExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExpr.class);
