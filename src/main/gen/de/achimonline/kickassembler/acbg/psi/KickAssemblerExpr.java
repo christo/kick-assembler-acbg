@@ -23,6 +23,9 @@ public interface KickAssemblerExpr extends PsiElement {
   KickAssemblerInvocation getInvocation();
 
   @Nullable
+  KickAssemblerMultilabel getMultilabel();
+
+  @Nullable
   KickAssemblerPostfixOperator getPostfixOperator();
 
   @NotNull

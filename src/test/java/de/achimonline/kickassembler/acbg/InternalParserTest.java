@@ -4,9 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.Collection;
 import java.util.Optional;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 /**
@@ -20,16 +22,31 @@ import static java.util.Collections.emptyList;
 public class InternalParserTest extends AbstractParseTest {
 
     private static final File ROOT = new File("src/test/resources/parser");
+    private static final String BASE = ROOT.getAbsolutePath();
+    private static final FileFilter UNEXCLUDED = f -> !asList(
+            BASE + "/LabelNamedAsDirective.asm",
+            "foobar"
+    ).contains(f.getAbsolutePath());
 
     public InternalParserTest(String testName, File assemblySource) {
-        super("asm", testName, assemblySource);
+        super(ROOT.getAbsolutePath(), "asm", testName, assemblySource);
     }
 
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getCases() {
         return ROOT.isDirectory()
-                ? sources(ROOT, "", Optional.empty(), all(FILTER))
+                ? sources(ROOT, "", Optional.of(""), all(FILTER, UNEXCLUDED))
                 : emptyList();
+    }
+
+    @Override
+    protected boolean getCheckResult() {
+        return true;
+    }
+
+    @Override
+    protected boolean getEnsureNoErrorElements() {
+        return true;
     }
 }
 

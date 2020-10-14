@@ -4,7 +4,7 @@ import java.io.File;
 
 public class ExpectedFailureTest extends AbstractParseTest {
     public ExpectedFailureTest(String testName, File assemblySource) {
-        super("asm", testName, assemblySource);
+        super( "", "asm", testName, assemblySource);
     }
 
     public void testForLoopStaticFail() {

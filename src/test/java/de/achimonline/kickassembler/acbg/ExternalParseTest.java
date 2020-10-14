@@ -43,7 +43,7 @@ public class ExternalParseTest extends AbstractParseTest {
 
 
     public ExternalParseTest(String testName, File assemblySource) {
-        super(getExtension(assemblySource), testName, assemblySource);
+        super("", getExtension(assemblySource), testName, assemblySource);
     }
 
     /**

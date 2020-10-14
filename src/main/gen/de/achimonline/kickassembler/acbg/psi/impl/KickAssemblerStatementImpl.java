@@ -142,6 +142,12 @@ public class KickAssemblerStatementImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public KickAssemblerMultilabelDef getMultilabelDef() {
+    return findChildByClass(KickAssemblerMultilabelDef.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerNamespaceDirective getNamespaceDirective() {
     return findChildByClass(KickAssemblerNamespaceDirective.class);
   }

@@ -39,6 +39,8 @@ public interface KickAssemblerTypes {
   IElementType LABEL_ASSIGNMENT = new KickAssemblerElementType("LABEL_ASSIGNMENT");
   IElementType MACRO_DEFINITION = new KickAssemblerElementType("MACRO_DEFINITION");
   IElementType MODIFY_DIRECTIVE = new KickAssemblerElementType("MODIFY_DIRECTIVE");
+  IElementType MULTILABEL = new KickAssemblerElementType("MULTILABEL");
+  IElementType MULTILABEL_DEF = new KickAssemblerElementType("MULTILABEL_DEF");
   IElementType NAMESPACE_DIRECTIVE = new KickAssemblerElementType("NAMESPACE_DIRECTIVE");
   IElementType ONE_ARGUMENT_INDIRECT = new KickAssemblerElementType("ONE_ARGUMENT_INDIRECT");
   IElementType PARAMETER = new KickAssemblerElementType("PARAMETER");
@@ -68,6 +70,7 @@ public interface KickAssemblerTypes {
   IElementType ASSIGN = new KickAssemblerTokenType("ASSIGN");
   IElementType ASTERISK = new KickAssemblerTokenType("ASTERISK");
   IElementType AT = new KickAssemblerTokenType("AT");
+  IElementType BANG = new KickAssemblerTokenType("BANG");
   IElementType BASIC_UPSTART = new KickAssemblerTokenType("BASIC_UPSTART");
   IElementType BIT_AND = new KickAssemblerTokenType("BIT_AND");
   IElementType BIT_NOT = new KickAssemblerTokenType("BIT_NOT");
@@ -133,20 +136,15 @@ public interface KickAssemblerTypes {
   IElementType LESS_EQUALS = new KickAssemblerTokenType("LESS_EQUALS");
   IElementType MINUS = new KickAssemblerTokenType("MINUS");
   IElementType MINUS_EQUAL = new KickAssemblerTokenType("MINUS_EQUAL");
-  IElementType MINUS_MINUS = new KickAssemblerTokenType("MINUS_MINUS");
   IElementType MNEMONIC = new KickAssemblerTokenType("MNEMONIC");
   IElementType MNEMONIC_EXTENSION = new KickAssemblerTokenType("MNEMONIC_EXTENSION");
   IElementType MNEMONIC_EXTENSION_DEPRECATED = new KickAssemblerTokenType("MNEMONIC_EXTENSION_DEPRECATED");
-  IElementType MULTILABEL = new KickAssemblerTokenType("MULTILABEL");
-  IElementType MULTILABEL_DEF = new KickAssemblerTokenType("MULTILABEL_DEF");
-  IElementType NOT = new KickAssemblerTokenType("NOT");
   IElementType NOT_EQUAL = new KickAssemblerTokenType("NOT_EQUAL");
   IElementType NULL = new KickAssemblerTokenType("NULL");
   IElementType NUMBER = new KickAssemblerTokenType("NUMBER");
   IElementType OR = new KickAssemblerTokenType("OR");
   IElementType PLUS = new KickAssemblerTokenType("PLUS");
   IElementType PLUS_EQUAL = new KickAssemblerTokenType("PLUS_EQUAL");
-  IElementType PLUS_PLUS = new KickAssemblerTokenType("PLUS_PLUS");
   IElementType PREPROCESSOR = new KickAssemblerTokenType("PREPROCESSOR");
   IElementType PREPROCESSOR_DEF = new KickAssemblerTokenType("PREPROCESSOR_DEF");
   IElementType PREPROCESSOR_IF = new KickAssemblerTokenType("PREPROCESSOR_IF");
@@ -259,6 +257,12 @@ public interface KickAssemblerTypes {
       }
       else if (type == MODIFY_DIRECTIVE) {
         return new KickAssemblerModifyDirectiveImpl(node);
+      }
+      else if (type == MULTILABEL) {
+        return new KickAssemblerMultilabelImpl(node);
+      }
+      else if (type == MULTILABEL_DEF) {
+        return new KickAssemblerMultilabelDefImpl(node);
       }
       else if (type == NAMESPACE_DIRECTIVE) {
         return new KickAssemblerNamespaceDirectiveImpl(node);

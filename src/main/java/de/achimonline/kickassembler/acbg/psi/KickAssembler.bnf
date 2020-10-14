@@ -26,14 +26,14 @@ root ::= (
            DOT DIRECTIVE |
 
            LABEL_DEF |
-           MULTILABEL_DEF |
+           multilabelDef |
 
            COMMENT_LINE |
            COMMENT_BLOCK |
 
            DUMMY )
 
-ppExprLeft ::= [NOT] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
+ppExprLeft ::= [BANG] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
 
 ppExpr ::= ppExprLeft (ppInfixOperator ppExpr)*
 
@@ -51,7 +51,11 @@ forLoop ::= (
 
 encodingDirective ::= DOT DIRECTIVE_ENCODING  ( "\"screencode_mixed\"" | "\"screencode_upper\"" )
 
-private labelsDef ::= LABEL_DEF | MULTILABEL_DEF
+multilabel ::= BANG LABEL? (PLUS|MINUS)+
+
+multilabelDef ::= BANG (LABEL_DEF | COLON)
+
+private labelsDef ::= LABEL_DEF | multilabelDef
 
 dataDefinition ::= DOT DIRECTIVE_DATA exprs
 
@@ -171,9 +175,9 @@ infixOperator ::= (
     ASSIGN
 )
 
-prefixOperator ::= MINUS | NOT | BIT_NOT
+prefixOperator ::= MINUS | BANG | BIT_NOT
 
-postfixOperator ::= PLUS_PLUS | MINUS_MINUS
+postfixOperator ::= PLUS PLUS | MINUS MINUS
 
 escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX)* STRING_END
 
@@ -188,7 +192,7 @@ scopedLabel ::= labelExpr ( DOT labelExpr )*
 // left-non-recursive left-factored rule
 private exprLeft ::= (
     [ LESS | GREATER ] (
-        bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |
+        bracketed | basicValue | invocation | scopedLabel | multilabel | ASTERISK |
         ( prefixOperator exprLeft )
     ) postfixOperator?
 )

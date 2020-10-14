@@ -131,6 +131,14 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitMultilabel(@NotNull KickAssemblerMultilabel o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMultilabelDef(@NotNull KickAssemblerMultilabelDef o) {
+    visitPsiElement(o);
+  }
+
   public void visitNamespaceDirective(@NotNull KickAssemblerNamespaceDirective o) {
     visitPsiElement(o);
   }

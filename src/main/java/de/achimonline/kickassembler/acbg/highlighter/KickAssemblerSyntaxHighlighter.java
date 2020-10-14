@@ -62,12 +62,9 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
             KickAssemblerTypes.EQUAL,
             KickAssemblerTypes.AND,
             KickAssemblerTypes.OR,
-            KickAssemblerTypes.NOT,
-            KickAssemblerTypes.PLUS_PLUS,
-            KickAssemblerTypes.MINUS_MINUS,
+            KickAssemblerTypes.BANG,    // TODO need to distinguish between logical NOT and multilabel prefix
             KickAssemblerTypes.PLUS_EQUAL,
             KickAssemblerTypes.MINUS_EQUAL,
-//            KickAssemblerTypes.TIMES_EQUAL,
             KickAssemblerTypes.DIVIDE_EQUAL,
             KickAssemblerTypes.DOT,
             KickAssemblerTypes.COLON,

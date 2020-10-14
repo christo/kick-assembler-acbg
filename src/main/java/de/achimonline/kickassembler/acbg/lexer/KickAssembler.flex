@@ -126,9 +126,9 @@ CHAR_LITERAL = '([^']|\"|{STRING_CHAR})'
 ESCAPE_CHAR_LITERAL = '{ESCAPE_CHAR}'
 
 LABEL = ([a-zA-Z_][a-zA-Z0-9_]*)
-MULTILABEL = "!"{LABEL}?(\+|-)+
+//MULTILABEL = "!"{LABEL}?(\+|-)+
 LABEL_DEF = {LABEL}":"
-MULTILABEL_DEF = "!"{LABEL}?":"
+//MULTILABEL_DEF = "!"{LABEL}?":"
 
 LINE_COMMENT  = "//"[^\r\n]*
 BLOCK_COMMENT = "/*"([^"*"]|("*"+[^"*""/"]))*("*"+"/")?
@@ -166,9 +166,9 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "var" | "const"  { return KickAssemblerTypes.DIRECTIVE_DEF; }
 
     {LABEL_DEF}       { pm(); return KickAssemblerTypes.LABEL_DEF; }
-    {MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
+    //{MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
     {LABEL}           { pm(); return KickAssemblerTypes.LABEL; }
-    {MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
+    //{MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
 
     "("  { pm(); return KickAssemblerTypes.LEFT_PAREN; }
     ")"  { pm(); return KickAssemblerTypes.RIGHT_PAREN; }
@@ -200,9 +200,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "==" { pm(); return KickAssemblerTypes.EQUAL; }
     "&&" { pm(); return KickAssemblerTypes.AND; }
     "||" { pm(); return KickAssemblerTypes.OR; }
-    "!"	 { pm(); return KickAssemblerTypes.NOT; }
-    "++" { pm(); return KickAssemblerTypes.PLUS_PLUS; }
-    "--" { pm(); return KickAssemblerTypes.MINUS_MINUS; }
+    "!"	 { pm(); return KickAssemblerTypes.BANG; }
     "+=" { pm(); return KickAssemblerTypes.PLUS_EQUAL; }
     "-=" { pm(); return KickAssemblerTypes.MINUS_EQUAL; }
     "/=" { pm(); return KickAssemblerTypes.DIVIDE_EQUAL; }
@@ -284,9 +282,9 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "wo" | "word"   { pm(); return KickAssemblerTypes.DIRECTIVE_DATA; }
 
     {LABEL_DEF}       { pm(); return KickAssemblerTypes.LABEL_DEF; }
-    {MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
+//    {MULTILABEL_DEF}  { pm(); return KickAssemblerTypes.MULTILABEL_DEF; }
     {LABEL}           { pm(); return KickAssemblerTypes.LABEL; }
-    {MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
+//    {MULTILABEL}      { pm(); return KickAssemblerTypes.MULTILABEL; }
 
 }
 

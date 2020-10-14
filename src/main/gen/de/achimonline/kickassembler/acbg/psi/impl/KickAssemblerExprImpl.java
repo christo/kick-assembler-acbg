@@ -58,6 +58,12 @@ public class KickAssemblerExprImpl extends ASTWrapperPsiElement implements KickA
 
   @Override
   @Nullable
+  public KickAssemblerMultilabel getMultilabel() {
+    return findChildByClass(KickAssemblerMultilabel.class);
+  }
+
+  @Override
+  @Nullable
   public KickAssemblerPostfixOperator getPostfixOperator() {
     return findChildByClass(KickAssemblerPostfixOperator.class);
   }

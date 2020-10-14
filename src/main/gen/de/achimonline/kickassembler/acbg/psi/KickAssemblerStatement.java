@@ -65,6 +65,9 @@ public interface KickAssemblerStatement extends PsiElement {
   KickAssemblerModifyDirective getModifyDirective();
 
   @Nullable
+  KickAssemblerMultilabelDef getMultilabelDef();
+
+  @Nullable
   KickAssemblerNamespaceDirective getNamespaceDirective();
 
   @Nullable

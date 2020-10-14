@@ -726,7 +726,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // [ LESS | GREATER ] (
-  //         bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |
+  //         bracketed | basicValue | invocation | scopedLabel | multilabel | ASTERISK |
   //         ( prefixOperator exprLeft )
   //     ) postfixOperator?
   static boolean exprLeft(PsiBuilder builder_, int level_) {
@@ -756,7 +756,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // bracketed | basicValue | invocation | scopedLabel | MULTILABEL | ASTERISK |
+  // bracketed | basicValue | invocation | scopedLabel | multilabel | ASTERISK |
   //         ( prefixOperator exprLeft )
   private static boolean exprLeft_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "exprLeft_1")) return false;
@@ -766,7 +766,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = basicValue(builder_, level_ + 1);
     if (!result_) result_ = invocation(builder_, level_ + 1);
     if (!result_) result_ = scopedLabel(builder_, level_ + 1);
-    if (!result_) result_ = consumeToken(builder_, MULTILABEL);
+    if (!result_) result_ = multilabel(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, ASTERISK);
     if (!result_) result_ = exprLeft_1_6(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
@@ -1219,13 +1219,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LABEL_DEF | MULTILABEL_DEF
+  // LABEL_DEF | multilabelDef
   static boolean labelsDef(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "labelsDef")) return false;
-    if (!nextTokenIs(builder_, "", LABEL_DEF, MULTILABEL_DEF)) return false;
+    if (!nextTokenIs(builder_, "", BANG, LABEL_DEF)) return false;
     boolean result_;
     result_ = consumeToken(builder_, LABEL_DEF);
-    if (!result_) result_ = consumeToken(builder_, MULTILABEL_DEF);
+    if (!result_) result_ = multilabelDef(builder_, level_ + 1);
     return result_;
   }
 
@@ -1253,6 +1253,73 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && invocation(builder_, level_ + 1);
     result_ = result_ && block(builder_, level_ + 1);
     exit_section_(builder_, marker_, MODIFY_DIRECTIVE, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // BANG LABEL? (PLUS|MINUS)+
+  public static boolean multilabel(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabel")) return false;
+    if (!nextTokenIs(builder_, BANG)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, BANG);
+    result_ = result_ && multilabel_1(builder_, level_ + 1);
+    result_ = result_ && multilabel_2(builder_, level_ + 1);
+    exit_section_(builder_, marker_, MULTILABEL, result_);
+    return result_;
+  }
+
+  // LABEL?
+  private static boolean multilabel_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabel_1")) return false;
+    consumeToken(builder_, LABEL);
+    return true;
+  }
+
+  // (PLUS|MINUS)+
+  private static boolean multilabel_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabel_2")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = multilabel_2_0(builder_, level_ + 1);
+    while (result_) {
+      int pos_ = current_position_(builder_);
+      if (!multilabel_2_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "multilabel_2", pos_)) break;
+    }
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // PLUS|MINUS
+  private static boolean multilabel_2_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabel_2_0")) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, PLUS);
+    if (!result_) result_ = consumeToken(builder_, MINUS);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // BANG (LABEL_DEF | COLON)
+  public static boolean multilabelDef(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabelDef")) return false;
+    if (!nextTokenIs(builder_, BANG)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, BANG);
+    result_ = result_ && multilabelDef_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, MULTILABEL_DEF, result_);
+    return result_;
+  }
+
+  // LABEL_DEF | COLON
+  private static boolean multilabelDef_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabelDef_1")) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, LABEL_DEF);
+    if (!result_) result_ = consumeToken(builder_, COLON);
     return result_;
   }
 
@@ -1521,14 +1588,14 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PLUS_PLUS | MINUS_MINUS
+  // PLUS PLUS | MINUS MINUS
   public static boolean postfixOperator(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "postfixOperator")) return false;
-    if (!nextTokenIs(builder_, "<postfix operator>", MINUS_MINUS, PLUS_PLUS)) return false;
+    if (!nextTokenIs(builder_, "<postfix operator>", MINUS, PLUS)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, POSTFIX_OPERATOR, "<postfix operator>");
-    result_ = consumeToken(builder_, PLUS_PLUS);
-    if (!result_) result_ = consumeToken(builder_, MINUS_MINUS);
+    result_ = parseTokens(builder_, 0, PLUS, PLUS);
+    if (!result_) result_ = parseTokens(builder_, 0, MINUS, MINUS);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
@@ -1568,7 +1635,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // [NOT] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
+  // [BANG] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
   public static boolean ppExprLeft(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "ppExprLeft")) return false;
     boolean result_;
@@ -1579,10 +1646,10 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // [NOT]
+  // [BANG]
   private static boolean ppExprLeft_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "ppExprLeft_0")) return false;
-    consumeToken(builder_, NOT);
+    consumeToken(builder_, BANG);
     return true;
   }
 
@@ -1631,13 +1698,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MINUS | NOT | BIT_NOT
+  // MINUS | BANG | BIT_NOT
   public static boolean prefixOperator(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "prefixOperator")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, PREFIX_OPERATOR, "<prefix operator>");
     result_ = consumeToken(builder_, MINUS);
-    if (!result_) result_ = consumeToken(builder_, NOT);
+    if (!result_) result_ = consumeToken(builder_, BANG);
     if (!result_) result_ = consumeToken(builder_, BIT_NOT);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
@@ -1874,7 +1941,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   //            importOnce |
   //            DOT DIRECTIVE |
   //            LABEL_DEF |
-  //            MULTILABEL_DEF |
+  //            multilabelDef |
   //            COMMENT_LINE |
   //            COMMENT_BLOCK |
   //            DUMMY
@@ -1889,7 +1956,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     if (!result_) result_ = importOnce(builder_, level_ + 1);
     if (!result_) result_ = parseTokens(builder_, 0, DOT, DIRECTIVE);
     if (!result_) result_ = consumeToken(builder_, LABEL_DEF);
-    if (!result_) result_ = consumeToken(builder_, MULTILABEL_DEF);
+    if (!result_) result_ = multilabelDef(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, COMMENT_LINE);
     if (!result_) result_ = consumeToken(builder_, COMMENT_BLOCK);
     if (!result_) result_ = consumeToken(builder_, DUMMY);

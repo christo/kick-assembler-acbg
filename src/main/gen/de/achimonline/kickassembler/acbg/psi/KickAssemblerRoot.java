@@ -20,6 +20,9 @@ public interface KickAssemblerRoot extends PsiElement {
   KickAssemblerMacroDefinition getMacroDefinition();
 
   @Nullable
+  KickAssemblerMultilabelDef getMultilabelDef();
+
+  @Nullable
   KickAssemblerPreprocessorDirective getPreprocessorDirective();
 
   @Nullable

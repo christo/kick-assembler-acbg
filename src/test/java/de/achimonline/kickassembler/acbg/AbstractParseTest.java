@@ -3,6 +3,7 @@ package de.achimonline.kickassembler.acbg;
 import com.intellij.openapi.fileEditor.impl.LoadTextUtil;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.testFramework.ParsingTestCase;
 import de.achimonline.kickassembler.acbg.parser.KickAssemblerParserDefinition;
@@ -33,10 +34,15 @@ public abstract class AbstractParseTest extends ParsingTestCase {
      * Default source extensions found in the wild.
      */
     private static final List<String> EXTS = Arrays.asList(".asm", ".s");
-
+    static final FileFilter FILTER = f -> !f.getName().startsWith(".") && (f.isDirectory() || isSource(f));
     private final String testName;
     private final File assemblySource;
-    static final FileFilter FILTER = f -> !f.getName().startsWith(".") && (f.isDirectory() || isSource(f));
+
+    AbstractParseTest(String dataPath, String extension, String testName, File assemblySource) {
+        super(dataPath, extension, new KickAssemblerParserDefinition());
+        this.testName = testName;
+        this.assemblySource = assemblySource;
+    }
 
     static FileFilter all(FileFilter... filters) {
         return f -> {
@@ -47,12 +53,6 @@ public abstract class AbstractParseTest extends ParsingTestCase {
             }
             return true;
         };
-    }
-
-    AbstractParseTest(String extension, String testName, File assemblySource) {
-        super("", extension, new KickAssemblerParserDefinition());
-        this.testName = testName;
-        this.assemblySource = assemblySource;
     }
 
     /**
@@ -140,19 +140,42 @@ public abstract class AbstractParseTest extends ParsingTestCase {
         try {
             // transform windows to unix line endings; note the space is there to preserve offset reporting
             String text = FileUtil.loadFile(assemblySource).replaceAll("\\r\\n", " \n");
+            ;
             myFile = createPsiFile(testName, text);
             ensureParsed(myFile);
-            assertEquals("light virtual file text mismatch", text, ((LightVirtualFile) myFile.getVirtualFile()).getContent().toString());
-            assertEquals("virtual file text mismatch", text, LoadTextUtil.loadText(myFile.getVirtualFile()));
+            final VirtualFile vfile = myFile.getVirtualFile();
+            assertEquals("light virtual file text mismatch", text, ((LightVirtualFile) vfile).getContent().toString());
+            assertEquals("virtual file text mismatch", text, LoadTextUtil.loadText(vfile));
             assertEquals("doc text mismatch", text, Objects.requireNonNull(myFile.getViewProvider().getDocument()).getText());
             assertEquals("psi text mismatch", text, myFile.getText());
             ensureCorrectReparse(myFile);
-            ensureNoErrorElements();
+            // TODO make sure we don't write out the files for the external test
+            if (getCheckResult()) {
+                checkResult(testName, myFile);
+                if (getEnsureNoErrorElements()) {
+                    ensureNoErrorElements();
+                }
+            } else {
+                toParseTreeText(myFile, skipSpaces(), includeRanges());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (Throwable t) {
             logger.error("failure in asm: " + getSourceUrl());
             throw t;
         }
+    }
+
+    protected boolean getCheckResult() {
+        return false;
+    }
+
+    protected boolean getEnsureNoErrorElements() {
+        return true;
+    }
+
+    @Override
+    protected boolean skipSpaces() {
+        return true;
     }
 }
