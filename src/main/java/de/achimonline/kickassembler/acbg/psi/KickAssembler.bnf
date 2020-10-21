@@ -164,6 +164,7 @@ pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND AT? LABEL [LABEL (COLON LABEL)*
 
 private pseudoCommandArgs ::= oneOrTwoArguments? (COLON oneOrTwoArguments)*
 
+// not currently supporting colon prefix because it causes ambiguity
 pseudoCommand ::= /* COLON? */ LABEL [ pseudoCommandArgs ]
 
 bracketed ::= ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
