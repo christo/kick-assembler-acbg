@@ -48,8 +48,14 @@ forLoop ::= (
     compound
 )
 
-encodingDirective ::= DOT DIRECTIVE_ENCODING
-( "\"screencode_mixed\"" | "\"screencode_upper\"" | "\"petscii_mixed\"" |  "\"petscii_upper\"" | "\"ascii\"")
+encodingDirective ::= DOT DIRECTIVE_ENCODING (encodingValue | LEFT_PAREN encodingValue RIGHT_PAREN)
+
+private encodingValue ::=
+    "\"screencode_mixed\""
+    | "\"screencode_upper\""
+    | "\"petscii_mixed\""
+    |  "\"petscii_upper\""
+    | "\"ascii\""
 
 multilabel ::= BANG LABEL? (PLUS+|MINUS+)
 
@@ -254,7 +260,7 @@ modifyDirective ::= DOT DIRECTIVE_MODIFY invocation block
 
 namespaceDirective ::= DOT DIRECTIVE_NAMESPACE LABEL block
 
-private parameterMapList ::= parameterMap [ COMMA parameterMapList ]
+private parameterMapList ::= parameterMap [ COMMA parameterMapList ] COMMA?
 
 private parameterList ::= parameter ( COMMA parameter )* COMMA?     // NOTE dangling comma allowed
 

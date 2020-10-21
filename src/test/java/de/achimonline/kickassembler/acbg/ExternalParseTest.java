@@ -93,7 +93,11 @@ public class ExternalParseTest extends AbstractParseTest {
             BASE + "/dkrey/mafia_asm/scratchpad.asm",
             BASE + "/go4retro/EasyFlash3/3rdParty",
             BASE + "/EddieFAF/c64coding/kickass/loader/fade_routine_orig.asm",
+            BASE + "/moonorongo/jp_wars/syscall.asm",
+            BASE + "/wbovela/c64game/php",
+            BASE + "/VelAntuManthureie/c64-game-skeleton/test/render/test.asm",
             BASE + "/mix256/kng2",  // old version of kick with prefix pseudocommands and semicolon arg delimiters
+            BASE + "/Ghouli",  // old version of kick with prefix pseudocommands and semicolon arg delimiters
 
 
             /* known problems in our parser that must be fixed: */

@@ -657,8 +657,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT DIRECTIVE_ENCODING
-  // ( "\"screencode_mixed\"" | "\"screencode_upper\"" | "\"petscii_mixed\"" |  "\"petscii_upper\"" | "\"ascii\"")
+  // DOT DIRECTIVE_ENCODING (encodingValue | LEFT_PAREN encodingValue RIGHT_PAREN)
   public static boolean encodingDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "encodingDirective")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -670,9 +669,37 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // "\"screencode_mixed\"" | "\"screencode_upper\"" | "\"petscii_mixed\"" |  "\"petscii_upper\"" | "\"ascii\""
+  // encodingValue | LEFT_PAREN encodingValue RIGHT_PAREN
   private static boolean encodingDirective_2(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "encodingDirective_2")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = encodingValue(builder_, level_ + 1);
+    if (!result_) result_ = encodingDirective_2_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // LEFT_PAREN encodingValue RIGHT_PAREN
+  private static boolean encodingDirective_2_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "encodingDirective_2_1")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, LEFT_PAREN);
+    result_ = result_ && encodingValue(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_PAREN);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  /* ********************************************************** */
+  // "\"screencode_mixed\""
+  //     | "\"screencode_upper\""
+  //     | "\"petscii_mixed\""
+  //     |  "\"petscii_upper\""
+  //     | "\"ascii\""
+  static boolean encodingValue(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "encodingValue")) return false;
     boolean result_;
     result_ = consumeToken(builder_, "\"screencode_mixed\"");
     if (!result_) result_ = consumeToken(builder_, "\"screencode_upper\"");
@@ -1790,7 +1817,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // parameterMap [ COMMA parameterMapList ]
+  // parameterMap [ COMMA parameterMapList ] COMMA?
   static boolean parameterMapList(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "parameterMapList")) return false;
     if (!nextTokenIs(builder_, LEFT_BRACKET)) return false;
@@ -1798,6 +1825,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_);
     result_ = parameterMap(builder_, level_ + 1);
     result_ = result_ && parameterMapList_1(builder_, level_ + 1);
+    result_ = result_ && parameterMapList_2(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
@@ -1818,6 +1846,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && parameterMapList(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
+  }
+
+  // COMMA?
+  private static boolean parameterMapList_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterMapList_2")) return false;
+    consumeToken(builder_, COMMA);
+    return true;
   }
 
   /* ********************************************************** */
