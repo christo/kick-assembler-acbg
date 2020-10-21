@@ -1,0 +1,4 @@
+.pseudocommand mynop {
+    nop
+}
+mynop

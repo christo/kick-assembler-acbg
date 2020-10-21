@@ -27,8 +27,14 @@
 
 foo $20, x : ($21), y
 foo #$22 : $2400,y
-:foo #$22 : $2400,y
+foo #$22 : $2400,y
 indirectlda #21
+
+.function _16bitNext(arg) {
+    .if (arg.getType()==AT_IMMEDIATE)
+        .return CmdArgument(arg.getType(),>arg.getValue())
+    .return CmdArgument(arg.getType(),arg.getValue()+1)
+}
 
 .pseudocommand add16 a:b:tar {
 add16:

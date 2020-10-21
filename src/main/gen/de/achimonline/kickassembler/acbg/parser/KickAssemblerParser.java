@@ -1797,29 +1797,21 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COLON? LABEL [ pseudoCommandArgs ]
+  // LABEL [ pseudoCommandArgs ]
   public static boolean pseudoCommand(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pseudoCommand")) return false;
-    if (!nextTokenIs(builder_, "<pseudo command>", COLON, LABEL)) return false;
+    if (!nextTokenIs(builder_, LABEL)) return false;
     boolean result_;
-    Marker marker_ = enter_section_(builder_, level_, _NONE_, PSEUDO_COMMAND, "<pseudo command>");
-    result_ = pseudoCommand_0(builder_, level_ + 1);
-    result_ = result_ && consumeToken(builder_, LABEL);
-    result_ = result_ && pseudoCommand_2(builder_, level_ + 1);
-    exit_section_(builder_, level_, marker_, result_, false, null);
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, LABEL);
+    result_ = result_ && pseudoCommand_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, PSEUDO_COMMAND, result_);
     return result_;
   }
 
-  // COLON?
-  private static boolean pseudoCommand_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "pseudoCommand_0")) return false;
-    consumeToken(builder_, COLON);
-    return true;
-  }
-
   // [ pseudoCommandArgs ]
-  private static boolean pseudoCommand_2(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "pseudoCommand_2")) return false;
+  private static boolean pseudoCommand_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "pseudoCommand_1")) return false;
     pseudoCommandArgs(builder_, level_ + 1);
     return true;
   }

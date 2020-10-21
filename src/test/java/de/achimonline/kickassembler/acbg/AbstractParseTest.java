@@ -34,7 +34,7 @@ public abstract class AbstractParseTest extends ParsingTestCase {
      * Default source extensions found in the wild.
      */
     private static final List<String> EXTS = Arrays.asList(".asm", ".s");
-    static final FileFilter FILTER = f -> !f.getName().startsWith(".") && (f.isDirectory() || isSource(f));
+    static final FileFilter SOURCES = f -> !f.getName().startsWith(".") && (f.isDirectory() || isSource(f));
     private final String testName;
     private final File assemblySource;
 

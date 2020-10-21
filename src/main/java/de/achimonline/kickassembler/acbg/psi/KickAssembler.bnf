@@ -153,7 +153,7 @@ pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND AT? LABEL [LABEL (COLON LABEL)*
 
 private pseudoCommandArgs ::= instructionArguments (COLON instructionArguments)*
 
-pseudoCommand ::= COLON? LABEL [ pseudoCommandArgs ]
+pseudoCommand ::= /* COLON? */ LABEL [ pseudoCommandArgs ]
 
 bracketed ::= ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
 
@@ -183,6 +183,7 @@ private stringLiteral ::= STRING | escapedString
 
 basicValue ::= NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| stringLiteral
 
+// TODO figure out if
 private labelExpr ::= AT? LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 
 scopedLabel ::= labelExpr ( DOT labelExpr )*

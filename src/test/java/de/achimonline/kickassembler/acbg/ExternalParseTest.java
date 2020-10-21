@@ -18,9 +18,8 @@ public class ExternalParseTest extends AbstractParseTest {
     private static final File ROOT = new File("kick-assembler-sample-code");
     private static final String BASE = ROOT.getAbsolutePath();
 
-    private static final FileFilter NOT_EXCLUDED = pathname -> !asList(
+    private static final FileFilter EXCLUDER = pathname -> !asList(
             /* problem files: we do not want to use these for testing: */
-
             BASE + "/KimJorgensen/easyflash/libs",                          // ca65 source
             BASE + "/1888games/Caveman-C64VIC20Plus4PET/Lionel/irq.asm",    // syntax error
             BASE + "/1888games/Fire-Game-Watch/Lionel/irq.asm",             // syntax error
@@ -28,7 +27,6 @@ public class ExternalParseTest extends AbstractParseTest {
             BASE + "/berrydejager/c64-trefpunt/MacOSX/Prerequisites",
             BASE + "/berrydejager/c64-trefpunt/SourceBin/Prerequisites",
             BASE + "/berrydejager/c64-trefpunt/Windows/Prerequisites",
-            BASE + "/burnsauce/durexforth",   // TODO: seems to be acme check if this repo has any kick
             BASE + "/defame-demogroup/c64_defame_text_editor",  // says it's kick but it's not
             BASE + "/defame-demogroup/c64_tinn64/research",     // not a part of the project
             // the following are not kick assembler
@@ -117,7 +115,7 @@ public class ExternalParseTest extends AbstractParseTest {
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getCases() {
         final Optional<String> name = Optional.of("");
-        return ROOT.isDirectory() ? sources(ROOT, "", name, all(FILTER, NOT_EXCLUDED)) : emptyList();
+        return ROOT.isDirectory() ? sources(ROOT, "", name, all(SOURCES, EXCLUDER)) : emptyList();
     }
 
 }

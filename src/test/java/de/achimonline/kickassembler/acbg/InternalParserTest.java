@@ -2,6 +2,7 @@ package de.achimonline.kickassembler.acbg;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -23,8 +24,12 @@ public class InternalParserTest extends AbstractParseTest {
 
     private static final File ROOT = new File("src/test/resources/parser");
     private static final String BASE = ROOT.getAbsolutePath();
-    private static final FileFilter UNEXCLUDED = f -> !asList(
-            BASE + "/LabelNamedAsDirective.asm",
+    private static final Optional<String> NADA = Optional.of("");
+    private static final FileFilter EXCLUDER = f -> !asList(
+            BASE + "/LabelNamedAsDirective.asm",    // TODO handle label directive nameclash
+            BASE + "/LocalLabelsFail.asm",
+            BASE + "/ImportExpressionFail.asm",
+            BASE + "/MixedCaseOpcodeFail.asm",
             "foobar"
     ).contains(f.getAbsolutePath());
 
@@ -32,10 +37,10 @@ public class InternalParserTest extends AbstractParseTest {
         super(ROOT.getAbsolutePath(), "asm", testName, assemblySource);
     }
 
-    @Parameterized.Parameters(name = "{0}")
-    public static Collection<Object[]> getCases() {
+    @Parameters(name = "{0}")
+    public static Collection<Object[]> cases() {
         return ROOT.isDirectory()
-                ? sources(ROOT, "", Optional.of(""), all(FILTER, UNEXCLUDED))
+                ? sources(ROOT, "", NADA, all(SOURCES, EXCLUDER))
                 : emptyList();
     }
 

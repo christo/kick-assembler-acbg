@@ -2,7 +2,7 @@
 .pseudocommand set_cursor_position column : row {
   ldx row
   ldy column
-  :plot_set
+  plot_set
 }
 
 .pseudocommand plot_set {
