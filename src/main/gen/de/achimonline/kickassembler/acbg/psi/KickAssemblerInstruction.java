@@ -7,8 +7,8 @@ import com.intellij.psi.PsiElement;
 
 public interface KickAssemblerInstruction extends PsiElement {
 
-  @NotNull
-  List<KickAssemblerArgument> getArgumentList();
+  @Nullable
+  KickAssemblerArgument getArgument();
 
   @Nullable
   KickAssemblerOneArgumentIndirect getOneArgumentIndirect();

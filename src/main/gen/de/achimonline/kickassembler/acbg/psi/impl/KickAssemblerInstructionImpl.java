@@ -27,9 +27,9 @@ public class KickAssemblerInstructionImpl extends ASTWrapperPsiElement implement
   }
 
   @Override
-  @NotNull
-  public List<KickAssemblerArgument> getArgumentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerArgument.class);
+  @Nullable
+  public KickAssemblerArgument getArgument() {
+    return findChildByClass(KickAssemblerArgument.class);
   }
 
   @Override

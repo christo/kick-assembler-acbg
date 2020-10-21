@@ -13,7 +13,7 @@ Kick Assembler file
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
-        PsiElement(KickAssemblerTokenType.MNEMONIC)('jmp')
+        PsiElement(KickAssemblerTokenType.MNEMONIC1)('jmp')
         KickAssemblerArgumentImpl(ARGUMENT)
           KickAssemblerExprImpl(EXPR)
             KickAssemblerScopedLabelImpl(SCOPED_LABEL)

@@ -89,14 +89,22 @@ public class ExternalParseTest extends AbstractParseTest {
             BASE + "/OldSkoolCoder/TwitchStreams/04. Sprite Management System/CBMPrgStudio",
             BASE + "/PotcFdk/JSIDPlay2/jsidplay2/src/test/resources/vic",
             BASE + "/xunil/tetrisclone/drawingtest-easy6502.asm",
+            BASE + "/defame-demogroup/c64_sa2019invite/spindle",
+            BASE + "/dkrey/mafia_asm/scratchpad.asm",
+            BASE + "/go4retro/EasyFlash3/3rdParty",
+            BASE + "/EddieFAF/c64coding/kickass/loader/fade_routine_orig.asm",
+            BASE + "/mix256/kng2",  // old version of kick with prefix pseudocommands and semicolon arg delimiters
+
 
             /* known problems in our parser that must be fixed: */
             // these three are all arguably bugs in kick and should show a warning at least:
             BASE + "/1888games/Donkey-Kong-Junior-C64/vic20/scripts/lookups/monkeyData.asm",
             BASE + "/1888games/Donkey-Kong-Junior-C64/zPET/scripts/lookups/monkeyData.asm",
             BASE + "/1888games/Donkey-Kong-Junior-C64/xPLUS_4/scripts/lookups/monkeyData.asm",
+            BASE + "/stid/woz64/libs/memory.asm",
             // pseudocommands
-            BASE + "/barryw/c64lib"
+            BASE + "/barryw/c64lib",            // @prefix
+            BASE + "/dkt64/yadm/inc/makra.asm"  // overrides existing mnemonic "asl"
     ).contains(pathname.getAbsolutePath());
 
 

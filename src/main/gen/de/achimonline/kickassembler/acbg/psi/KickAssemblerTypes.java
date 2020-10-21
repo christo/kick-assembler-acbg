@@ -136,9 +136,13 @@ public interface KickAssemblerTypes {
   IElementType LESS_EQUALS = new KickAssemblerTokenType("LESS_EQUALS");
   IElementType MINUS = new KickAssemblerTokenType("MINUS");
   IElementType MINUS_EQUAL = new KickAssemblerTokenType("MINUS_EQUAL");
-  IElementType MNEMONIC = new KickAssemblerTokenType("MNEMONIC");
+  IElementType MNEMONIC0 = new KickAssemblerTokenType("MNEMONIC0");
+  IElementType MNEMONIC1 = new KickAssemblerTokenType("MNEMONIC1");
+  IElementType MNEMONIC12 = new KickAssemblerTokenType("MNEMONIC12");
+  IElementType MNEMONIC_012 = new KickAssemblerTokenType("MNEMONIC_012");
   IElementType MNEMONIC_EXTENSION = new KickAssemblerTokenType("MNEMONIC_EXTENSION");
   IElementType MNEMONIC_EXTENSION_DEPRECATED = new KickAssemblerTokenType("MNEMONIC_EXTENSION_DEPRECATED");
+  IElementType MNEMONIC_ILLEGAL = new KickAssemblerTokenType("MNEMONIC_ILLEGAL");
   IElementType NOT_EQUAL = new KickAssemblerTokenType("NOT_EQUAL");
   IElementType NULL = new KickAssemblerTokenType("NULL");
   IElementType NUMBER = new KickAssemblerTokenType("NUMBER");

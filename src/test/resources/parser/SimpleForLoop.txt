@@ -35,7 +35,7 @@ Kick Assembler file
             PsiElement(KickAssemblerTokenType.LEFT_BRACE)('{')
             KickAssemblerStatementImpl(STATEMENT)
               KickAssemblerInstructionImpl(INSTRUCTION)
-                PsiElement(KickAssemblerTokenType.MNEMONIC)('lda')
+                PsiElement(KickAssemblerTokenType.MNEMONIC12)('lda')
                 KickAssemblerArgumentImpl(ARGUMENT)
                   PsiElement(KickAssemblerTokenType.HASH)('#')
                   KickAssemblerExprImpl(EXPR)

@@ -1,0 +1,13 @@
+Kick Assembler file
+  KickAssemblerRootImpl(ROOT)
+    KickAssemblerStatementImpl(STATEMENT)
+      KickAssemblerInstructionImpl(INSTRUCTION)
+        PsiElement(KickAssemblerTokenType.MNEMONIC0)('txa')
+  KickAssemblerRootImpl(ROOT)
+    KickAssemblerStatementImpl(STATEMENT)
+      KickAssemblerInstructionImpl(INSTRUCTION)
+        PsiElement(KickAssemblerTokenType.MNEMONIC_012)('asl')
+  KickAssemblerRootImpl(ROOT)
+    KickAssemblerStatementImpl(STATEMENT)
+      KickAssemblerInstructionImpl(INSTRUCTION)
+        PsiElement(KickAssemblerTokenType.MNEMONIC0)('tax')

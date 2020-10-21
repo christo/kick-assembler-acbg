@@ -21,5 +21,5 @@ Kick Assembler file
               PsiElement(KickAssemblerTokenType.LABEL)('aDC')
   PsiErrorElement:<infix operator>, <postfix operator>, <root>, KickAssemblerTokenType.COLON, KickAssemblerTokenType.COMMA, KickAssemblerTokenType.DOT, KickAssemblerTokenType.LEFT_BRACKET, KickAssemblerTokenType.LEFT_PAREN or KickAssemblerTokenType.QUESTION_MARK expected, got '1'
     PsiElement(KickAssemblerTokenType.NUMBER)('1')
-  PsiElement(KickAssemblerTokenType.MNEMONIC)('BNE')
+  PsiElement(KickAssemblerTokenType.MNEMONIC1)('bne')
   PsiElement(KickAssemblerTokenType.LABEL)('loop')

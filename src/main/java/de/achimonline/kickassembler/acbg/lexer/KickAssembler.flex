@@ -30,87 +30,103 @@ private void pm() {
 
 %}
 
-MNEMONIC = (
-    "adc"|"ADC" |
-    "ahx"|"AHX" |
-    "alr"|"ALR" |
-    "anc"|"ANC" |
-    "and"|"AND" |
-    "arr"|"ARR" |
-    "asl"|"ASL" |
-    "axs"|"AXS" |
-    "bcc"|"BCC" |
-    "bcs"|"BCS" |
-    "beq"|"BEQ" |
-    "bit"|"BIT" |
-    "bmi"|"BMI" |
-    "bne"|"BNE" |
-    "bpl"|"BPL" |
-    "brk"|"BRK" |
-    "bvc"|"BVC" |
-    "bvs"|"BVS" |
-    "clc"|"CLC" |
-    "cld"|"CLD" |
-    "cli"|"CLI" |
-    "clv"|"CLV" |
-    "cmp"|"CMP" |
-    "cpx"|"CPX" |
-    "cpy"|"CPY" |
-    "dcp"|"DCP" |
-    "dec"|"DEC" |
-    "dex"|"DEX" |
-    "dey"|"DEY" |
-    "eor"|"EOR" |
-    "inc"|"INC" |
-    "inx"|"INX" |
-    "iny"|"INY" |
-    "isc"|"ISC" |
-    "jmp"|"JMP" |
-    "jsr"|"JSR" |
-    "las"|"LAS" |
-    "lax"|"LAX" |
-    "lda"|"LDA" |
-    "ldx"|"LDX" |
-    "ldy"|"LDY" |
-    "lsr"|"LSR" |
-    "nop"|"NOP" |
-    "ora"|"ORA" |
-    "pha"|"PHA" |
-    "php"|"PHP" |
-    "pla"|"PLA" |
-    "plp"|"PLP" |
-    "rla"|"RLA" |
-    "rol"|"ROL" |
-    "ror"|"ROR" |
-    "rra"|"RRA" |
-    "rti"|"RTI" |
-    "rts"|"RTS" |
-    "sax"|"SAX" |
-    "sbc"|"SBC" |
-    "sec"|"SEC" |
-    "sed"|"SED" |
-    "sei"|"SEI" |
-    "shx"|"SHX" |
-    "shy"|"SHY" |
-    "slo"|"SLO" |
-    "sre"|"SRE" |
-    "sta"|"STA" |
-    "stx"|"STX" |
-    "sty"|"STY" |
-    "tas"|"TAS" |
-    "tax"|"TAX" |
-    "tay"|"TAY" |
-    "tsx"|"TSX" |
-    "txa"|"TXA" |
-    "txs"|"TXS" |
-    "tya"|"TYA" |
-    "xaa"|"XAA" |
-    "bra"|"BRA" |
-    "sac"|"SAC" |
-    "sir"|"SIR" |
+// implied addressing mode only; no operand
+MNEMONIC0 = (
+    "brk"|
+    "clc"|
+    "cli"|
+    "clv"|
+    "cld"|
+    "sec"|
+    "sed"|
+    "sei"|
+    "nop"|
+    "tax"|
+    "txa"|
+    "dex"|
+    "inx"|
+    "tay"|
+    "tya"|
+    "dey"|
+    "iny"|
+    "rti"|
+    "rts"|
+    "tsx"|
+    "txs"|
+    "pha"|
+    "php"|
+    "pla"|
+    "plp"
+)
 
-    "sbc2"|"SBC2" |
-    "anc2"|"ANC2"
+// single operand mnemonics
+MNEMONIC1 = (
+    "bit"|
+    "bcc"|
+    "bcs"|
+    "beq"|
+    "bmi"|
+    "bne"|
+    "bpl"|
+    "bvc"|
+    "bvs"|
+    "cpx"|
+    "cpy"|
+    "jmp"|
+    "jsr"
+)
+
+//mnemonics that accept 1 or 2 operands
+MNEMONIC12 = (
+    "adc"|
+    "and"|
+    "cmp"|
+    "dec"|
+    "eor"|
+    "inc"|
+    "lda"|
+    "ldx"|
+    "ldy"|
+    "ora"|
+    "sbc"|
+    "sta"|
+    "stx"|
+    "sty"
+)
+
+// accepting 0, 1 or two operands
+MNEMONIC_012 = (
+    "asl"|
+    "lsr"|
+    "rol"|
+    "ror"
+)
+
+MNEMONIC_ILLEGAL = (
+    "ahx"|
+    "alr"|
+    "anc"|
+    "arr"|
+    "axs"|
+    "dcp"|
+    "isc"|
+    "las"|
+    "lax"|
+    "rla"|
+    "rra"|
+    "sax"|
+    "shx"|
+    "shy"|
+    "slo"|
+    "sre"|
+    "tas"|
+    "xaa"|
+    "bra"|
+    "sac"|
+    "sir"|
+
+    "sbc2"|
+    "anc2"
 )
 
 LINE_BREAK  = \n|\r|\r\n
@@ -156,7 +172,11 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "#importonce" { pm(); return KickAssemblerTypes.PREPROCESSOR_IMPORTONCE; }
     "#undef"      { pm(); return KickAssemblerTypes.PREPROCESSOR_DEF; }
 
-    {MNEMONIC}      { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC; }
+    {MNEMONIC0}        { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC0; }
+    {MNEMONIC1}        { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC1; }
+    {MNEMONIC12}       { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC12; }
+    {MNEMONIC_012}     { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC_012; }
+    {MNEMONIC_ILLEGAL} { yybegin(POST_MNEMONIC); return KickAssemblerTypes.MNEMONIC_ILLEGAL; } // TODO create arity variants
 
     "true"|"false" 	  { pm(); return KickAssemblerTypes.BOOLEAN; }
     "null"            { pm(); return KickAssemblerTypes.NULL; }

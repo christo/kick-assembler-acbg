@@ -51,13 +51,13 @@ forLoop ::= (
 encodingDirective ::= DOT DIRECTIVE_ENCODING
 ( "\"screencode_mixed\"" | "\"screencode_upper\"" | "\"petscii_mixed\"" |  "\"petscii_upper\"" | "\"ascii\"")
 
-multilabel ::= BANG LABEL? (PLUS|MINUS)+
+multilabel ::= BANG LABEL? (PLUS+|MINUS+)
 
 multilabelDef ::= BANG (LABEL_DEF | COLON)
 
 private labelsDef ::= labelDef | multilabelDef
 
-dataDefinition ::= DOT DIRECTIVE_DATA exprs
+dataDefinition ::= DOT DIRECTIVE_DATA exprs (COMMA LEFT_BRACKET expr (COMMA exprs)* RIGHT_BRACKET)?
 
 cpuDirective ::= DOT DIRECTIVE_CPU ( "_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
 
@@ -82,7 +82,7 @@ block ::= (
     RIGHT_BRACE
 )
 
-private qualifiedMnemonic ::= MNEMONIC [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
+private mnemonicExt ::= MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
 
 private twoArguments ::= (argument COMMA argument) | twoArgumentsIndirect
 
@@ -92,9 +92,14 @@ private oneArgument ::= oneArgumentIndirect | argument
 
 oneArgumentIndirect ::= LEFT_PAREN argument RIGHT_PAREN
 
-instruction ::= qualifiedMnemonic instructionArguments
+instruction ::= (
+    MNEMONIC0 [ DOT mnemonicExt]
+    | MNEMONIC1 [ DOT mnemonicExt] oneArgument
+    | MNEMONIC12 [ DOT mnemonicExt] oneOrTwoArguments
+    | (MNEMONIC_012 | MNEMONIC_ILLEGAL) [ DOT mnemonicExt] oneOrTwoArguments?
+)
 
-private instructionArguments ::= [twoArguments | oneArgument]
+private oneOrTwoArguments ::= twoArguments | oneArgument
 
 // cannot include macro definitions
 statement ::= (
@@ -151,7 +156,7 @@ private invocableBody ::= (LEFT_BRACE ( invocableInternal )+ RIGHT_BRACE) | invo
 
 pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND AT? LABEL [LABEL (COLON LABEL)*] invocableBody
 
-private pseudoCommandArgs ::= instructionArguments (COLON instructionArguments)*
+private pseudoCommandArgs ::= oneOrTwoArguments? (COLON oneOrTwoArguments)*
 
 pseudoCommand ::= /* COLON? */ LABEL [ pseudoCommandArgs ]
 
@@ -251,7 +256,7 @@ namespaceDirective ::= DOT DIRECTIVE_NAMESPACE LABEL block
 
 private parameterMapList ::= parameterMap [ COMMA parameterMapList ]
 
-private parameterList ::= parameter ( COMMA parameter )*
+private parameterList ::= parameter ( COMMA parameter )* COMMA?     // NOTE dangling comma allowed
 
 parameterMap ::= LEFT_BRACKET [ parameterList ] RIGHT_BRACKET
 

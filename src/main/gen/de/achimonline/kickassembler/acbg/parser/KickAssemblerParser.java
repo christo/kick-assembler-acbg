@@ -327,7 +327,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOT DIRECTIVE_DATA exprs
+  // DOT DIRECTIVE_DATA exprs (COMMA LEFT_BRACKET expr (COMMA exprs)* RIGHT_BRACKET)?
   public static boolean dataDefinition(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "dataDefinition")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
@@ -335,7 +335,50 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_);
     result_ = consumeTokens(builder_, 0, DOT, DIRECTIVE_DATA);
     result_ = result_ && exprs(builder_, level_ + 1);
+    result_ = result_ && dataDefinition_3(builder_, level_ + 1);
     exit_section_(builder_, marker_, DATA_DEFINITION, result_);
+    return result_;
+  }
+
+  // (COMMA LEFT_BRACKET expr (COMMA exprs)* RIGHT_BRACKET)?
+  private static boolean dataDefinition_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "dataDefinition_3")) return false;
+    dataDefinition_3_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // COMMA LEFT_BRACKET expr (COMMA exprs)* RIGHT_BRACKET
+  private static boolean dataDefinition_3_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "dataDefinition_3_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeTokens(builder_, 0, COMMA, LEFT_BRACKET);
+    result_ = result_ && expr(builder_, level_ + 1);
+    result_ = result_ && dataDefinition_3_0_3(builder_, level_ + 1);
+    result_ = result_ && consumeToken(builder_, RIGHT_BRACKET);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // (COMMA exprs)*
+  private static boolean dataDefinition_3_0_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "dataDefinition_3_0_3")) return false;
+    while (true) {
+      int pos_ = current_position_(builder_);
+      if (!dataDefinition_3_0_3_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "dataDefinition_3_0_3", pos_)) break;
+    }
+    return true;
+  }
+
+  // COMMA exprs
+  private static boolean dataDefinition_3_0_3_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "dataDefinition_3_0_3_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, COMMA);
+    result_ = result_ && exprs(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
@@ -1046,33 +1089,155 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // qualifiedMnemonic instructionArguments
+  // MNEMONIC0 [ DOT mnemonicExt]
+  //     | MNEMONIC1 [ DOT mnemonicExt] oneArgument
+  //     | MNEMONIC12 [ DOT mnemonicExt] oneOrTwoArguments
+  //     | (MNEMONIC_012 | MNEMONIC_ILLEGAL) [ DOT mnemonicExt] oneOrTwoArguments?
   public static boolean instruction(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "instruction")) return false;
-    if (!nextTokenIs(builder_, MNEMONIC)) return false;
     boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = qualifiedMnemonic(builder_, level_ + 1);
-    result_ = result_ && instructionArguments(builder_, level_ + 1);
-    exit_section_(builder_, marker_, INSTRUCTION, result_);
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, INSTRUCTION, "<instruction>");
+    result_ = instruction_0(builder_, level_ + 1);
+    if (!result_) result_ = instruction_1(builder_, level_ + 1);
+    if (!result_) result_ = instruction_2(builder_, level_ + 1);
+    if (!result_) result_ = instruction_3(builder_, level_ + 1);
+    exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
 
-  /* ********************************************************** */
-  // [twoArguments | oneArgument]
-  static boolean instructionArguments(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "instructionArguments")) return false;
-    instructionArguments_0(builder_, level_ + 1);
+  // MNEMONIC0 [ DOT mnemonicExt]
+  private static boolean instruction_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, MNEMONIC0);
+    result_ = result_ && instruction_0_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // [ DOT mnemonicExt]
+  private static boolean instruction_0_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_0_1")) return false;
+    instruction_0_1_0(builder_, level_ + 1);
     return true;
   }
 
-  // twoArguments | oneArgument
-  private static boolean instructionArguments_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "instructionArguments_0")) return false;
+  // DOT mnemonicExt
+  private static boolean instruction_0_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_0_1_0")) return false;
     boolean result_;
-    result_ = twoArguments(builder_, level_ + 1);
-    if (!result_) result_ = oneArgument(builder_, level_ + 1);
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DOT);
+    result_ = result_ && mnemonicExt(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
     return result_;
+  }
+
+  // MNEMONIC1 [ DOT mnemonicExt] oneArgument
+  private static boolean instruction_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_1")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, MNEMONIC1);
+    result_ = result_ && instruction_1_1(builder_, level_ + 1);
+    result_ = result_ && oneArgument(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // [ DOT mnemonicExt]
+  private static boolean instruction_1_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_1_1")) return false;
+    instruction_1_1_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // DOT mnemonicExt
+  private static boolean instruction_1_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_1_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DOT);
+    result_ = result_ && mnemonicExt(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // MNEMONIC12 [ DOT mnemonicExt] oneOrTwoArguments
+  private static boolean instruction_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_2")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, MNEMONIC12);
+    result_ = result_ && instruction_2_1(builder_, level_ + 1);
+    result_ = result_ && oneOrTwoArguments(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // [ DOT mnemonicExt]
+  private static boolean instruction_2_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_2_1")) return false;
+    instruction_2_1_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // DOT mnemonicExt
+  private static boolean instruction_2_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_2_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DOT);
+    result_ = result_ && mnemonicExt(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // (MNEMONIC_012 | MNEMONIC_ILLEGAL) [ DOT mnemonicExt] oneOrTwoArguments?
+  private static boolean instruction_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_3")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = instruction_3_0(builder_, level_ + 1);
+    result_ = result_ && instruction_3_1(builder_, level_ + 1);
+    result_ = result_ && instruction_3_2(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // MNEMONIC_012 | MNEMONIC_ILLEGAL
+  private static boolean instruction_3_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_3_0")) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, MNEMONIC_012);
+    if (!result_) result_ = consumeToken(builder_, MNEMONIC_ILLEGAL);
+    return result_;
+  }
+
+  // [ DOT mnemonicExt]
+  private static boolean instruction_3_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_3_1")) return false;
+    instruction_3_1_0(builder_, level_ + 1);
+    return true;
+  }
+
+  // DOT mnemonicExt
+  private static boolean instruction_3_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_3_1_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, DOT);
+    result_ = result_ && mnemonicExt(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // oneOrTwoArguments?
+  private static boolean instruction_3_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "instruction_3_2")) return false;
+    oneOrTwoArguments(builder_, level_ + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1306,6 +1471,17 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
+  static boolean mnemonicExt(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "mnemonicExt")) return false;
+    if (!nextTokenIs(builder_, "", MNEMONIC_EXTENSION, MNEMONIC_EXTENSION_DEPRECATED)) return false;
+    boolean result_;
+    result_ = consumeToken(builder_, MNEMONIC_EXTENSION);
+    if (!result_) result_ = consumeToken(builder_, MNEMONIC_EXTENSION_DEPRECATED);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // DOT DIRECTIVE_MODIFY invocation block
   public static boolean modifyDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "modifyDirective")) return false;
@@ -1320,7 +1496,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // BANG LABEL? (PLUS|MINUS)+
+  // BANG LABEL? (PLUS+|MINUS+)
   public static boolean multilabel(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "multilabel")) return false;
     if (!nextTokenIs(builder_, BANG)) return false;
@@ -1340,27 +1516,44 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (PLUS|MINUS)+
+  // PLUS+|MINUS+
   private static boolean multilabel_2(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "multilabel_2")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = multilabel_2_0(builder_, level_ + 1);
+    if (!result_) result_ = multilabel_2_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // PLUS+
+  private static boolean multilabel_2_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabel_2_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, PLUS);
     while (result_) {
       int pos_ = current_position_(builder_);
-      if (!multilabel_2_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "multilabel_2", pos_)) break;
+      if (!consumeToken(builder_, PLUS)) break;
+      if (!empty_element_parsed_guard_(builder_, "multilabel_2_0", pos_)) break;
     }
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
-  // PLUS|MINUS
-  private static boolean multilabel_2_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "multilabel_2_0")) return false;
+  // MINUS+
+  private static boolean multilabel_2_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "multilabel_2_1")) return false;
     boolean result_;
-    result_ = consumeToken(builder_, PLUS);
-    if (!result_) result_ = consumeToken(builder_, MINUS);
+    Marker marker_ = enter_section_(builder_);
+    result_ = consumeToken(builder_, MINUS);
+    while (result_) {
+      int pos_ = current_position_(builder_);
+      if (!consumeToken(builder_, MINUS)) break;
+      if (!empty_element_parsed_guard_(builder_, "multilabel_2_1", pos_)) break;
+    }
+    exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
@@ -1479,6 +1672,16 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // twoArguments | oneArgument
+  static boolean oneOrTwoArguments(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "oneOrTwoArguments")) return false;
+    boolean result_;
+    result_ = twoArguments(builder_, level_ + 1);
+    if (!result_) result_ = oneArgument(builder_, level_ + 1);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // DOT DIRECTIVE_PARAM parameterMap
   public static boolean paramDirective(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "paramDirective")) return false;
@@ -1523,7 +1726,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // parameter ( COMMA parameter )*
+  // parameter ( COMMA parameter )* COMMA?
   static boolean parameterList(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "parameterList")) return false;
     if (!nextTokenIs(builder_, LABEL)) return false;
@@ -1531,6 +1734,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_);
     result_ = parameter(builder_, level_ + 1);
     result_ = result_ && parameterList_1(builder_, level_ + 1);
+    result_ = result_ && parameterList_2(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
@@ -1555,6 +1759,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && parameter(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
+  }
+
+  // COMMA?
+  private static boolean parameterList_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "parameterList_2")) return false;
+    consumeToken(builder_, COMMA);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1827,18 +2038,25 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // instructionArguments (COLON instructionArguments)*
+  // oneOrTwoArguments? (COLON oneOrTwoArguments)*
   static boolean pseudoCommandArgs(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pseudoCommandArgs")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = instructionArguments(builder_, level_ + 1);
+    result_ = pseudoCommandArgs_0(builder_, level_ + 1);
     result_ = result_ && pseudoCommandArgs_1(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
-  // (COLON instructionArguments)*
+  // oneOrTwoArguments?
+  private static boolean pseudoCommandArgs_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "pseudoCommandArgs_0")) return false;
+    oneOrTwoArguments(builder_, level_ + 1);
+    return true;
+  }
+
+  // (COLON oneOrTwoArguments)*
   private static boolean pseudoCommandArgs_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pseudoCommandArgs_1")) return false;
     while (true) {
@@ -1849,13 +2067,13 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // COLON instructionArguments
+  // COLON oneOrTwoArguments
   private static boolean pseudoCommandArgs_1_0(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pseudoCommandArgs_1_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeToken(builder_, COLON);
-    result_ = result_ && instructionArguments(builder_, level_ + 1);
+    result_ = result_ && oneOrTwoArguments(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
@@ -1933,46 +2151,6 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && expr(builder_, level_ + 1);
     result_ = result_ && block(builder_, level_ + 1);
     exit_section_(builder_, marker_, PSEUDO_PC_ASSIGNMENT, result_);
-    return result_;
-  }
-
-  /* ********************************************************** */
-  // MNEMONIC [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
-  static boolean qualifiedMnemonic(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "qualifiedMnemonic")) return false;
-    if (!nextTokenIs(builder_, MNEMONIC)) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, MNEMONIC);
-    result_ = result_ && qualifiedMnemonic_1(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // [ DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )]
-  private static boolean qualifiedMnemonic_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1")) return false;
-    qualifiedMnemonic_1_0(builder_, level_ + 1);
-    return true;
-  }
-
-  // DOT (MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED )
-  private static boolean qualifiedMnemonic_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1_0")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, DOT);
-    result_ = result_ && qualifiedMnemonic_1_0_1(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
-  private static boolean qualifiedMnemonic_1_0_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "qualifiedMnemonic_1_0_1")) return false;
-    boolean result_;
-    result_ = consumeToken(builder_, MNEMONIC_EXTENSION);
-    if (!result_) result_ = consumeToken(builder_, MNEMONIC_EXTENSION_DEPRECATED);
     return result_;
   }
 

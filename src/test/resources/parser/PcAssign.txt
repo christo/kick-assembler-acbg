@@ -73,4 +73,4 @@ Kick Assembler file
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
-        PsiElement(KickAssemblerTokenType.MNEMONIC)('nop')
+        PsiElement(KickAssemblerTokenType.MNEMONIC0)('nop')

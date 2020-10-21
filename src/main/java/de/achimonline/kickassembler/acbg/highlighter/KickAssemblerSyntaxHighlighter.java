@@ -157,7 +157,11 @@ public class KickAssemblerSyntaxHighlighter extends SyntaxHighlighterBase {
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_WATCH, KICK_ASSEMBLER_DIRECTIVE);
         typeKeyMap.put(KickAssemblerTypes.DIRECTIVE_WHILE, KICK_ASSEMBLER_BUILTIN);
         typeKeyMap.put(KickAssemblerTypes.DUMMY, KICK_ASSEMBLER_DUMMY);
-        typeKeyMap.put(KickAssemblerTypes.MNEMONIC, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC0, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC1, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC12, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC_012, KICK_ASSEMBLER_MNEMONIC);
+        typeKeyMap.put(KickAssemblerTypes.MNEMONIC_ILLEGAL, KICK_ASSEMBLER_MNEMONIC);
         typeKeyMap.put(KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED, KICK_ASSEMBLER_DEPRECATED);
         typeKeyMap.put(KickAssemblerTypes.NULL, KICK_ASSEMBLER_NULL);
         typeKeyMap.put(KickAssemblerTypes.NUMBER, KICK_ASSEMBLER_NUMBER);

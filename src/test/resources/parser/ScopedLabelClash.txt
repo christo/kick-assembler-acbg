@@ -2,7 +2,7 @@ Kick Assembler file
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
-        PsiElement(KickAssemblerTokenType.MNEMONIC)('lda')
+        PsiElement(KickAssemblerTokenType.MNEMONIC12)('lda')
         KickAssemblerArgumentImpl(ARGUMENT)
           KickAssemblerExprImpl(EXPR)
             KickAssemblerScopedLabelImpl(SCOPED_LABEL)

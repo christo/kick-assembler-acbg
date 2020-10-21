@@ -14,4 +14,4 @@ Kick Assembler file
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)
-        PsiElement(KickAssemblerTokenType.MNEMONIC)('brk')
+        PsiElement(KickAssemblerTokenType.MNEMONIC0)('brk')

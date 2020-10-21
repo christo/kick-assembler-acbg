@@ -7,7 +7,7 @@ Kick Assembler file
       PsiElement(KickAssemblerTokenType.LEFT_BRACE)('{')
       KickAssemblerStatementImpl(STATEMENT)
         KickAssemblerInstructionImpl(INSTRUCTION)
-          PsiElement(KickAssemblerTokenType.MNEMONIC)('nop')
+          PsiElement(KickAssemblerTokenType.MNEMONIC0)('nop')
       PsiElement(KickAssemblerTokenType.RIGHT_BRACE)('}')
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
