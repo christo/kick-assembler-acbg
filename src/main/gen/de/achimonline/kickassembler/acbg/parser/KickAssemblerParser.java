@@ -760,16 +760,15 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // [ LESS | GREATER ] (
-  //         bracketed | basicValue | invocation | scopedLabel | multilabel | ASTERISK |
+  //         bracketed | basicValue | invocation | scopedLabel postfixOperator? | multilabel | ASTERISK |
   //         ( prefixOperator exprLeft )
-  //     ) postfixOperator?
+  //     )
   static boolean exprLeft(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "exprLeft")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = exprLeft_0(builder_, level_ + 1);
     result_ = result_ && exprLeft_1(builder_, level_ + 1);
-    result_ = result_ && exprLeft_2(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
@@ -790,7 +789,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // bracketed | basicValue | invocation | scopedLabel | multilabel | ASTERISK |
+  // bracketed | basicValue | invocation | scopedLabel postfixOperator? | multilabel | ASTERISK |
   //         ( prefixOperator exprLeft )
   private static boolean exprLeft_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "exprLeft_1")) return false;
@@ -799,12 +798,30 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = bracketed(builder_, level_ + 1);
     if (!result_) result_ = basicValue(builder_, level_ + 1);
     if (!result_) result_ = invocation(builder_, level_ + 1);
-    if (!result_) result_ = scopedLabel(builder_, level_ + 1);
+    if (!result_) result_ = exprLeft_1_3(builder_, level_ + 1);
     if (!result_) result_ = multilabel(builder_, level_ + 1);
     if (!result_) result_ = consumeToken(builder_, ASTERISK);
     if (!result_) result_ = exprLeft_1_6(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
+  }
+
+  // scopedLabel postfixOperator?
+  private static boolean exprLeft_1_3(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "exprLeft_1_3")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = scopedLabel(builder_, level_ + 1);
+    result_ = result_ && exprLeft_1_3_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // postfixOperator?
+  private static boolean exprLeft_1_3_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "exprLeft_1_3_1")) return false;
+    postfixOperator(builder_, level_ + 1);
+    return true;
   }
 
   // prefixOperator exprLeft
@@ -816,13 +833,6 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     result_ = result_ && exprLeft(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
-  }
-
-  // postfixOperator?
-  private static boolean exprLeft_2(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "exprLeft_2")) return false;
-    postfixOperator(builder_, level_ + 1);
-    return true;
   }
 
   /* ********************************************************** */

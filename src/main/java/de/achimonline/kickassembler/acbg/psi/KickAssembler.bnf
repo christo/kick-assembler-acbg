@@ -191,9 +191,9 @@ scopedLabel ::= labelExpr ( DOT labelExpr )*
 // left-non-recursive left-factored rule
 private exprLeft ::= (
     [ LESS | GREATER ] (
-        bracketed | basicValue | invocation | scopedLabel | multilabel | ASTERISK |
+        bracketed | basicValue | invocation | scopedLabel postfixOperator? | multilabel | ASTERISK |
         ( prefixOperator exprLeft )
-    ) postfixOperator?
+    )
 )
 
 ternaryRhs ::= QUESTION_MARK expr COLON expr
