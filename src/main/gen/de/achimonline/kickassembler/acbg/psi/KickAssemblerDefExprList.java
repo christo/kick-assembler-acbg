@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface KickAssemblerDefExprList extends PsiElement {
 
   @NotNull
-  List<KickAssemblerDefExpr> getDefExprList();
+  List<KickAssemblerExprMaybeDef> getExprMaybeDefList();
 
 }

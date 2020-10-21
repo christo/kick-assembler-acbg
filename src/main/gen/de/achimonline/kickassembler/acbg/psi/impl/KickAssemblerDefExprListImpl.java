@@ -28,8 +28,8 @@ public class KickAssemblerDefExprListImpl extends ASTWrapperPsiElement implement
 
   @Override
   @NotNull
-  public List<KickAssemblerDefExpr> getDefExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerDefExpr.class);
+  public List<KickAssemblerExprMaybeDef> getExprMaybeDefList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerExprMaybeDef.class);
   }
 
 }

@@ -18,7 +18,6 @@ public interface KickAssemblerTypes {
   IElementType CPU_DIRECTIVE = new KickAssemblerElementType("CPU_DIRECTIVE");
   IElementType DATA_DEFINITION = new KickAssemblerElementType("DATA_DEFINITION");
   IElementType DEFINE_DIRECTIVE = new KickAssemblerElementType("DEFINE_DIRECTIVE");
-  IElementType DEF_EXPR = new KickAssemblerElementType("DEF_EXPR");
   IElementType DEF_EXPR_LIST = new KickAssemblerElementType("DEF_EXPR_LIST");
   IElementType DISK_DIRECTIVE = new KickAssemblerElementType("DISK_DIRECTIVE");
   IElementType ENCODING_DIRECTIVE = new KickAssemblerElementType("ENCODING_DIRECTIVE");
@@ -26,6 +25,7 @@ public interface KickAssemblerTypes {
   IElementType ESCAPED_STRING = new KickAssemblerElementType("ESCAPED_STRING");
   IElementType EVAL_EXPRESSION = new KickAssemblerElementType("EVAL_EXPRESSION");
   IElementType EXPR = new KickAssemblerElementType("EXPR");
+  IElementType EXPR_MAYBE_DEF = new KickAssemblerElementType("EXPR_MAYBE_DEF");
   IElementType FILEMODIFY_DIRECTIVE = new KickAssemblerElementType("FILEMODIFY_DIRECTIVE");
   IElementType FOR_LOOP = new KickAssemblerElementType("FOR_LOOP");
   IElementType FUNCTION_DEFINITION = new KickAssemblerElementType("FUNCTION_DEFINITION");
@@ -199,9 +199,6 @@ public interface KickAssemblerTypes {
       else if (type == DEFINE_DIRECTIVE) {
         return new KickAssemblerDefineDirectiveImpl(node);
       }
-      else if (type == DEF_EXPR) {
-        return new KickAssemblerDefExprImpl(node);
-      }
       else if (type == DEF_EXPR_LIST) {
         return new KickAssemblerDefExprListImpl(node);
       }
@@ -222,6 +219,9 @@ public interface KickAssemblerTypes {
       }
       else if (type == EXPR) {
         return new KickAssemblerExprImpl(node);
+      }
+      else if (type == EXPR_MAYBE_DEF) {
+        return new KickAssemblerExprMaybeDefImpl(node);
       }
       else if (type == FILEMODIFY_DIRECTIVE) {
         return new KickAssemblerFilemodifyDirectiveImpl(node);

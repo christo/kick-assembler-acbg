@@ -96,6 +96,7 @@ public class ExternalParseTest extends AbstractParseTest {
             BASE + "/moonorongo/jp_wars/syscall.asm",
             BASE + "/wbovela/c64game/php",
             BASE + "/VelAntuManthureie/c64-game-skeleton/test/render/test.asm",
+            BASE + "/EddieFAF/c64coding/kickass/screen.asm",
             BASE + "/mix256/kng2",  // old version of kick with prefix pseudocommands and semicolon arg delimiters
             BASE + "/Ghouli",  // old version of kick with prefix pseudocommands and semicolon arg delimiters
 

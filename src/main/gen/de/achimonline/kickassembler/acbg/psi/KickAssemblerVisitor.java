@@ -43,10 +43,6 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitDefExpr(@NotNull KickAssemblerDefExpr o) {
-    visitPsiElement(o);
-  }
-
   public void visitDefExprList(@NotNull KickAssemblerDefExprList o) {
     visitPsiElement(o);
   }
@@ -76,6 +72,10 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
   }
 
   public void visitExpr(@NotNull KickAssemblerExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExprMaybeDef(@NotNull KickAssemblerExprMaybeDef o) {
     visitPsiElement(o);
   }
 

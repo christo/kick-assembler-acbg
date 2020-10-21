@@ -29,7 +29,7 @@ Kick Assembler file
         PsiElement(KickAssemblerTokenType.DIRECTIVE_FOR)('for')
         PsiElement(KickAssemblerTokenType.LEFT_PAREN)('(')
         KickAssemblerDefExprListImpl(DEF_EXPR_LIST)
-          KickAssemblerDefExprImpl(DEF_EXPR)
+          KickAssemblerExprMaybeDefImpl(EXPR_MAYBE_DEF)
             PsiElement(KickAssemblerTokenType.DIRECTIVE_DEF)('var')
             PsiElement(KickAssemblerTokenType.LABEL)('i')
             PsiElement(KickAssemblerTokenType.ASSIGN)('=')

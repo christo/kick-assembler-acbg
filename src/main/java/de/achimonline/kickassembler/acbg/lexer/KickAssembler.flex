@@ -247,8 +247,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
 }
 
 <POST_DOT> {
-    "const"         { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
-    "var"           { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    "const" | "var" { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
 
     "align"         { pm(); return KickAssemblerTypes.DIRECTIVE_ALIGN; }
     "assert"        { pm(); return KickAssemblerTypes.DIRECTIVE_ASSERT; }
@@ -323,8 +322,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "i"   | "ind"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Indirect	jmp.i $1000
     "r"   | "rel"     { yybegin(YYINITIAL); return KickAssemblerTypes.MNEMONIC_EXTENSION_DEPRECATED; } // Relative to program counter
 
-    "const"         { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
-    "var"           { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
+    "const" | "var" { yybegin(SYMBOL_DEF); return KickAssemblerTypes.DIRECTIVE_DEF; }
 
     "align"         { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ALIGN; }
     "assert"        { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_ASSERT; }
@@ -385,7 +383,8 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
 }
 
 <SYMBOL_DEF> {
-    {LABEL}           { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL; }
+    {LABEL}        { yybegin(YYINITIAL); return KickAssemblerTypes.LABEL; }
+    "@"	           { yybegin(YYINITIAL); return KickAssemblerTypes.AT; }
     {ANY_BLANKS}   { pm(); return TokenType.WHITE_SPACE; }
 }
 

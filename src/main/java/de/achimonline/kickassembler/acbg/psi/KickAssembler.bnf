@@ -41,7 +41,7 @@ preprocessorDirective ::= (
     (PREPROCESSOR_IF | PREPROCESSOR_DEF ) ppExpr
 )
 
-defExpr ::= ( ["var" | "const"] LABEL ASSIGN expr ) | expr
+exprMaybeDef ::= defExpr | expr
 
 forLoop ::= (
     DOT DIRECTIVE_FOR LEFT_PAREN defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PAREN
@@ -71,7 +71,9 @@ pcAssignment ::= (ASTERISK | DOT DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
 
 pseudoPcAssignment ::= DOT DIRECTIVE_PSEUDOPC expr block
 
-labelAssignment ::= DOT DIRECTIVE_DEF LABEL ASSIGN expr
+private defExpr ::= DIRECTIVE_DEF AT? LABEL ASSIGN expr
+
+labelAssignment ::= DOT defExpr
 
 import ::= ( PREPROCESSOR_IMPORT STRING | dotImport)
 
@@ -227,7 +229,7 @@ private nArityDirectives ::=
 
 assert ::= DOT DIRECTIVE_ASSERT stringLiteral COMMA (block | expr) COMMA (block | expr)
 
-defExprList ::=  defExpr ( COMMA defExpr )*
+defExprList ::=  exprMaybeDef ( COMMA exprMaybeDef )*
 
 private compound ::= (statement | preprocessorDirective | block)
 
