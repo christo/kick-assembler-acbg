@@ -18,7 +18,7 @@ import static java.util.Collections.emptyList;
  * be run alongside the {@link org.junit.runners.Parameterized Parameterized} tests but in a JUnit 3 style
  * for compatibility with the way ParsingTestCase loads files TODO fix this like {@link ExternalParseTest}
  */
-@SuppressWarnings({"UnconstructableJUnitTestCase"})
+@SuppressWarnings({"UnconstructableJUnitTestCase", "OptionalUsedAsFieldOrParameterType"})
 @RunWith(Parameterized.class)
 public class InternalParserTest extends AbstractParseTest {
 

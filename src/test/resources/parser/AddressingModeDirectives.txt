@@ -1,6 +1,5 @@
 Kick Assembler file
-  PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// example from http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html')
-  PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// some explicit absolute mode addressing (not the otherwise automatic zeropage conversion)')
+  PsiComment(KickAssemblerTokenType.COMMENT_BLOCK)('/*\nexample from http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html\nsome explicit absolute mode addressing (not the otherwise automatic zeropage conversion)\n */')
   KickAssemblerRootImpl(ROOT)
     KickAssemblerStatementImpl(STATEMENT)
       KickAssemblerInstructionImpl(INSTRUCTION)

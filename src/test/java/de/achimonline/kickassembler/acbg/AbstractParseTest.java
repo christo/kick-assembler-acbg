@@ -140,7 +140,6 @@ public abstract class AbstractParseTest extends ParsingTestCase {
         try {
             // transform windows to unix line endings; note the space is there to preserve offset reporting
             String text = FileUtil.loadFile(assemblySource).replaceAll("\\r\\n", " \n");
-            ;
             myFile = createPsiFile(testName, text);
             ensureParsed(myFile);
             final VirtualFile vfile = myFile.getVirtualFile();
@@ -149,7 +148,6 @@ public abstract class AbstractParseTest extends ParsingTestCase {
             assertEquals("doc text mismatch", text, Objects.requireNonNull(myFile.getViewProvider().getDocument()).getText());
             assertEquals("psi text mismatch", text, myFile.getText());
             ensureCorrectReparse(myFile);
-            // TODO make sure we don't write out the files for the external test
             if (getCheckResult()) {
                 checkResult(testName, myFile);
 
