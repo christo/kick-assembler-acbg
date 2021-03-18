@@ -156,7 +156,6 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
 %%
 
 <YYINITIAL, POST_MNEMONIC> {
-    {ANY_BLANKS}   { pm(); return TokenType.WHITE_SPACE; }
 
     {STRING_CHAR} { pm(); return KickAssemblerTypes.STRING; }
 
@@ -223,6 +222,10 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     ":"	 { pm(); return KickAssemblerTypes.COLON; }
     "?"	 { pm(); return KickAssemblerTypes.QUESTION_MARK; }
 
+    // a dot can separate a mnemonic from the mnemonic qualifier suffix
+    // or it can be a prefix such as on directives like ".import"
+    // this state choice is critical for disambiguating the menmonic suffixes from
+    // the initial chars of directives (e.g. ".i")
     "." {
         if(zzLexicalState == POST_MNEMONIC) {
             yybegin(MNEMONIC_SUFFIX);
@@ -231,7 +234,6 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
         }
         return KickAssemblerTypes.DOT;
     }
-
 
     "@\"" { yybegin(STRING_ESCAPE); return KickAssemblerTypes.STRING_ESCAPE_BEGIN; }
 
@@ -242,6 +244,9 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
 
     {LINE_COMMENT}  { pm(); return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { pm(); return KickAssemblerTypes.COMMENT_BLOCK; }
+
+    {LINE_BREAK}   { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+    {WHITE_SPACE}   { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
 
     [^] { pm(); return KickAssemblerTypes.DUMMY; }
 }
@@ -302,6 +307,8 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
 }
 
 <MNEMONIC_SUFFIX> {
+    {ANY_BLANKS}   { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+
     /*
     These override the addressing mode of a mnemonic as at v5.16 see
     http://www.theweb.dk/KickAssembler/webhelp/content/ch03s02.html
@@ -374,7 +381,6 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "wo"            { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
     "word"          { yybegin(YYINITIAL); return KickAssemblerTypes.DIRECTIVE_DATA; }
 
-    {LINE_COMMENT}  { return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { return KickAssemblerTypes.COMMENT_BLOCK; }
 
     ";"	 { yybegin(YYINITIAL); return KickAssemblerTypes.SEMICOLON; }

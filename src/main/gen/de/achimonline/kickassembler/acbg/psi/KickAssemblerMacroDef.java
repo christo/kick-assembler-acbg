@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerFunctionDefinition extends PsiElement {
+public interface KickAssemblerMacroDef extends PsiElement {
 
   @Nullable
   KickAssemblerIdentifierList getIdentifierList();

@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface KickAssemblerLabelAssignment extends PsiElement {
+public interface KickAssemblerExprMaybeDef extends PsiElement {
 
   @Nullable
   KickAssemblerExpr getExpr();

@@ -1,6 +1,6 @@
 Kick Assembler file
   KickAssemblerRootImpl(ROOT)
-    KickAssemblerMacroDefinitionImpl(MACRO_DEFINITION)
+    KickAssemblerMacroDefImpl(MACRO_DEF)
       PsiElement(KickAssemblerTokenType.DOT)('.')
       PsiElement(KickAssemblerTokenType.DIRECTIVE_DEF_MACRO)('macro')
       PsiElement(KickAssemblerTokenType.LABEL)('LoadBank')

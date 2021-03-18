@@ -12,14 +12,17 @@
     elementTypeClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerElementType"
     tokenTypeClass="de.achimonline.kickassembler.acbg.psi.KickAssemblerTokenType"
 
+    tokens = [
+        WHITE_SPACE = 'regexp:[\t\v\f ]+'
+    ]
 }
 
 kickAssemblerFile ::= root*
 
 root ::= (
            compound |
-           macroDefinition |
-           functionDefinition |
+           macroDef |
+           functionDef |
            pseudoCommandDef |
            importOnce |
 
@@ -28,7 +31,9 @@ root ::= (
            COMMENT_LINE |
            COMMENT_BLOCK |
 
+           //LINE_BREAK+ |
            DUMMY )
+
 
 private labelDef ::= AT? LABEL_DEF
 
@@ -51,13 +56,13 @@ forLoop ::= (
 encodingDirective ::= DOT DIRECTIVE_ENCODING (encodingValue | LEFT_PAREN encodingValue RIGHT_PAREN)
 
 private encodingValue ::=
-    "\"screencode_mixed\""
+      "\"screencode_mixed\""
     | "\"screencode_upper\""
     | "\"petscii_mixed\""
-    |  "\"petscii_upper\""
+    | "\"petscii_upper\""
     | "\"ascii\""
 
-multilabel ::= BANG LABEL? (PLUS+|MINUS+)
+multilabel ::= BANG LABEL? ( PLUS+ | MINUS+ ) {pin=3}
 
 multilabelDef ::= BANG (LABEL_DEF | COLON)
 
@@ -67,11 +72,11 @@ dataDefinition ::= DOT DIRECTIVE_DATA exprs (COMMA LEFT_BRACKET expr (COMMA expr
 
 cpuDirective ::= DOT DIRECTIVE_CPU ( "_6502NoIllegals" | "_6502" | "dtv" | "_65c02")
 
-pcAssignment ::= (ASTERISK | DOT DIRECTIVE_PC) ASSIGN expr STRING? "virtual"?
+pcAssignment ::= (ASTERISK | DOT DIRECTIVE_PC) ASSIGN expr STRING? "virtual"? {pin=2}
 
 pseudoPcAssignment ::= DOT DIRECTIVE_PSEUDOPC expr block
 
-private defExpr ::= DIRECTIVE_DEF AT? LABEL ASSIGN expr
+private defExpr ::= DIRECTIVE_DEF AT? LABEL ASSIGN expr {pin=4}
 
 labelAssignment ::= DOT defExpr
 
@@ -85,9 +90,9 @@ private dotImport ::= DOT DIRECTIVE_IMPORT (
 argument ::= expr | HASH? expr | labelDef? HASH? expr
 
 block ::= (
-    LEFT_BRACE
-    (statement | macroDefinition | functionDefinition | preprocessorDirective | pseudoCommandDef)*
-    RIGHT_BRACE
+    LEFT_BRACE LINE_BREAK?
+    (statement | macroDef | functionDef | preprocessorDirective | pseudoCommandDef)*
+    RIGHT_BRACE LINE_BREAK?
 )
 
 private mnemonicExt ::= MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
@@ -152,9 +157,9 @@ private directive ::= (
 
 structDirective ::= DOT DIRECTIVE_STRUCT LABEL LEFT_BRACE identifierList? RIGHT_BRACE
 
-macroDefinition ::= DOT DIRECTIVE_DEF_MACRO invocableDef
+macroDef ::= DOT DIRECTIVE_DEF_MACRO invocableDef
 
-functionDefinition ::= DOT DIRECTIVE_FUNCTION invocableDef
+functionDef ::= DOT DIRECTIVE_FUNCTION invocableDef
 
 private invocableDef ::= AT? LABEL LEFT_PAREN identifierList? RIGHT_PAREN invocableBody
 
@@ -176,8 +181,7 @@ identifierList ::= LABEL ( COMMA LABEL )*
 
 private ppInfixOperator ::= EQUAL | NOT_EQUAL | AND | OR
 
-// TODO precendence
-infixOperator ::= (
+inner infixOperator ::= (
     DOT | PLUS | MINUS | ASTERISK | DIVIDE |
     ppInfixOperator |
     LESS | GREATER | LESS_EQUALS | GREATER_EQUALS |
@@ -197,7 +201,6 @@ private stringLiteral ::= STRING | escapedString
 
 basicValue ::= NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| stringLiteral
 
-// TODO figure out if
 private labelExpr ::= AT? LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 
 scopedLabel ::= labelExpr ( DOT labelExpr )*
@@ -212,7 +215,7 @@ private exprLeft ::= (
 
 ternaryRhs ::= QUESTION_MARK expr COLON expr
 
-expr ::= ( exprLeft ( infixOperator expr | ternaryRhs )* )
+expr ::= ( exprLeft ( infixOperator expr | ternaryRhs )+ ) | exprLeft
 
 private exprs ::= expr ( COMMA expr )*
 
@@ -231,7 +234,7 @@ assert ::= DOT DIRECTIVE_ASSERT stringLiteral COMMA (block | expr) COMMA (block 
 
 defExprList ::=  exprMaybeDef ( COMMA exprMaybeDef )*
 
-private compound ::= (statement | preprocessorDirective | block)
+private compound ::= statement | preprocessorDirective | block
 
 ifElse ::= DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound [ "else" compound ]
 
@@ -270,4 +273,6 @@ private parameterList ::= parameter ( COMMA parameter )* COMMA?     // NOTE dang
 parameterMap ::= LEFT_BRACKET [ parameterList ] RIGHT_BRACKET
 
 parameter ::= LABEL [ASSIGN expr]
+
+//lineBreak ::= LINEBREAK+
 

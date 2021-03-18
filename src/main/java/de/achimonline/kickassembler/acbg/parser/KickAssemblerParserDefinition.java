@@ -10,6 +10,7 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import de.achimonline.kickassembler.acbg.KickAssemblerLanguage;
@@ -25,55 +26,52 @@ public class KickAssemblerParserDefinition implements ParserDefinition {
 
     @NotNull
     @Override
-    public Lexer createLexer(Project project)
-    {
+    public Lexer createLexer(Project project) {
         return new KickAssemblerLexerAdapter();
     }
 
     @NotNull
-    public TokenSet getWhitespaceTokens()
-    {
+    public TokenSet getWhitespaceTokens() {
         return WHITE_SPACES;
     }
 
     @NotNull
-    public TokenSet getCommentTokens()
-    {
+    public TokenSet getCommentTokens() {
         return COMMENTS;
     }
 
     @NotNull
-    public TokenSet getStringLiteralElements()
-    {
+    public TokenSet getStringLiteralElements() {
         return TokenSet.EMPTY;
     }
 
     @NotNull
-    public PsiParser createParser(final Project project)
-    {
+    public PsiParser createParser(final Project project) {
         return new KickAssemblerParser();
     }
 
     @Override
-    public IFileElementType getFileNodeType()
-    {
+    public IFileElementType getFileNodeType() {
         return FILE;
     }
 
-    public PsiFile createFile(FileViewProvider viewProvider)
-    {
+    public PsiFile createFile(FileViewProvider viewProvider) {
         return new KickAssemblerFile(viewProvider);
     }
 
     @Override
     public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
         // TODO we have to be more specific here, not all spaces are allowed
-        return SpaceRequirements.MAY;
+        IElementType tLeft = left.getElementType();
+        if (tLeft == KickAssemblerTypes.MINUS || tLeft == KickAssemblerTypes.PLUS) {
+            return SpaceRequirements.MUST_NOT;
+        } else {
+            return SpaceRequirements.MAY;
+        }
     }
 
     @NotNull
-    public PsiElement createElement(ASTNode node)
-    {
+    public PsiElement createElement(ASTNode node) {
         return KickAssemblerTypes.Factory.createElement(node);
     }
 }

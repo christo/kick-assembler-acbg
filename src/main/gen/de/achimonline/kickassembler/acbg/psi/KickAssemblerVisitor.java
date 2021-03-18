@@ -87,7 +87,7 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitFunctionDefinition(@NotNull KickAssemblerFunctionDefinition o) {
+  public void visitFunctionDef(@NotNull KickAssemblerFunctionDef o) {
     visitPsiElement(o);
   }
 
@@ -123,7 +123,7 @@ public class KickAssemblerVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMacroDefinition(@NotNull KickAssemblerMacroDefinition o) {
+  public void visitMacroDef(@NotNull KickAssemblerMacroDef o) {
     visitPsiElement(o);
   }
 

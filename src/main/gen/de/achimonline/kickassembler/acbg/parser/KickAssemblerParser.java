@@ -157,9 +157,9 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LEFT_BRACE
-  //     (statement | macroDefinition | functionDefinition | preprocessorDirective | pseudoCommandDef)*
-  //     RIGHT_BRACE
+  // LEFT_BRACE LINE_BREAK?
+  //     (statement | macroDef | functionDef | preprocessorDirective | pseudoCommandDef)*
+  //     RIGHT_BRACE LINE_BREAK?
   public static boolean block(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "block")) return false;
     if (!nextTokenIs(builder_, LEFT_BRACE)) return false;
@@ -167,32 +167,48 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     Marker marker_ = enter_section_(builder_);
     result_ = consumeToken(builder_, LEFT_BRACE);
     result_ = result_ && block_1(builder_, level_ + 1);
+    result_ = result_ && block_2(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, RIGHT_BRACE);
+    result_ = result_ && block_4(builder_, level_ + 1);
     exit_section_(builder_, marker_, BLOCK, result_);
     return result_;
   }
 
-  // (statement | macroDefinition | functionDefinition | preprocessorDirective | pseudoCommandDef)*
+  // LINE_BREAK?
   private static boolean block_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "block_1")) return false;
+    consumeToken(builder_, LINE_BREAK);
+    return true;
+  }
+
+  // (statement | macroDef | functionDef | preprocessorDirective | pseudoCommandDef)*
+  private static boolean block_2(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "block_2")) return false;
     while (true) {
       int pos_ = current_position_(builder_);
-      if (!block_1_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "block_1", pos_)) break;
+      if (!block_2_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "block_2", pos_)) break;
     }
     return true;
   }
 
-  // statement | macroDefinition | functionDefinition | preprocessorDirective | pseudoCommandDef
-  private static boolean block_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "block_1_0")) return false;
+  // statement | macroDef | functionDef | preprocessorDirective | pseudoCommandDef
+  private static boolean block_2_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "block_2_0")) return false;
     boolean result_;
     result_ = statement(builder_, level_ + 1);
-    if (!result_) result_ = macroDefinition(builder_, level_ + 1);
-    if (!result_) result_ = functionDefinition(builder_, level_ + 1);
+    if (!result_) result_ = macroDef(builder_, level_ + 1);
+    if (!result_) result_ = functionDef(builder_, level_ + 1);
     if (!result_) result_ = preprocessorDirective(builder_, level_ + 1);
     if (!result_) result_ = pseudoCommandDef(builder_, level_ + 1);
     return result_;
+  }
+
+  // LINE_BREAK?
+  private static boolean block_4(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "block_4")) return false;
+    consumeToken(builder_, LINE_BREAK);
+    return true;
   }
 
   /* ********************************************************** */
@@ -387,14 +403,15 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   static boolean defExpr(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "defExpr")) return false;
     if (!nextTokenIs(builder_, DIRECTIVE_DEF)) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
+    boolean result_, pinned_;
+    Marker marker_ = enter_section_(builder_, level_, _NONE_);
     result_ = consumeToken(builder_, DIRECTIVE_DEF);
     result_ = result_ && defExpr_1(builder_, level_ + 1);
-    result_ = result_ && consumeTokens(builder_, 0, LABEL, ASSIGN);
+    result_ = result_ && consumeTokens(builder_, 2, LABEL, ASSIGN);
+    pinned_ = result_; // pin = 4
     result_ = result_ && expr(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
+    exit_section_(builder_, level_, marker_, result_, pinned_, null);
+    return result_ || pinned_;
   }
 
   // AT?
@@ -678,7 +695,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   // "\"screencode_mixed\""
   //     | "\"screencode_upper\""
   //     | "\"petscii_mixed\""
-  //     |  "\"petscii_upper\""
+  //     | "\"petscii_upper\""
   //     | "\"ascii\""
   static boolean encodingValue(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "encodingValue")) return false;
@@ -766,42 +783,57 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // exprLeft ( infixOperator expr | ternaryRhs )*
+  // ( exprLeft ( infixOperator expr | ternaryRhs )+ ) | exprLeft
   public static boolean expr(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "expr")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _COLLAPSE_, EXPR, "<expr>");
-    result_ = exprLeft(builder_, level_ + 1);
-    result_ = result_ && expr_1(builder_, level_ + 1);
+    result_ = expr_0(builder_, level_ + 1);
+    if (!result_) result_ = exprLeft(builder_, level_ + 1);
     exit_section_(builder_, level_, marker_, result_, false, null);
     return result_;
   }
 
-  // ( infixOperator expr | ternaryRhs )*
-  private static boolean expr_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "expr_1")) return false;
-    while (true) {
+  // exprLeft ( infixOperator expr | ternaryRhs )+
+  private static boolean expr_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "expr_0")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = exprLeft(builder_, level_ + 1);
+    result_ = result_ && expr_0_1(builder_, level_ + 1);
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
+  }
+
+  // ( infixOperator expr | ternaryRhs )+
+  private static boolean expr_0_1(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "expr_0_1")) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_);
+    result_ = expr_0_1_0(builder_, level_ + 1);
+    while (result_) {
       int pos_ = current_position_(builder_);
-      if (!expr_1_0(builder_, level_ + 1)) break;
-      if (!empty_element_parsed_guard_(builder_, "expr_1", pos_)) break;
+      if (!expr_0_1_0(builder_, level_ + 1)) break;
+      if (!empty_element_parsed_guard_(builder_, "expr_0_1", pos_)) break;
     }
-    return true;
+    exit_section_(builder_, marker_, null, result_);
+    return result_;
   }
 
   // infixOperator expr | ternaryRhs
-  private static boolean expr_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "expr_1_0")) return false;
+  private static boolean expr_0_1_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "expr_0_1_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = expr_1_0_0(builder_, level_ + 1);
+    result_ = expr_0_1_0_0(builder_, level_ + 1);
     if (!result_) result_ = ternaryRhs(builder_, level_ + 1);
     exit_section_(builder_, marker_, null, result_);
     return result_;
   }
 
   // infixOperator expr
-  private static boolean expr_1_0_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "expr_1_0_0")) return false;
+  private static boolean expr_0_1_0_0(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "expr_0_1_0_0")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = infixOperator(builder_, level_ + 1);
@@ -968,14 +1000,14 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // DOT DIRECTIVE_FUNCTION invocableDef
-  public static boolean functionDefinition(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "functionDefinition")) return false;
+  public static boolean functionDef(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "functionDef")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeTokens(builder_, 0, DOT, DIRECTIVE_FUNCTION);
     result_ = result_ && invocableDef(builder_, level_ + 1);
-    exit_section_(builder_, marker_, FUNCTION_DEFINITION, result_);
+    exit_section_(builder_, marker_, FUNCTION_DEF, result_);
     return result_;
   }
 
@@ -1480,14 +1512,14 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // DOT DIRECTIVE_DEF_MACRO invocableDef
-  public static boolean macroDefinition(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "macroDefinition")) return false;
+  public static boolean macroDef(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "macroDef")) return false;
     if (!nextTokenIs(builder_, DOT)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = consumeTokens(builder_, 0, DOT, DIRECTIVE_DEF_MACRO);
     result_ = result_ && invocableDef(builder_, level_ + 1);
-    exit_section_(builder_, marker_, MACRO_DEFINITION, result_);
+    exit_section_(builder_, marker_, MACRO_DEF, result_);
     return result_;
   }
 
@@ -1517,7 +1549,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // BANG LABEL? (PLUS+|MINUS+)
+  // BANG LABEL? ( PLUS+ | MINUS+ )
   public static boolean multilabel(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "multilabel")) return false;
     if (!nextTokenIs(builder_, BANG)) return false;
@@ -1537,7 +1569,7 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // PLUS+|MINUS+
+  // PLUS+ | MINUS+
   private static boolean multilabel_2(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "multilabel_2")) return false;
     boolean result_;
@@ -1854,15 +1886,16 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
   public static boolean pcAssignment(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pcAssignment")) return false;
     if (!nextTokenIs(builder_, "<pc assignment>", ASTERISK, DOT)) return false;
-    boolean result_;
+    boolean result_, pinned_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, PC_ASSIGNMENT, "<pc assignment>");
     result_ = pcAssignment_0(builder_, level_ + 1);
     result_ = result_ && consumeToken(builder_, ASSIGN);
-    result_ = result_ && expr(builder_, level_ + 1);
-    result_ = result_ && pcAssignment_3(builder_, level_ + 1);
-    result_ = result_ && pcAssignment_4(builder_, level_ + 1);
-    exit_section_(builder_, level_, marker_, result_, false, null);
-    return result_;
+    pinned_ = result_; // pin = 2
+    result_ = result_ && report_error_(builder_, expr(builder_, level_ + 1));
+    result_ = pinned_ && report_error_(builder_, pcAssignment_3(builder_, level_ + 1)) && result_;
+    result_ = pinned_ && pcAssignment_4(builder_, level_ + 1) && result_;
+    exit_section_(builder_, level_, marker_, result_, pinned_, null);
+    return result_ || pinned_;
   }
 
   // ASTERISK | DOT DIRECTIVE_PC
@@ -2205,21 +2238,22 @@ public class KickAssemblerParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // compound |
-  //            macroDefinition |
-  //            functionDefinition |
+  //            macroDef |
+  //            functionDef |
   //            pseudoCommandDef |
   //            importOnce |
   //            DOT DIRECTIVE |
   //            COMMENT_LINE |
   //            COMMENT_BLOCK |
+  //            //LINE_BREAK+ |
   //            DUMMY
   public static boolean root(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "root")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, ROOT, "<root>");
     result_ = compound(builder_, level_ + 1);
-    if (!result_) result_ = macroDefinition(builder_, level_ + 1);
-    if (!result_) result_ = functionDefinition(builder_, level_ + 1);
+    if (!result_) result_ = macroDef(builder_, level_ + 1);
+    if (!result_) result_ = functionDef(builder_, level_ + 1);
     if (!result_) result_ = pseudoCommandDef(builder_, level_ + 1);
     if (!result_) result_ = importOnce(builder_, level_ + 1);
     if (!result_) result_ = parseTokens(builder_, 0, DOT, DIRECTIVE);

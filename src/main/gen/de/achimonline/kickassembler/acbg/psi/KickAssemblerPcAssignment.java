@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface KickAssemblerPcAssignment extends PsiElement {
 
-  @NotNull
+  @Nullable
   KickAssemblerExpr getExpr();
 
 }

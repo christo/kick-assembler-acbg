@@ -1,7 +1,7 @@
 Kick Assembler file
   PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// these things are freaky')
   KickAssemblerRootImpl(ROOT)
-    KickAssemblerFunctionDefinitionImpl(FUNCTION_DEFINITION)
+    KickAssemblerFunctionDefImpl(FUNCTION_DEF)
       PsiElement(KickAssemblerTokenType.DOT)('.')
       PsiElement(KickAssemblerTokenType.DIRECTIVE_FUNCTION)('function')
       PsiElement(KickAssemblerTokenType.LABEL)('getTypeName')
@@ -378,7 +378,7 @@ Kick Assembler file
             KickAssemblerBasicValueImpl(BASIC_VALUE)
               PsiElement(KickAssemblerTokenType.NUMBER)('21')
   KickAssemblerRootImpl(ROOT)
-    KickAssemblerFunctionDefinitionImpl(FUNCTION_DEFINITION)
+    KickAssemblerFunctionDefImpl(FUNCTION_DEF)
       PsiElement(KickAssemblerTokenType.DOT)('.')
       PsiElement(KickAssemblerTokenType.DIRECTIVE_FUNCTION)('function')
       PsiElement(KickAssemblerTokenType.LABEL)('_16bitNext')

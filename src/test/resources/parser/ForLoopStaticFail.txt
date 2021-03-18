@@ -2,7 +2,7 @@ Kick Assembler file
   PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// note this fails on kick assembler after parsing but before execution of the macro')
   PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// due to reference to not yet defined symbol foo at 5:19 and 5:27')
   KickAssemblerRootImpl(ROOT)
-    KickAssemblerMacroDefinitionImpl(MACRO_DEFINITION)
+    KickAssemblerMacroDefImpl(MACRO_DEF)
       PsiElement(KickAssemblerTokenType.DOT)('.')
       PsiElement(KickAssemblerTokenType.DIRECTIVE_DEF_MACRO)('macro')
       PsiElement(KickAssemblerTokenType.LABEL)('freaky')

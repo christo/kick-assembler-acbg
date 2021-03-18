@@ -11,14 +11,14 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerMacroDefinitionImpl extends ASTWrapperPsiElement implements KickAssemblerMacroDefinition {
+public class KickAssemblerExprMaybeDefImpl extends ASTWrapperPsiElement implements KickAssemblerExprMaybeDef {
 
-  public KickAssemblerMacroDefinitionImpl(@NotNull ASTNode node) {
+  public KickAssemblerExprMaybeDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitMacroDefinition(this);
+    visitor.visitExprMaybeDef(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -28,20 +28,8 @@ public class KickAssemblerMacroDefinitionImpl extends ASTWrapperPsiElement imple
 
   @Override
   @Nullable
-  public KickAssemblerIdentifierList getIdentifierList() {
-    return findChildByClass(KickAssemblerIdentifierList.class);
-  }
-
-  @Override
-  @NotNull
-  public List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPreprocessorDirective.class);
-  }
-
-  @Override
-  @NotNull
-  public List<KickAssemblerStatement> getStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerStatement.class);
+  public KickAssemblerExpr getExpr() {
+    return findChildByClass(KickAssemblerExpr.class);
   }
 
 }

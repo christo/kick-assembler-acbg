@@ -1,6 +1,6 @@
 Kick Assembler file
   KickAssemblerRootImpl(ROOT)
-    KickAssemblerFunctionDefinitionImpl(FUNCTION_DEFINITION)
+    KickAssemblerFunctionDefImpl(FUNCTION_DEF)
       PsiElement(KickAssemblerTokenType.DOT)('.')
       PsiElement(KickAssemblerTokenType.DIRECTIVE_FUNCTION)('function')
       PsiElement(KickAssemblerTokenType.LABEL)('_16bitNext')

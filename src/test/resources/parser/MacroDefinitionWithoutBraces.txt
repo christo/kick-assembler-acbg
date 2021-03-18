@@ -1,7 +1,7 @@
 Kick Assembler file
   PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// macro definitions can be made without braces (brace optionality seems somewhat universal)')
   KickAssemblerRootImpl(ROOT)
-    KickAssemblerMacroDefinitionImpl(MACRO_DEFINITION)
+    KickAssemblerMacroDefImpl(MACRO_DEF)
       PsiElement(KickAssemblerTokenType.DOT)('.')
       PsiElement(KickAssemblerTokenType.DIRECTIVE_DEF_MACRO)('macro')
       PsiElement(KickAssemblerTokenType.LABEL)('foo')

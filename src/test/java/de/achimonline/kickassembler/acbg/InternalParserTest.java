@@ -30,6 +30,7 @@ public class InternalParserTest extends AbstractParseTest {
             BASE + "/LocalLabelsFail.asm",
             BASE + "/ImportExpressionFail.asm",
             BASE + "/MixedCaseOpcodeFail.asm",
+            BASE + "/LabelArithmetic.asm",      // TODO multilabel !foo++ followed by arithmetic addition
             "foobar"
     ).contains(f.getAbsolutePath());
 

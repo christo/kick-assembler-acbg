@@ -28,7 +28,7 @@ public interface KickAssemblerTypes {
   IElementType EXPR_MAYBE_DEF = new KickAssemblerElementType("EXPR_MAYBE_DEF");
   IElementType FILEMODIFY_DIRECTIVE = new KickAssemblerElementType("FILEMODIFY_DIRECTIVE");
   IElementType FOR_LOOP = new KickAssemblerElementType("FOR_LOOP");
-  IElementType FUNCTION_DEFINITION = new KickAssemblerElementType("FUNCTION_DEFINITION");
+  IElementType FUNCTION_DEF = new KickAssemblerElementType("FUNCTION_DEF");
   IElementType IDENTIFIER_LIST = new KickAssemblerElementType("IDENTIFIER_LIST");
   IElementType IF_ELSE = new KickAssemblerElementType("IF_ELSE");
   IElementType IMPORT = new KickAssemblerElementType("IMPORT");
@@ -37,7 +37,7 @@ public interface KickAssemblerTypes {
   IElementType INSTRUCTION = new KickAssemblerElementType("INSTRUCTION");
   IElementType INVOCATION = new KickAssemblerElementType("INVOCATION");
   IElementType LABEL_ASSIGNMENT = new KickAssemblerElementType("LABEL_ASSIGNMENT");
-  IElementType MACRO_DEFINITION = new KickAssemblerElementType("MACRO_DEFINITION");
+  IElementType MACRO_DEF = new KickAssemblerElementType("MACRO_DEF");
   IElementType MODIFY_DIRECTIVE = new KickAssemblerElementType("MODIFY_DIRECTIVE");
   IElementType MULTILABEL = new KickAssemblerElementType("MULTILABEL");
   IElementType MULTILABEL_DEF = new KickAssemblerElementType("MULTILABEL_DEF");
@@ -134,6 +134,7 @@ public interface KickAssemblerTypes {
   IElementType LEFT_PAREN = new KickAssemblerTokenType("LEFT_PAREN");
   IElementType LESS = new KickAssemblerTokenType("LESS");
   IElementType LESS_EQUALS = new KickAssemblerTokenType("LESS_EQUALS");
+  IElementType LINE_BREAK = new KickAssemblerTokenType("LINE_BREAK");
   IElementType MINUS = new KickAssemblerTokenType("MINUS");
   IElementType MINUS_EQUAL = new KickAssemblerTokenType("MINUS_EQUAL");
   IElementType MNEMONIC0 = new KickAssemblerTokenType("MNEMONIC0");
@@ -229,8 +230,8 @@ public interface KickAssemblerTypes {
       else if (type == FOR_LOOP) {
         return new KickAssemblerForLoopImpl(node);
       }
-      else if (type == FUNCTION_DEFINITION) {
-        return new KickAssemblerFunctionDefinitionImpl(node);
+      else if (type == FUNCTION_DEF) {
+        return new KickAssemblerFunctionDefImpl(node);
       }
       else if (type == IDENTIFIER_LIST) {
         return new KickAssemblerIdentifierListImpl(node);
@@ -256,8 +257,8 @@ public interface KickAssemblerTypes {
       else if (type == LABEL_ASSIGNMENT) {
         return new KickAssemblerLabelAssignmentImpl(node);
       }
-      else if (type == MACRO_DEFINITION) {
-        return new KickAssemblerMacroDefinitionImpl(node);
+      else if (type == MACRO_DEF) {
+        return new KickAssemblerMacroDefImpl(node);
       }
       else if (type == MODIFY_DIRECTIVE) {
         return new KickAssemblerModifyDirectiveImpl(node);

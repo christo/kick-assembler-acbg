@@ -11,14 +11,14 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerBlockImpl extends ASTWrapperPsiElement implements KickAssemblerBlock {
+public class KickAssemblerMacroDefImpl extends ASTWrapperPsiElement implements KickAssemblerMacroDef {
 
-  public KickAssemblerBlockImpl(@NotNull ASTNode node) {
+  public KickAssemblerMacroDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitBlock(this);
+    visitor.visitMacroDef(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -27,27 +27,15 @@ public class KickAssemblerBlockImpl extends ASTWrapperPsiElement implements Kick
   }
 
   @Override
-  @NotNull
-  public List<KickAssemblerFunctionDef> getFunctionDefList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerFunctionDef.class);
-  }
-
-  @Override
-  @NotNull
-  public List<KickAssemblerMacroDef> getMacroDefList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerMacroDef.class);
+  @Nullable
+  public KickAssemblerIdentifierList getIdentifierList() {
+    return findChildByClass(KickAssemblerIdentifierList.class);
   }
 
   @Override
   @NotNull
   public List<KickAssemblerPreprocessorDirective> getPreprocessorDirectiveList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPreprocessorDirective.class);
-  }
-
-  @Override
-  @NotNull
-  public List<KickAssemblerPseudoCommandDef> getPseudoCommandDefList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, KickAssemblerPseudoCommandDef.class);
   }
 
   @Override

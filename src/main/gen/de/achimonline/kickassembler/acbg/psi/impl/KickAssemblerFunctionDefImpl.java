@@ -11,14 +11,14 @@ import static de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import de.achimonline.kickassembler.acbg.psi.*;
 
-public class KickAssemblerFunctionDefinitionImpl extends ASTWrapperPsiElement implements KickAssemblerFunctionDefinition {
+public class KickAssemblerFunctionDefImpl extends ASTWrapperPsiElement implements KickAssemblerFunctionDef {
 
-  public KickAssemblerFunctionDefinitionImpl(@NotNull ASTNode node) {
+  public KickAssemblerFunctionDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull KickAssemblerVisitor visitor) {
-    visitor.visitFunctionDefinition(this);
+    visitor.visitFunctionDef(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {

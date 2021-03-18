@@ -27,9 +27,9 @@ public class KickAssemblerPcAssignmentImpl extends ASTWrapperPsiElement implemen
   }
 
   @Override
-  @NotNull
+  @Nullable
   public KickAssemblerExpr getExpr() {
-    return findNotNullChildByClass(KickAssemblerExpr.class);
+    return findChildByClass(KickAssemblerExpr.class);
   }
 
 }
