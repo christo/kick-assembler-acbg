@@ -2,6 +2,6 @@ jmp myIf.lbl
 
 myIf: .if (true) {
 lbl: lda #0 // <-- Jumps here ...
-    } else {
+} else {
 lbl: nop
 }
