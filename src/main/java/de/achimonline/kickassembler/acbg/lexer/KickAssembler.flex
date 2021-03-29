@@ -22,10 +22,13 @@ import com.intellij.psi.TokenType;
 
 %{
 
+/*
+* Return to initial state iff we are in post-mnemonic or post-dot
+*/
 private void pm() {
-      if ((zzLexicalState == POST_MNEMONIC) || (zzLexicalState == POST_DOT)) {
-          yybegin(YYINITIAL);
-      }
+    if ((zzLexicalState == POST_MNEMONIC) || (zzLexicalState == POST_DOT)) {
+        yybegin(YYINITIAL);
+    }
 }
 
 %}
@@ -181,6 +184,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     "null"            { pm(); return KickAssemblerTypes.NULL; }
 
     "var" | "const"  { return KickAssemblerTypes.DIRECTIVE_DEF; }
+    "else"           { pm(); return KickAssemblerTypes.ELSE; } // TODO confirm this should be a lexeme
 
     {LABEL_DEF}       { pm(); return KickAssemblerTypes.LABEL_DEF; }
     {LABEL}           { pm(); return KickAssemblerTypes.LABEL; }
@@ -222,6 +226,7 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     ":"	 { pm(); return KickAssemblerTypes.COLON; }
     "?"	 { pm(); return KickAssemblerTypes.QUESTION_MARK; }
 
+
     // a dot can separate a mnemonic from the mnemonic qualifier suffix
     // or it can be a prefix such as on directives like ".import"
     // this state choice is critical for disambiguating the menmonic suffixes from
@@ -245,8 +250,8 @@ ESCAPE_HEX = \\\${HEX_DIGIT}+
     {LINE_COMMENT}  { pm(); return KickAssemblerTypes.COMMENT_LINE; }
     {BLOCK_COMMENT} { pm(); return KickAssemblerTypes.COMMENT_BLOCK; }
 
-    {LINE_BREAK}   { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-    {WHITE_SPACE}   { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+    {LINE_BREAK}   { yybegin(YYINITIAL); return KickAssemblerTypes.LINE_BREAK; }
+    {WHITE_SPACE}   { yybegin(YYINITIAL); return TokenType.WHITE_SPA CE; }
 
     [^] { pm(); return KickAssemblerTypes.DUMMY; }
 }

@@ -121,6 +121,7 @@ public interface KickAssemblerTypes {
   IElementType DIVIDE_EQUAL = new KickAssemblerTokenType("DIVIDE_EQUAL");
   IElementType DOT = new KickAssemblerTokenType("DOT");
   IElementType DUMMY = new KickAssemblerTokenType("DUMMY");
+  IElementType ELSE = new KickAssemblerTokenType("ELSE");
   IElementType EQUAL = new KickAssemblerTokenType("EQUAL");
   IElementType ESCAPE_CHAR = new KickAssemblerTokenType("ESCAPE_CHAR");
   IElementType ESCAPE_HEX = new KickAssemblerTokenType("ESCAPE_HEX");

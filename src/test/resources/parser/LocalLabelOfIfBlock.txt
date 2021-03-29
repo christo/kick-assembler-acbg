@@ -37,7 +37,7 @@ Kick Assembler file
                       PsiElement(KickAssemblerTokenType.NUMBER)('0')
             PsiComment(KickAssemblerTokenType.COMMENT_LINE)('// <-- Jumps here ...')
             PsiElement(KickAssemblerTokenType.RIGHT_BRACE)('}')
-        PsiElement(KickAssemblerTokenType.LABEL)('else')
+        PsiElement(KickAssemblerTokenType.ELSE)('else')
         KickAssemblerStatementImpl(STATEMENT)
           KickAssemblerBlockImpl(BLOCK)
             PsiElement(KickAssemblerTokenType.LEFT_BRACE)('{')

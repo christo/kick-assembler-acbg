@@ -20,7 +20,7 @@ import de.achimonline.kickassembler.acbg.psi.KickAssemblerTypes;
 import org.jetbrains.annotations.NotNull;
 
 public class KickAssemblerParserDefinition implements ParserDefinition {
-    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
+    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE, KickAssemblerTypes.LINE_BREAK);
     public static final TokenSet COMMENTS = TokenSet.create(KickAssemblerTypes.COMMENT_BLOCK, KickAssemblerTypes.COMMENT_LINE);
     public static final IFileElementType FILE = new IFileElementType(Language.findInstance(KickAssemblerLanguage.class));
 

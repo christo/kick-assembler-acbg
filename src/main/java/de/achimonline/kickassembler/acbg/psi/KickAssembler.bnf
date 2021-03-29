@@ -31,13 +31,11 @@ root ::= (
            COMMENT_LINE |
            COMMENT_BLOCK |
 
-           //LINE_BREAK+ |
            DUMMY )
-
 
 private labelDef ::= AT? LABEL_DEF
 
-ppExprLeft ::= [BANG] ((basicValue | scopedLabel ) | LEFT_PAREN ppExpr RIGHT_PAREN)
+ppExprLeft ::= [BANG] ((basicValue | scopedLabel ) | LEFT_PAREN  ppExpr RIGHT_PAREN )
 
 ppExpr ::= ppExprLeft (ppInfixOperator ppExpr)*
 
@@ -49,7 +47,7 @@ preprocessorDirective ::= (
 exprMaybeDef ::= defExpr | expr
 
 forLoop ::= (
-    DOT DIRECTIVE_FOR LEFT_PAREN defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PAREN
+    DOT DIRECTIVE_FOR LEFT_PAREN  defExprList SEMICOLON exprs SEMICOLON exprs RIGHT_PAREN
     compound
 )
 
@@ -62,7 +60,7 @@ private encodingValue ::=
     | "\"petscii_upper\""
     | "\"ascii\""
 
-multilabel ::= BANG LABEL? ( PLUS+ | MINUS+ ) {pin=3}
+multilabel ::= BANG LABEL? ( PLUS+ | MINUS+ )
 
 multilabelDef ::= BANG (LABEL_DEF | COLON)
 
@@ -90,20 +88,20 @@ private dotImport ::= DOT DIRECTIVE_IMPORT (
 argument ::= expr | HASH? expr | labelDef? HASH? expr
 
 block ::= (
-    LEFT_BRACE LINE_BREAK?
+     LEFT_BRACE
     (statement | macroDef | functionDef | preprocessorDirective | pseudoCommandDef)*
-    RIGHT_BRACE LINE_BREAK?
+     RIGHT_BRACE
 )
 
 private mnemonicExt ::= MNEMONIC_EXTENSION | MNEMONIC_EXTENSION_DEPRECATED
 
 private twoArguments ::= (argument COMMA argument) | twoArgumentsIndirect
 
-twoArgumentsIndirect ::= LEFT_PAREN argument COMMA argument RIGHT_PAREN
+twoArgumentsIndirect ::=  LEFT_PAREN  argument COMMA argument  RIGHT_PAREN
 
 private oneArgument ::= oneArgumentIndirect | argument
 
-oneArgumentIndirect ::= LEFT_PAREN argument RIGHT_PAREN
+oneArgumentIndirect ::=  LEFT_PAREN  argument  RIGHT_PAREN
 
 instruction ::= (
     MNEMONIC0 [ DOT mnemonicExt]
@@ -134,7 +132,7 @@ statement ::= (
     evalExpression |
     returnStatement |
     SEMICOLON
-)
+) LINE_BREAK*
 
 returnStatement ::= DOT DIRECTIVE_RETURN [expr]
 
@@ -155,17 +153,17 @@ private directive ::= (
     structDirective
 )
 
-structDirective ::= DOT DIRECTIVE_STRUCT LABEL LEFT_BRACE identifierList? RIGHT_BRACE
+structDirective ::= DOT DIRECTIVE_STRUCT LABEL  LEFT_BRACE  identifierList?  RIGHT_BRACE
 
 macroDef ::= DOT DIRECTIVE_DEF_MACRO invocableDef
 
 functionDef ::= DOT DIRECTIVE_FUNCTION invocableDef
 
-private invocableDef ::= AT? LABEL LEFT_PAREN identifierList? RIGHT_PAREN invocableBody
+private invocableDef ::= AT? LABEL  LEFT_PAREN  identifierList?  RIGHT_PAREN  invocableBody
 
 private invocableInternal ::= preprocessorDirective | statement
 
-private invocableBody ::= (LEFT_BRACE ( invocableInternal )+ RIGHT_BRACE) | invocableInternal
+private invocableBody ::= ( LEFT_BRACE  ( invocableInternal )+  RIGHT_BRACE ) | invocableInternal
 
 pseudoCommandDef ::= DOT DIRECTIVE_PSEUDOCOMMAND AT? LABEL [LABEL (COLON LABEL)*] invocableBody
 
@@ -174,7 +172,7 @@ private pseudoCommandArgs ::= oneOrTwoArguments? (COLON oneOrTwoArguments)*
 // not currently supporting colon prefix because it causes ambiguity
 pseudoCommand ::= /* COLON? */ LABEL [ pseudoCommandArgs ]
 
-bracketed ::= ( LEFT_PAREN expr RIGHT_PAREN ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
+bracketed ::= (  LEFT_PAREN  expr  RIGHT_PAREN  ) | ( LEFT_BRACKET expr RIGHT_BRACKET )
 
 // e.g. macro args
 identifierList ::= LABEL ( COMMA LABEL )*
@@ -215,7 +213,7 @@ private exprLeft ::= (
 
 ternaryRhs ::= QUESTION_MARK expr COLON expr
 
-expr ::= ( exprLeft ( infixOperator expr | ternaryRhs )+ ) | exprLeft
+expr ::= (( exprLeft ( infixOperator expr | ternaryRhs )+ ) | exprLeft)
 
 private exprs ::= expr ( COMMA expr )*
 
@@ -223,7 +221,7 @@ private exprs ::= expr ( COMMA expr )*
 // http://www.theweb.dk/KickAssembler/webhelp/content/ch07s02.html
 private callable ::= ( [COLON] ( scopedLabel | BASIC_UPSTART ) ) | DIRECTIVE_BUILTIN
 
-invocation ::= callable LEFT_PAREN exprs? RIGHT_PAREN | nArityDirectives | assert
+invocation ::= callable  LEFT_PAREN  exprs?  RIGHT_PAREN  | nArityDirectives | assert
 
 private nArityDirectives ::=
     DOT DIRECTIVE_UNARY expr |
@@ -236,7 +234,7 @@ defExprList ::=  exprMaybeDef ( COMMA exprMaybeDef )*
 
 private compound ::= statement | preprocessorDirective | block
 
-ifElse ::= DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound [ "else" compound ]
+ifElse ::= DOT DIRECTIVE_IF LEFT_PAREN expr RIGHT_PAREN compound [ ELSE compound ]
 
 while ::= DOT DIRECTIVE_WHILE LEFT_PAREN expr RIGHT_PAREN compound
 
@@ -274,5 +272,4 @@ parameterMap ::= LEFT_BRACKET [ parameterList ] RIGHT_BRACKET
 
 parameter ::= LABEL [ASSIGN expr]
 
-//lineBreak ::= LINEBREAK+
 
