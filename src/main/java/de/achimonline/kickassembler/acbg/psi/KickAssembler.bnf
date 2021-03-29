@@ -197,7 +197,7 @@ escapedString ::= STRING_ESCAPE_BEGIN ( STRING_VALUE | ESCAPE_CHAR | ESCAPE_HEX)
 
 private stringLiteral ::= STRING | escapedString
 
-basicValue ::= NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR| stringLiteral
+basicValue ::= NUMBER | BOOLEAN | NULL | CHAR | ESCAPE_CHAR | stringLiteral
 
 private labelExpr ::= AT? LABEL [ LEFT_BRACKET expr RIGHT_BRACKET ]
 

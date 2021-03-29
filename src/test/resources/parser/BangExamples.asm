@@ -1,3 +1,4 @@
+.var x = false
 // bracketed
 .if ( !(x) ) {
     .printnow("not x")

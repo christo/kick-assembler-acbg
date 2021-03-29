@@ -141,7 +141,8 @@ FLT_LITERAL = {DEC_LITERAL}("."{DEC_LITERAL})?
 HEX_DIGIT = [0-9a-fA-F]
 HEX_LITERAL = "$"{HEX_DIGIT}+(_{HEX_DIGIT}+)*
 BIN_LITERAL = "%"[0-1]+(_+[0-1]+)*
-CHAR_LITERAL = '([^']|\"|{STRING_CHAR})'
+// single quote char literal can be unescaped OR backslash prefixed (may be a bug fixed later)
+CHAR_LITERAL = '(.|\\\'|\"|{STRING_CHAR})'
 ESCAPE_CHAR_LITERAL = '{ESCAPE_CHAR}'
 
 LABEL = ([a-zA-Z_][a-zA-Z0-9_]*)
