@@ -109,7 +109,12 @@ public class ExternalParseTest extends AbstractParseTest {
             BASE + "/stid/woz64/libs/memory.asm",
             // pseudocommands
             BASE + "/barryw/c64lib",            // @prefix
-            BASE + "/dkt64/yadm/inc/makra.asm"  // overrides existing mnemonic "asl"
+            BASE + "/barryw/Chess",
+            BASE + "/dkt64/yadm/inc/makra.asm",  // overrides existing mnemonic "asl"
+            BASE + "/dkt64/leaf_gaetano_2xSID",  // overrides existing mnemonic "asl"
+
+            BASE + "/MonstersGoBoom/Kickassembler-Modules/TestAPUltra.asm" // dead example code
+
     ).contains(pathname.getAbsolutePath());
 
 
