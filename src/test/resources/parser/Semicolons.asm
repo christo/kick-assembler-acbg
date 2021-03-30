@@ -1,4 +1,5 @@
 .const c = 50
+.const b = 1
 .const d = 10;
 .for(var i=0; i <= d; i++) {
     .var t = i/d;
