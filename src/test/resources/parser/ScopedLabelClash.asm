@@ -1,3 +1,2 @@
 lda TITLECARD.isComplete
-// TODO:
-//sta TITLECARD.macro
+sta TITLECARD.macro
