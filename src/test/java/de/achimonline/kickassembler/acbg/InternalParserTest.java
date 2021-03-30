@@ -14,9 +14,7 @@ import static java.util.Collections.emptyList;
 
 /**
  * Tests the generated lexer and parser comparing a fresh PsiFile model with a predefined expected result file
- * for each of various assembly sources. Note that this test needs to be written with JUnit 4 runner so it can
- * be run alongside the {@link org.junit.runners.Parameterized Parameterized} tests but in a JUnit 3 style
- * for compatibility with the way ParsingTestCase loads files TODO fix this like {@link ExternalParseTest}
+ * for each of various assembly sources.
  */
 @SuppressWarnings({"UnconstructableJUnitTestCase", "OptionalUsedAsFieldOrParameterType"})
 @RunWith(Parameterized.class)
@@ -27,6 +25,7 @@ public class InternalParserTest extends AbstractParseTest {
     private static final Optional<String> NADA = Optional.of("");
     private static final FileFilter EXCLUDER = f -> !asList(
             BASE + "/LabelNamedAsDirective.asm",    // TODO handle label directive nameclash
+            BASE + "/ScopedLabelClash.asm",
             BASE + "/LocalLabelsFail.asm",
             BASE + "/ImportExpressionFail.asm",
             BASE + "/MixedCaseOpcodeFail.asm",
